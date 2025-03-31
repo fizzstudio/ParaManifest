@@ -1,0 +1,247 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://fizz.studio/schema/manifest.schema.json",
+  "title": "Manifest",
+  "description": "The data, parameters and settings needed to present a chart in ParaCharts. @public",
+  "type": "object",
+  "properties": {
+    "datasets": {
+      "description": "The data and parameters needed to present a chart in ParaCharts.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/dataset"
+      },
+      "uniqueItems": true
+    }
+  },
+  "required": [ "datasets" ],
+  "additionalProperties": false,
+  "$defs": {
+    "dataset": {
+      "description": "A set of data and parameters needed to present a chart in ParaCharts.",
+      "type": "object",
+      "properties": {
+        "type": {
+          "description": "The type of the chart, such as 'line' or 'column'.",
+          "enum": ["line", "column", "scatter", "lollipop", "stepline", "pie"]
+        },
+        "title": {
+          "description": "The title of the chart.",
+          "$ref": "https://fizz.studio/schema/common.schema.json#/$defs/name"
+        },
+        "chartTheme": {
+          "description": "What quantities the line chart displays overall. Defaults to the theme of the single series ONLY in single series charts.",
+          "$ref": "#/$defs/theme"
+        },
+        "facets": {
+          "description": "Metadata describing the axes of the chart.",
+          "type": "object",
+          "properties": {
+            "x": {
+              "description": "Metadata describing the horizontal (x-)axis of the chart.",
+              "$ref": "#/$defs/facet"
+            },
+            "y": {
+              "description": "Metadata describing the vertical (y-)axis of the chart.",
+              "$ref": "#/$defs/facet"
+            }
+          },
+          "required": [ "x", "y" ],
+          "additionalProperties": false
+        },
+        "series": {
+          "description": "Metadata, and possibly inline data, describing the series of the chart.",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/series"
+          },
+          "uniqueItems": true
+        },
+        "data": {
+          "description": "The source for the data for this dataset.",
+          "$ref": "#/$defs/data"
+        },
+        "settings": {
+          "description": "The settings needed to present a chart in ParaCharts.",
+          "$ref": "#/$defs/settings"
+        }
+      },
+      "required": ["type", "title", "facets", "series", "data"],
+      "additionalProperties": false
+    },
+    "facet": {
+      "description": "Metadata describing an axis of the chart.",
+      "type": "object",
+      "properties": {
+        "label": {
+          "description": "A text label for the quantity measured by this axis.",
+          "$ref": "https://fizz.studio/schema/common.schema.json#/$defs/name"
+        },
+        "variableType": {
+          "description": "Whether the variable this axis measures depends on the variable measured by the other axis.",
+          "enum": ["dependent", "independent"]
+        },
+        "measure": {
+          "description": "The NOIR data scale of the quantity this axis measures.",
+          "enum": ["nominal", "ordinal", "interval", "ratio"]
+        },
+        "datatype": {
+          "description": "The primitive type of the data measured by this axis.",
+          "enum": ["number", "date", "string"]
+        },
+        "units": {
+          "description": "The units for the dependent axis of the chart, in singular form, if any. This value should be absent if the axis measures a dimensionless quantity. If the units for this axis of the chart are fractional, then this is only the numerator of that fraction.",
+          "$ref": "https://fizz.studio/schema/common.schema.json#/$defs/name"
+        },
+        "multiplier": {
+          "description": "The number each record of this axis must be multiplied by to get the true value. Defaults to 1.",
+          "type": "number"
+        },
+        "denominator": {
+          "description": "If the units for this axis of the chart are fractional, then this is the denominator of that fraction. For example: '(per) capita', '(per) million inhabitants'. If this property is present, then every series on the chart must measure a fractional quantity, of which this will also be the denominator.",
+          "$ref": "https://fizz.studio/schema/common.schema.json#/$defs/name"
+        },
+        "minDisplayed": {
+          "description": "The lowest value displayed on this axis of the chart. Defaults to zero for the y-axis and the maximum x-value of any series for the x-axis.",
+          "type": "number"
+        },
+        "maxDisplayed": {
+          "description": "The highest value label displayed on this axis of the chart. Defaults to the maximum value of any series relative to this axis.",
+          "type": "number"
+        }
+      },
+      "required": ["label", "variableType", "measure", "datatype"],
+      "additionalProperties": false
+    },
+    "series": {
+      "description": "Metadata, and possibly inline data, describing a series on the chart.",
+      "type": "object",
+      "properties": {
+        "key": {
+          "description": "A unique identifier for the series, which may have spaces, punctuation, or other non-alphanumeric characters that aren't allowed in DOM ids, but which still may not be suitable for the text label.",
+          "$ref": "https://fizz.studio/schema/common.schema.json#/$defs/seriesName"
+        },
+        "label": {
+          "description": "The text label for the series, which may be abbreviated or expanded from the series key. Defaults to key.",
+          "$ref": "https://fizz.studio/schema/common.schema.json#/$defs/seriesName"
+        },
+        "theme": {
+          "description": "What quantity the series measures.",
+          "$ref": "#/$defs/theme"
+        },
+        "records": {
+          "description": "The datapoints of this series represented inline.",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/xyPoint"
+          }
+        }
+      },
+      "required": ["key", "theme"],
+      "additionalProperties": false
+    },
+    "theme": {
+      "description": "The topic of a series or chart.",
+      "type": "object",
+      "properties": {
+        "baseQuantity": {
+          "description": "The base quantity measured by the series or chart, such as 'item price' or 'inflation rate'.",
+          "$ref": "https://fizz.studio/schema/common.schema.json#/$defs/name"
+        },
+        "baseKind": {
+          "description": "What kind of base quantity this is: either a number of things (number), a quantity measured by a unit (dimensioned), a rate of change (rate), or a proportion of a whole (proportion).",
+          "enum": ["number", "dimensioned", "rate", "proportion"]
+        },
+        "locale": {
+          "description": "The particular location that the quantity measured by this series or chart is limited to, if any.",
+          "type": "string",
+          "$ref": "https://fizz.studio/schema/common.schema.json#/$defs/name"
+        },
+        "entity": {
+          "description": "The singular, definite entity the quantity measured by this series or chart belongs to, if any.",
+          "type": "string",
+          "$ref": "https://fizz.studio/schema/common.schema.json#/$defs/name"
+        },
+        "items": {
+          "description": "The multiple, indefinite items the quantity measured by this series or chart belongs to, if any.",
+          "type": "string",
+          "$ref": "https://fizz.studio/schema/common.schema.json#/$defs/name"
+        },
+        "aggregate": {
+          "description": "The statistical aggregate measured by this series or chart, such as 'total' or 'estimated', if any.",
+          "type": "string",
+          "$ref": "https://fizz.studio/schema/common.schema.json#/$defs/name"
+        }
+      },
+      "required": ["baseQuantity", "baseKind"],
+      "additionalProperties": false
+    },
+    "xyPoint": {
+      "description": "A datapoint on the graph.",
+      "type": "object",
+      "properties": {
+        "x": {
+          "description": "The location of the point on the x-axis.",
+          "type": "string"
+        },
+        "y": {
+          "description": "The location of the point on the y-axis.",
+          "type": "string"
+        }
+      },
+      "required": ["x", "y"],
+      "additionalProperties": false
+    },
+    "data": {
+      "description": "The source for the data of a dataset.",
+      "type": "object",
+      "properties": {
+        "source": {
+          "description": "Whether the data is inline or sourced externally.",
+          "enum": ["inline", "external"]
+        }
+      },
+      "if": {
+        "properties": {
+          "source": {
+            "const": "external"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "path": {
+            "description": "The location of the external data file.",
+            "type": "string",
+            "$comment": "Additional validation?: check path is a URL or a relative path."
+          },
+          "format": {
+            "description": "The format of the data file.",
+            "type": "string",
+            "$comment": "Additional validation?: check format is a MIME type."
+          }
+        },
+        "required": ["path", "format"]
+      },
+      "unevaluatedProperties": false,
+      "required": ["source"],
+      "tsType": "{ source: 'inline' | 'external', path?: string, format?: string }"
+    },
+    "settings": {
+      "description": "The settings needed to present a chart in ParaCharts.",
+      "type": "object",
+      "properties": {
+        "sonification.isEnabled": {
+          "description": "Whether sonification is enabled for this chart. Defaults to true.",
+          "type": "boolean"
+        },
+        "aspectRatio": {
+          "description": "The ratio of the height to the width of the chart on the screen (i.e. x-axis size / y-axis size). Defaults to 1 (i.e. a square chart).",
+          "type": "number"
+        }
+      },
+      "required": [ ],
+      "additionalProperties": false
+    }
+  }
+}
