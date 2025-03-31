@@ -27,7 +27,7 @@
         },
         "title": {
           "description": "The title of the chart.",
-          "$ref": "https://fizz.studio/schema/common.schema.json#/$defs/name"
+          "$ref": "#/$defs/name"
         },
         "chartTheme": {
           "description": "What quantities the line chart displays overall. Defaults to the theme of the single series ONLY in single series charts.",
@@ -75,7 +75,7 @@
       "properties": {
         "label": {
           "description": "A text label for the quantity measured by this axis.",
-          "$ref": "https://fizz.studio/schema/common.schema.json#/$defs/name"
+          "$ref": "#/$defs/name"
         },
         "variableType": {
           "description": "Whether the variable this axis measures depends on the variable measured by the other axis.",
@@ -91,7 +91,7 @@
         },
         "units": {
           "description": "The units for the dependent axis of the chart, in singular form, if any. This value should be absent if the axis measures a dimensionless quantity. If the units for this axis of the chart are fractional, then this is only the numerator of that fraction.",
-          "$ref": "https://fizz.studio/schema/common.schema.json#/$defs/name"
+          "$ref": "#/$defs/name"
         },
         "multiplier": {
           "description": "The number each record of this axis must be multiplied by to get the true value. Defaults to 1.",
@@ -99,7 +99,7 @@
         },
         "denominator": {
           "description": "If the units for this axis of the chart are fractional, then this is the denominator of that fraction. For example: '(per) capita', '(per) million inhabitants'. If this property is present, then every series on the chart must measure a fractional quantity, of which this will also be the denominator.",
-          "$ref": "https://fizz.studio/schema/common.schema.json#/$defs/name"
+          "$ref": "#/$defs/name"
         },
         "minDisplayed": {
           "description": "The lowest value displayed on this axis of the chart. Defaults to zero for the y-axis and the maximum x-value of any series for the x-axis.",
@@ -119,11 +119,11 @@
       "properties": {
         "key": {
           "description": "A unique identifier for the series, which may have spaces, punctuation, or other non-alphanumeric characters that aren't allowed in DOM ids, but which still may not be suitable for the text label.",
-          "$ref": "https://fizz.studio/schema/common.schema.json#/$defs/seriesName"
+          "$ref": "#/$defs/seriesName"
         },
         "label": {
           "description": "The text label for the series, which may be abbreviated or expanded from the series key. Defaults to key.",
-          "$ref": "https://fizz.studio/schema/common.schema.json#/$defs/seriesName"
+          "$ref": "#/$defs/seriesName"
         },
         "theme": {
           "description": "What quantity the series measures.",
@@ -146,7 +146,7 @@
       "properties": {
         "baseQuantity": {
           "description": "The base quantity measured by the series or chart, such as 'item price' or 'inflation rate'.",
-          "$ref": "https://fizz.studio/schema/common.schema.json#/$defs/name"
+          "$ref": "#/$defs/name"
         },
         "baseKind": {
           "description": "What kind of base quantity this is: either a number of things (number), a quantity measured by a unit (dimensioned), a rate of change (rate), or a proportion of a whole (proportion).",
@@ -155,22 +155,22 @@
         "locale": {
           "description": "The particular location that the quantity measured by this series or chart is limited to, if any.",
           "type": "string",
-          "$ref": "https://fizz.studio/schema/common.schema.json#/$defs/name"
+          "$ref": "#/$defs/name"
         },
         "entity": {
           "description": "The singular, definite entity the quantity measured by this series or chart belongs to, if any.",
           "type": "string",
-          "$ref": "https://fizz.studio/schema/common.schema.json#/$defs/name"
+          "$ref": "#/$defs/name"
         },
         "items": {
           "description": "The multiple, indefinite items the quantity measured by this series or chart belongs to, if any.",
           "type": "string",
-          "$ref": "https://fizz.studio/schema/common.schema.json#/$defs/name"
+          "$ref": "#/$defs/name"
         },
         "aggregate": {
           "description": "The statistical aggregate measured by this series or chart, such as 'total' or 'estimated', if any.",
           "type": "string",
-          "$ref": "https://fizz.studio/schema/common.schema.json#/$defs/name"
+          "$ref": "#/$defs/name"
         }
       },
       "required": ["baseQuantity", "baseKind"],
@@ -242,6 +242,15 @@
       },
       "required": [ ],
       "additionalProperties": false
+    },
+    "name": {
+      "description": "The name of something, as a non-empty string.",
+      "type": "string",
+      "minLength": 1
+    },
+    "seriesName": {
+      "description": "The name of a series, as a non-empty string. This is identical to `name`, but specified for semantic reasons",
+      "$ref": "#/$defs/name"
     }
   }
 }
