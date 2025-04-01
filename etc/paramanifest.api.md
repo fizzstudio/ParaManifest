@@ -14,9 +14,14 @@ export { ManifestTypes }
 export class ManifestValidator {
     constructor();
     fullValidate(json: Json): Promise<OutputUnit>;
-    // Warning: (ae-forgotten-export) The symbol "ValidateOutput" needs to be exported by the entry point index.d.ts
     validate(json: Json): Promise<ValidateOutput>;
 }
+
+// @public (undocumented)
+export type ValidateOutput = {
+    valid: boolean;
+    errors?: string;
+};
 
 // (No @packageDocumentation comment for this package)
 
