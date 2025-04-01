@@ -30,6 +30,6 @@
     <circle id="circle-2-0" cx="43" cy="176" r="16" />
   </g>
 
-  <text x="290" y="145" class="logo">Template <tspan x="290" dy="1.3em">Fizz Studio</tspan>
+  <text x="290" y="145" class="logo">ParaManifest <tspan x="290" dy="1.3em">Fizz Studio</tspan>
   </text>
 </svg>
