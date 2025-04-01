@@ -37,8 +37,8 @@ import manifestSchema from '../schema/manifest.schema.json';
 
 // Note: API-Extractor does not support `export type { } as` yet, so the imports & exports here must be
 //   seperate. See https://github.com/microsoft/rushstack/issues/3616#issuecomment-2087526484
-import type { Manifest, Series, XyPoint } from  '../types/manifest.d.ts';
-export { Manifest, Series, XyPoint };
+import type * as ManifestTypes from '../types/manifest.d.ts';
+export { ManifestTypes };
 
 // * Helper Types and Objects *
 

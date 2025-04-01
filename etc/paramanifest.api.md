@@ -4,36 +4,18 @@
 
 ```ts
 
-import { CSSResult } from 'lit';
-import { LitElement } from 'lit';
-import { TemplateResult } from 'lit-html';
+import { Json } from '@hyperjump/json-pointer';
+import type * as ManifestTypes from '../types/manifest.d.ts';
+import { OutputUnit } from '@hyperjump/json-schema/draft-2020-12';
 
-// @public (undocumented)
-export class MenuItem extends LitElement {
-    // (undocumented)
-    connectedCallback(): void;
-    // (undocumented)
-    description: string;
-    // (undocumented)
-    name: string;
-    // (undocumented)
-    price: string;
-    // (undocumented)
-    protected render(): TemplateResult<1>;
-    // (undocumented)
-    static styles: CSSResult;
-}
+export { ManifestTypes }
 
 // @public
-export class MenuMaker extends LitElement {
-    // (undocumented)
-    connectedCallback(): void;
-    // (undocumented)
-    menuUrl: string;
-    // (undocumented)
-    protected render(): TemplateResult<1>;
-    // (undocumented)
-    static styles: CSSResult;
+export class ManifestValidator {
+    constructor();
+    fullValidate(json: Json): Promise<OutputUnit>;
+    // Warning: (ae-forgotten-export) The symbol "ValidateOutput" needs to be exported by the entry point index.d.ts
+    validate(json: Json): Promise<ValidateOutput>;
 }
 
 // (No @packageDocumentation comment for this package)
