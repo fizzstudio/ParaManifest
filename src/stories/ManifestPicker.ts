@@ -17,20 +17,27 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.*/
 import { html, LitElement, PropertyValues } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-import { type Manifest } from '../../types/manifest'
+// import { type Manifest } from '../../types/manifest'; May be needed for non-specific
+import { ManifestValidator, ValidateOutput } from '../../lib'; // Specific
+import { Json } from '@hyperjump/json-pointer';
 
 @customElement('manifest-picker')
 export class ManifestPicker extends LitElement {
   @property()
   accessor filename: string = '';
 
-  private manifest?: Manifest;
+  private manifest?: Json;
+
+  // Specific
+  private validator = new ManifestValidator();
+  private validationResult?: ValidateOutput;
 
   async loadManifest() {
     const NODE_PREFIX = './node_modules/@fizz/chart-data/data/';
     const filePath = NODE_PREFIX + this.filename;
     const manifestRaw = await fetch(filePath);
-    this.manifest = await manifestRaw.json() as Manifest;
+    this.manifest = await manifestRaw.json() as Json; // Specific, otherwise as Manifest;
+    this.validationResult = await this.validator.validate(this.manifest);
     this.requestUpdate();
   }
 
@@ -58,7 +65,13 @@ export class ManifestPicker extends LitElement {
       return html`No manifest selected`;
     }
 
-    return html`${JSON.stringify(this.manifest)}`;
+    // Specific
+    if (this.validationResult!.valid) {
+      return html`Manifest is valid`;
+    }
+
+    // Specific
+    return html`${this.validationResult!.errors}`;
   }
   
 }

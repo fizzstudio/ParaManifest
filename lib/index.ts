@@ -23,7 +23,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.*/
 
 // External Imports
 
-import { validate, registerSchema, OutputUnit, SchemaObject } from '@hyperjump/json-schema/draft-2020-12';
+import { validate, registerSchema, OutputUnit, SchemaObject, hasSchema } from '@hyperjump/json-schema/draft-2020-12';
 import { BASIC } from '@hyperjump/json-schema/experimental';
 import { Json } from '@hyperjump/json-pointer';
 
@@ -42,7 +42,7 @@ export { ManifestTypes };
 
 // * Helper Types and Objects *
 
-type ValidateOutput = {
+export type ValidateOutput = {
   valid: boolean,
   errors?: string
 }
@@ -61,7 +61,9 @@ export class ManifestValidator {
    * @constructor
    */
   constructor() { 
-    registerSchema(ManifestValidator.schema);
+    if (!hasSchema(ManifestValidator.id)) {
+      registerSchema(ManifestValidator.schema);
+    }
   }
 
   private _convertToJsonPath(location: string): string {
@@ -106,7 +108,7 @@ export class ManifestValidator {
   }
 
   /**
-   * Validates a JSON object against the validator's schema, returning the full validation output from
+   * Validates a JSON object against the manifest schema, returning the full validation output from
    * the hyperjump json-schema library.
    * NOTE: The URL in the hyperjump validate function only needs to match the $id property of the schema.
    * It is not actually used to load the schema, so it doesn't matter that the schema file is not 
