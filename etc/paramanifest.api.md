@@ -5,10 +5,7 @@
 ```ts
 
 import { Json } from '@hyperjump/json-pointer';
-import type * as ManifestTypes from '../types/manifest.d.ts';
 import { OutputUnit } from '@hyperjump/json-schema/draft-2020-12';
-
-export { ManifestTypes }
 
 // @public
 export class ManifestValidator {
