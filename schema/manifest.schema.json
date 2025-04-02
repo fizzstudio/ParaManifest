@@ -23,7 +23,7 @@
       "properties": {
         "type": {
           "description": "The type of the chart, such as 'line' or 'column'.",
-          "enum": ["line", "column", "scatter", "lollipop", "stepline", "pie"]
+          "enum": ["line", "column", "bar", "scatter", "lollipop", "stepline", "pie"]
         },
         "title": {
           "description": "The title of the chart.",
