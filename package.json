@@ -1,6 +1,6 @@
 {
   "name": "@fizz/paramanifest",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Manifest file format for ParaCharts",
   "author": "Simon Varey",
   "license": "AGPL-3.0-or-later",
