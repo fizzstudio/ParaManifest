@@ -19,6 +19,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.*/
  * @module @fizz/paramanifest
  */
 
+export * from './manifest';
+
 // * Imports *
 
 // External Imports

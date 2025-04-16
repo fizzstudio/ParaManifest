@@ -14,6 +14,8 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.*/
 
+import { Manifest } from "./manifest";
+
 export interface Jim {
   dataset: Dataset;
   selectors: Selectors;
@@ -101,7 +103,7 @@ export class Jimerator {
     }
   }
 
-  render() {
+  /*render() {
     const dataset: Dataset = {
       title: this.canvas.documentView!.titleText,
       facets: {},
@@ -133,7 +135,7 @@ export class Jimerator {
         selectors[`#${datapoint.elementId!}`] = [];
       }
     }*/
-      const xSeries = this.canvas.controller.model!.indepSeries();
+      /*const xSeries = this.canvas.controller.model!.indepSeries();
       dataset.series = this.canvas.controller.model!.depVars.map((key, col) => ({
       name: key,
       type: this.canvas.documentView!.type === 'bar' ? 'column' :
@@ -154,6 +156,6 @@ export class Jimerator {
     selectors = Object.fromEntries(
       Object.keys(selectors).sort().map(k => [k, selectors[k]]));
     this._jim = {dataset, selectors};
-  }
+  }*/
 
 }
