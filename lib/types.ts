@@ -1,4 +1,4 @@
-/* ParaManifest: Manifests for ParaCharts
+/* ParaManifest: Additional Types
 Copyright (C) 2025 Fizz Studios
 
 This program is free software: you can redistribute it and/or modify
@@ -14,12 +14,7 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.*/
 
-/**
- * ParaManifest module.
- * @module @fizz/paramanifest
- */
+import { Manifest } from "./manifest";
 
-export * from './manifest';
-export * from './validator';
-export * from './types';
-export { Jimerator } from './jim';
+export type ChartType = Manifest['datasets'][number]['type'];
+export type Datatype = Manifest['datasets'][number]['facets']['x']['datatype'];
