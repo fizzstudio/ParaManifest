@@ -2,7 +2,11 @@
   "name": "@fizz/paramanifest",
   "version": "0.1.3",
   "description": "Manifest file format for ParaCharts",
-  "author": "Simon Varey",
+  "contributors": [
+    "Simon Varey",
+    "Josh Fennell",
+    "Doug Schepers"
+  ],
   "license": "AGPL-3.0-or-later",
   "publishConfig": {
     "access": "restricted",
