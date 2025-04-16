@@ -21,6 +21,11 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.*/
 
 export * from './manifest';
 
+import { Manifest } from './manifest';
+
+export type ChartType = Manifest['datasets'][number]['type'];
+export type Datatype = Manifest['datasets'][number]['facets']['x']['datatype'];
+
 // * Imports *
 
 // External Imports

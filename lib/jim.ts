@@ -14,7 +14,8 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.*/
 
-import { Manifest } from "./manifest";
+import { ChartType } from "./index";
+import { Manifest, Dataset as ManifestDataset } from "./manifest";
 
 export interface Jim {
   dataset: Dataset;
@@ -40,13 +41,15 @@ export interface Facet {
   variableType?: 'independent' | 'dependent';
 }
 
+type SeriesType = 'row' | 'column' | 'line' | 'other';
+
 export interface Series {
   name: string;
-  type: 'row' | 'column' | 'line' | 'other';
-  records: Record[];
+  type: SeriesType;
+  records: Record_[];
 }
 
-export interface Record {
+export interface Record_ {
   x: string;
   y: string;
 }
@@ -61,12 +64,24 @@ export interface Selectors {
   [id: string]: string | string[];
 }
 
+const CHART_TYPE_MAP: Record<ChartType, SeriesType> = {
+  bar: 'column',
+  column: 'column',
+  lollipop: 'column',
+  line: 'line',
+  stepline: 'line',
+  scatter: 'other',
+  pie: 'other'
+}
+
 export class Jimerator {
 
   private _jim!: Jim;
   private _modelSelectors: {[colName: string]: string[][]} = {};
+  private _dataset: ManifestDataset;
 
-  constructor(manifest: Manifest) {
+  constructor(private _manifest: Manifest) {
+    this._dataset = this._manifest.datasets[0];
   }
 
   get jim() {
@@ -77,7 +92,7 @@ export class Jimerator {
     return this._modelSelectors;
   }
 
-  addSelector(col: string, row: number, sel: string) {
+  public addSelector(col: string, row: number, sel: string) {
     if (!this._modelSelectors[col]) {
       this._modelSelectors[col] = [];
     }
@@ -103,43 +118,19 @@ export class Jimerator {
     }
   }
 
-  /*render() {
+  public render() {
     const dataset: Dataset = {
-      title: this.canvas.documentView!.titleText,
-      facets: {},
+      title: this._dataset.title,
+      facets: this._dataset.facets,
       series: []
     };
-    if (this.canvas.documentView!.horizAxis) {
-      dataset.facets.x = {
-        label: this.canvas.documentView!.horizAxis.titleText,
-        variableType: 'independent'
-      };
-      dataset.facets.y = {
-        label: this.canvas.documentView!.vertAxis!.titleText,
-        variableType: 'dependent'
-      }
-    } else {
-      dataset.facets.r = {
-        // XXX
-        label: '', // this.canvas.documentView.rAxis!.titleText,
-        variableType: 'dependent'
-      }
-    }
     let selectors: Selectors = {
       '#chart-title': '$.dataset.title'
     };
-    //const keys = Object.keys(this.view.controller.model!.records[0].datapoints);
-    /*if (keys.length > 2) {
-      for (const rec of this.container.model.records) {
-        const datapoint = Object.values(rec.datapoints)[0];
-        selectors[`#${datapoint.elementId!}`] = [];
-      }
-    }*/
-      /*const xSeries = this.canvas.controller.model!.indepSeries();
-      dataset.series = this.canvas.controller.model!.depVars.map((key, col) => ({
-      name: key,
-      type: this.canvas.documentView!.type === 'bar' ? 'column' :
-        this.canvas.documentView!.type === 'line' ? 'line' : 'other',
+    //const xSeries = this.canvas.controller.model!.indepSeries();
+    dataset.series = this._dataset.series.map((aSeries) => ({
+      name: aSeries.key,
+      type: CHART_TYPE_MAP[this._dataset.type],
       records: this.canvas.controller.model!.data.map((rec, row) => {
         const x = rec.col(this.canvas.controller.model!.indepVar).at(0);
         const y = rec.col(key).at(0);
@@ -156,6 +147,6 @@ export class Jimerator {
     selectors = Object.fromEntries(
       Object.keys(selectors).sort().map(k => [k, selectors[k]]));
     this._jim = {dataset, selectors};
-  }*/
+  }
 
 }
