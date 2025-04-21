@@ -7,12 +7,27 @@
 import { Json } from '@hyperjump/json-pointer';
 import { OutputUnit } from '@hyperjump/json-schema/draft-2020-12';
 
+// @public (undocumented)
+export type AllSeriesData = Record<string, XyPoint[]>;
+
+// @public (undocumented)
+export function chartDataIsOrdered(data: AllSeriesData): boolean;
+
+// @public (undocumented)
+export type ChartType = Manifest['datasets'][number]['type'];
+
+// @public (undocumented)
+export function collectXs(data: XyPoint[]): Set<string>;
+
 // @public
 export type Data = {
     source: "inline" | "external";
     path?: string;
     format?: string;
 };
+
+// @public (undocumented)
+export function dataFromManifest(manifest: Manifest): AllSeriesData;
 
 // @public
 export interface Dataset {
@@ -30,6 +45,9 @@ export interface Dataset {
     title: string;
     type: "line" | "column" | "bar" | "scatter" | "lollipop" | "stepline" | "pie";
 }
+
+// @public (undocumented)
+export type Datatype = Manifest['datasets'][number]['facets']['x']['datatype'];
 
 // @public
 export interface Facet {
@@ -55,6 +73,17 @@ export interface Facet1 {
     multiplier?: number;
     units?: string;
     variableType: "dependent" | "independent";
+}
+
+// @public (undocumented)
+export class Jimerator {
+    constructor(_manifest: Manifest, externalData?: AllSeriesData);
+    // Warning: (ae-forgotten-export) The symbol "Jim" needs to be exported by the entry point index.d.ts
+    //
+    // (undocumented)
+    get jim(): Jim;
+    // (undocumented)
+    render(): void;
 }
 
 // @public
