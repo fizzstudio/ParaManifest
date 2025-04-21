@@ -8,10 +8,100 @@ import { Json } from '@hyperjump/json-pointer';
 import { OutputUnit } from '@hyperjump/json-schema/draft-2020-12';
 
 // @public
+export type Data = {
+    source: "inline" | "external";
+    path?: string;
+    format?: string;
+};
+
+// @public
+export interface Dataset {
+    // (undocumented)
+    chartTheme?: Theme;
+    // (undocumented)
+    data: Data;
+    facets: {
+        x: Facet;
+        y: Facet1;
+    };
+    series: Series[];
+    // (undocumented)
+    settings?: Settings;
+    title: string;
+    type: "line" | "column" | "bar" | "scatter" | "lollipop" | "stepline" | "pie";
+}
+
+// @public
+export interface Facet {
+    datatype: "number" | "date" | "string";
+    denominator?: string;
+    label: string;
+    maxDisplayed?: number;
+    measure: "nominal" | "ordinal" | "interval" | "ratio";
+    minDisplayed?: number;
+    multiplier?: number;
+    units?: string;
+    variableType: "dependent" | "independent";
+}
+
+// @public
+export interface Facet1 {
+    datatype: "number" | "date" | "string";
+    denominator?: string;
+    label: string;
+    maxDisplayed?: number;
+    measure: "nominal" | "ordinal" | "interval" | "ratio";
+    minDisplayed?: number;
+    multiplier?: number;
+    units?: string;
+    variableType: "dependent" | "independent";
+}
+
+// @public
+export interface Manifest {
+    datasets: Dataset[];
+}
+
+// @public
 export class ManifestValidator {
     constructor();
     fullValidate(json: Json): Promise<OutputUnit>;
     validate(json: Json): Promise<ValidateOutput>;
+}
+
+// @public
+export interface Series {
+    key: string;
+    label?: string;
+    records?: XyPoint[];
+    // (undocumented)
+    theme: Theme1;
+}
+
+// @public
+export interface Settings {
+    "sonification.isEnabled"?: boolean;
+    aspectRatio?: number;
+}
+
+// @public
+export interface Theme {
+    aggregate?: string;
+    baseKind: "number" | "dimensioned" | "rate" | "proportion";
+    baseQuantity: string;
+    entity?: string;
+    items?: string;
+    locale?: string;
+}
+
+// @public
+export interface Theme1 {
+    aggregate?: string;
+    baseKind: "number" | "dimensioned" | "rate" | "proportion";
+    baseQuantity: string;
+    entity?: string;
+    items?: string;
+    locale?: string;
 }
 
 // @public (undocumented)
@@ -19,6 +109,12 @@ export type ValidateOutput = {
     valid: boolean;
     errors?: string;
 };
+
+// @public
+export interface XyPoint {
+    x: string;
+    y: string;
+}
 
 // (No @packageDocumentation comment for this package)
 

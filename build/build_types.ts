@@ -1,4 +1,4 @@
-import { appendFileSync } from 'fs';
+import { writeFileSync } from 'fs';
 import { compileFromFile } from 'json-schema-to-typescript';
 
 compileFromFile(
@@ -7,5 +7,5 @@ compileFromFile(
     inferStringEnumKeysFromValues: true
   }
 ).then(
-  ts => appendFileSync(`./dist/paramanifest.d.ts`, ts)
+  ts => writeFileSync(`./lib/manifest.ts`, ts)
 );
