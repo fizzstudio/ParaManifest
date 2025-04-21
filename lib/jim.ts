@@ -14,12 +14,12 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.*/
 
-import { ChartType } from "./types";
-import { Manifest, Dataset as ManifestDataset } from "./manifest";
+import { AllSeriesData, chartDataIsOrdered, ChartType, collectXs, dataFromManifest } from "./helpers";
+import { Manifest, Dataset as ManifestDataset, XyPoint } from "./manifest";
 
 export interface Jim {
   dataset: Dataset;
-  selectors: Selectors;
+  selectors: Record<string, Selector>;
 }
 
 export interface Dataset {
@@ -46,12 +46,7 @@ type SeriesType = 'row' | 'column' | 'line' | 'other';
 export interface Series {
   name: string;
   type: SeriesType;
-  records: Record_[];
-}
-
-export interface Record_ {
-  x: string;
-  y: string;
+  records: XyPoint[];
 }
 
 export interface Href {
@@ -60,7 +55,7 @@ export interface Href {
   type: 'extendedDataset';
 }
 
-export interface Selectors {
+export interface Selector {
   [id: string]: string | string[];
 }
 
@@ -74,48 +69,81 @@ const CHART_TYPE_MAP: Record<ChartType, SeriesType> = {
   pie: 'other'
 }
 
+export class JimError extends Error {
+  constructor(msg: string) {
+    super(`[jimifier]: ${msg}`);
+  }
+}
+
 export class Jimerator {
 
   private _jim!: Jim;
-  private _modelSelectors: {[colName: string]: string[][]} = {};
   private _dataset: ManifestDataset;
+  private _data: AllSeriesData;
+  private _seriesKeys: string[];
 
-  constructor(private _manifest: Manifest) {
+  constructor(private _manifest: Manifest, externalData?: AllSeriesData) {
     this._dataset = this._manifest.datasets[0];
+    if (this._dataset.data.source === 'inline') {
+      this._data = dataFromManifest(this._manifest);
+    } else if (externalData) {
+      this._data = externalData;
+    } else {
+      throw new JimError('JIM cannot be created without external or inline chart data')
+    }
+    this._seriesKeys = Object.keys(this._data);
   }
 
   get jim() {
     return this._jim;
   }
 
-  get modelSelectors() {
-    return this._modelSelectors;
-  }
-
-  public addSelector(col: string, row: number, sel: string) {
-    if (!this._modelSelectors[col]) {
-      this._modelSelectors[col] = [];
-    }
-    if (!this._modelSelectors[col][row]) {
-      this._modelSelectors[col][row] = [];
-    }
-    this._modelSelectors[col][row].push(sel);
-  }
-
-  private saveSelectors(colName: string, row: number, path: string, selectors: Selectors) {
-    for (const sel of this._modelSelectors[colName][row]) {
-      const fullSel = `#${sel}`;
-      if (selectors[fullSel] === undefined) {
-        selectors[fullSel] = path;
-      } else if (typeof selectors[fullSel] === 'string') {
-        const ary: string[] = [selectors[fullSel] as string, path];
-        selectors[fullSel] = ary;
-      } else if (Array.isArray(selectors[fullSel])) {
-        (selectors[fullSel] as string[]).push(path);  
-      } else {
-        throw new Error(`invalid value for selector '${fullSel}'`);
+  private renderSelectorsOrdered(): Record<string, Selector> {
+    const selectors: Record<string, Selector> = {
+      "chartTitle": {
+        "dom": "#chart-title",
+        "json": "$.datasets[0].title"
       }
     }
+    let datapointIndex = 1;
+    // FIXME: Assumes at least 1 series in data
+    const xs = collectXs(this._data[this._seriesKeys[0]]);
+    this._seriesKeys.forEach((key, seriesIndex) => {
+      xs.forEach((x, pointIndex) => {
+        selectors[`datapoint${datapointIndex}`] = {
+          "dom": `#datapoint-${x}_${key}`,
+          "json": [
+            `$.datasets[0].series[${seriesIndex}].name`,
+            `$.datasets[0].series[${seriesIndex}].records[${pointIndex}].*`
+          ]
+        };
+        datapointIndex++;
+      })
+    });
+    return selectors;
+  }
+
+  private renderSelectors(): Record<string, Selector> {
+    const selectors: Record<string, Selector> = {
+      "chartTitle": {
+        "dom": "#chart-title",
+        "json": "$.datasets[0].title"
+      }
+    }
+    let datapointIndex = 1;
+    Object.keys(this._data).forEach((key, seriesIndex) => {
+      this._data[key].forEach((datapoint, pointIndex) => {
+        selectors[`datapoint${datapointIndex}`] = {
+          "dom": `#datapoint-${datapoint.x}_${datapoint.y}_${key}`,
+          "json": [
+            `$.datasets[0].series[${seriesIndex}].name`,
+            `$.datasets[0].series[${seriesIndex}].records[${pointIndex}].*`
+          ]
+        };
+        datapointIndex++;
+      })
+    });
+    return selectors;
   }
 
   public render() {
@@ -124,28 +152,12 @@ export class Jimerator {
       facets: this._dataset.facets,
       series: []
     };
-    let selectors: Selectors = {
-      '#chart-title': '$.dataset.title'
-    };
-    //const xSeries = this.canvas.controller.model!.indepSeries();
     dataset.series = this._dataset.series.map((aSeries) => ({
       name: aSeries.key,
       type: CHART_TYPE_MAP[this._dataset.type],
-      records: this.canvas.controller.model!.data.map((rec, row) => {
-        const x = rec.col(this.canvas.controller.model!.indepVar).at(0);
-        const y = rec.col(key).at(0);
-        const xPath = `$.dataset.series[${col}].records[${row}].x`;
-        const yPath = `$.dataset.series[${col}].records[${row}].y`;
-        this.saveSelectors(this.canvas.controller.model!.indepVar, row, xPath, selectors);
-        this.saveSelectors(key, row, yPath, selectors);
-        return {
-          x: this.canvas.controller.model!.format(xSeries.atBoxed(row), 'jimX'),
-          y: y.toString()
-        };
-      })
+      records: this._data[aSeries.key]
     }));
-    selectors = Object.fromEntries(
-      Object.keys(selectors).sort().map(k => [k, selectors[k]]));
+    const selectors = chartDataIsOrdered(this._data) ? this.renderSelectorsOrdered() : this.renderSelectors();
     this._jim = {dataset, selectors};
   }
 
