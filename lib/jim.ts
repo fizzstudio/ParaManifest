@@ -15,7 +15,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.*/
 
 import { AllSeriesData, chartDataIsOrdered, ChartType, collectXs, dataFromManifest } from "./helpers";
-import { Manifest, Dataset as ManifestDataset, XyPoint } from "./manifest";
+import { Datapoint, Manifest, Dataset as ManifestDataset } from "./manifest";
 
 export interface Jim {
   dataset: Dataset;
@@ -46,7 +46,7 @@ type SeriesType = 'row' | 'column' | 'line' | 'other';
 export interface Series {
   name: string;
   type: SeriesType;
-  records: XyPoint[];
+  records: Datapoint[];
 }
 
 export interface Href {

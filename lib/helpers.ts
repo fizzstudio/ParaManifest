@@ -16,13 +16,28 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.*/
 
 // Imports
 
-import { Manifest, XyPoint } from "./manifest";
+import { Datapoint, Manifest } from "./manifest";
 
 // Types
 
+/**
+ * A datapoint on the graph.
+ */
+export interface XyPoint {
+  /**
+   * The location of the point on the x-axis.
+   */
+  x: string;
+  /**
+   * The location of the point on the y-axis.
+   */
+  y: string;
+}
+
 export type ChartType = Manifest['datasets'][number]['type'];
 export type Datatype = Manifest['datasets'][number]['facets']['x']['datatype'];
-export type AllSeriesData = Record<string, XyPoint[]>;
+export type AllSeriesDataXY = Record<string, XyPoint[]>;
+export type AllSeriesData = Record<string, Datapoint[]>;
 
 // Functions
 
@@ -38,7 +53,7 @@ export function dataFromManifest(manifest: Manifest): AllSeriesData {
   return data;
 }
 
-export function collectXs(data: XyPoint[]): Set<string> {
+export function collectXs(data: Datapoint[]): Set<string> {
   return new Set(...data.map((datapoint) => datapoint.x));
 }
 

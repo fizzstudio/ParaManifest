@@ -8,7 +8,10 @@ import { Json } from '@hyperjump/json-pointer';
 import { OutputUnit } from '@hyperjump/json-schema/draft-2020-12';
 
 // @public (undocumented)
-export type AllSeriesData = Record<string, XyPoint[]>;
+export type AllSeriesData = Record<string, Datapoint[]>;
+
+// @public (undocumented)
+export type AllSeriesDataXY = Record<string, XyPoint[]>;
 
 // @public (undocumented)
 export function chartDataIsOrdered(data: AllSeriesData): boolean;
@@ -17,7 +20,7 @@ export function chartDataIsOrdered(data: AllSeriesData): boolean;
 export type ChartType = Manifest['datasets'][number]['type'];
 
 // @public (undocumented)
-export function collectXs(data: XyPoint[]): Set<string>;
+export function collectXs(data: Datapoint[]): Set<string>;
 
 // @public
 export type Data = {
@@ -30,14 +33,18 @@ export type Data = {
 export function dataFromManifest(manifest: Manifest): AllSeriesData;
 
 // @public
+export interface Datapoint {
+    [k: string]: string;
+}
+
+// @public
 export interface Dataset {
     // (undocumented)
     chartTheme?: Theme;
     // (undocumented)
     data: Data;
     facets: {
-        x: Facet;
-        y: Facet1;
+        [k: string]: Facet;
     };
     series: Series[];
     // (undocumented)
@@ -51,19 +58,6 @@ export type Datatype = Manifest['datasets'][number]['facets']['x']['datatype'];
 
 // @public
 export interface Facet {
-    datatype: "number" | "date" | "string";
-    denominator?: string;
-    label: string;
-    maxDisplayed?: number;
-    measure: "nominal" | "ordinal" | "interval" | "ratio";
-    minDisplayed?: number;
-    multiplier?: number;
-    units?: string;
-    variableType: "dependent" | "independent";
-}
-
-// @public
-export interface Facet1 {
     datatype: "number" | "date" | "string";
     denominator?: string;
     label: string;
@@ -102,7 +96,7 @@ export class ManifestValidator {
 export interface Series {
     key: string;
     label?: string;
-    records?: XyPoint[];
+    records?: Datapoint[];
     // (undocumented)
     theme: Theme1;
 }
