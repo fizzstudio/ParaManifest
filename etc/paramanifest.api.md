@@ -57,13 +57,21 @@ export interface Dataset {
 export type Datatype = Manifest['datasets'][number]['facets']['x']['datatype'];
 
 // @public
+export interface DisplayType {
+    maxDisplayed?: number;
+    minDisplayed?: number;
+    orientation?: "horizontal" | "vertical";
+    type?: "axis" | "marking" | "area";
+}
+
+// @public
 export interface Facet {
     datatype: "number" | "date" | "string";
     denominator?: string;
+    // (undocumented)
+    displayType?: DisplayType;
     label: string;
-    maxDisplayed?: number;
     measure: "nominal" | "ordinal" | "interval" | "ratio";
-    minDisplayed?: number;
     multiplier?: number;
     units?: string;
     variableType: "dependent" | "independent";

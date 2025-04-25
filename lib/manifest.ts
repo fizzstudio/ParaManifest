@@ -94,6 +94,7 @@ export interface Facet {
    * The primitive type of the data measured by this facet.
    */
   datatype: "number" | "date" | "string";
+  displayType?: DisplayType;
   /**
    * The units for the data of this facet, in singular form, if any. This value should be absent if the facet measures a dimensionless quantity. If the units for this facet of the chart are fractional, then this is only the numerator of that fraction.
    */
@@ -106,6 +107,19 @@ export interface Facet {
    * If the units for this facet of the chart are fractional, then this is the denominator of that fraction. For example: '(per) capita', '(per) million inhabitants'. If this property is present, then every series on the chart must measure a fractional quantity, of which this will also be the denominator.
    */
   denominator?: string;
+}
+/**
+ * How this facet should be displayed on the chart
+ */
+export interface DisplayType {
+  /**
+   * What type of chart element represents the facet.
+   */
+  type?: "axis" | "marking" | "area";
+  /**
+   * What type of chart element represents the facet.
+   */
+  orientation?: "horizontal" | "vertical";
   /**
    * The lowest value displayed on this axis of the chart. Defaults to zero for the dependent axis and the minimum independent value of any series for the independent axis.
    */
