@@ -8,7 +8,10 @@ import { Json } from '@hyperjump/json-pointer';
 import { OutputUnit } from '@hyperjump/json-schema/draft-2020-12';
 
 // @public (undocumented)
-export type AllSeriesData = Record<string, XyPoint[]>;
+export type AllSeriesData = Record<string, Datapoint[]>;
+
+// @public (undocumented)
+export type AllSeriesDataXY = Record<string, XyPoint[]>;
 
 // @public (undocumented)
 export function chartDataIsOrdered(data: AllSeriesData): boolean;
@@ -17,7 +20,7 @@ export function chartDataIsOrdered(data: AllSeriesData): boolean;
 export type ChartType = Manifest['datasets'][number]['type'];
 
 // @public (undocumented)
-export function collectXs(data: XyPoint[]): Set<string>;
+export function collectXs(data: Datapoint[]): Set<string>;
 
 // @public
 export type Data = {
@@ -30,14 +33,18 @@ export type Data = {
 export function dataFromManifest(manifest: Manifest): AllSeriesData;
 
 // @public
+export interface Datapoint {
+    [k: string]: string;
+}
+
+// @public
 export interface Dataset {
     // (undocumented)
     chartTheme?: Theme;
     // (undocumented)
     data: Data;
     facets: {
-        x: Facet;
-        y: Facet1;
+        [k: string]: Facet;
     };
     series: Series[];
     // (undocumented)
@@ -50,26 +57,21 @@ export interface Dataset {
 export type Datatype = Manifest['datasets'][number]['facets']['x']['datatype'];
 
 // @public
-export interface Facet {
-    datatype: "number" | "date" | "string";
-    denominator?: string;
-    label: string;
+export interface DisplayType {
     maxDisplayed?: number;
-    measure: "nominal" | "ordinal" | "interval" | "ratio";
     minDisplayed?: number;
-    multiplier?: number;
-    units?: string;
-    variableType: "dependent" | "independent";
+    orientation?: "horizontal" | "vertical";
+    type?: "axis" | "marking" | "area";
 }
 
 // @public
-export interface Facet1 {
+export interface Facet {
     datatype: "number" | "date" | "string";
     denominator?: string;
+    // (undocumented)
+    displayType?: DisplayType;
     label: string;
-    maxDisplayed?: number;
     measure: "nominal" | "ordinal" | "interval" | "ratio";
-    minDisplayed?: number;
     multiplier?: number;
     units?: string;
     variableType: "dependent" | "independent";
@@ -102,7 +104,7 @@ export class ManifestValidator {
 export interface Series {
     key: string;
     label?: string;
-    records?: XyPoint[];
+    records?: Datapoint[];
     // (undocumented)
     theme: Theme1;
 }

@@ -24,7 +24,7 @@
   "scripts": {
     "dev": "storybook dev --no-open",
     "build-types": "node --experimental-strip-types build/build_types.ts",
-    "build": "rimraf dist types && tsc && vite build && api-extractor run --local --verbose && npm run build-types",
+    "build": "npm run build-types && rimraf dist types && tsc && vite build && api-extractor run --local --verbose",
     "test": "vitest run",
     "coverage": "vitest run --coverage",
     "doc": "api-documenter markdown --input-folder ./temp --output-folder ./docs",

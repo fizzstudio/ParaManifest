@@ -34,20 +34,12 @@
           "$ref": "#/$defs/theme"
         },
         "facets": {
-          "description": "Metadata describing the axes of the chart.",
+          "description": "Metadata describing each facet of the chart which represents some dimension of the data.",
           "type": "object",
-          "properties": {
-            "x": {
-              "description": "Metadata describing the horizontal (x-)axis of the chart.",
-              "$ref": "#/$defs/facet"
-            },
-            "y": {
-              "description": "Metadata describing the vertical (y-)axis of the chart.",
-              "$ref": "#/$defs/facet"
-            }
+          "additionalProperties": {
+            "$ref": "#/$defs/facet"
           },
-          "required": [ "x", "y" ],
-          "additionalProperties": false
+          "minProperties": 1
         },
         "series": {
           "description": "Metadata, and possibly inline data, describing the series of the chart.",
@@ -70,44 +62,40 @@
       "additionalProperties": false
     },
     "facet": {
-      "description": "Metadata describing an axis of the chart.",
+      "description": "Metadata describing a facet of the chart which represents some dimension of the data.",
       "type": "object",
       "properties": {
         "label": {
-          "description": "A text label for the quantity measured by this axis.",
+          "description": "A text label for the quantity measured by this facet.",
           "$ref": "#/$defs/name"
         },
         "variableType": {
-          "description": "Whether the variable this axis measures depends on the variable measured by the other axis.",
+          "description": "Whether the variable this facet measures depends on the variable measured by another facet or facets.",
           "enum": ["dependent", "independent"]
         },
         "measure": {
-          "description": "The NOIR data scale of the quantity this axis measures.",
+          "description": "The NOIR data scale of the quantity this facet measures.",
           "enum": ["nominal", "ordinal", "interval", "ratio"]
         },
         "datatype": {
-          "description": "The primitive type of the data measured by this axis.",
+          "description": "The primitive type of the data measured by this facet.",
           "enum": ["number", "date", "string"]
         },
+        "displayType": {
+          "description": "How this facet should be displayed on the chart",
+          "$ref": "#/$defs/displayType"
+        },
         "units": {
-          "description": "The units for the dependent axis of the chart, in singular form, if any. This value should be absent if the axis measures a dimensionless quantity. If the units for this axis of the chart are fractional, then this is only the numerator of that fraction.",
+          "description": "The units for the data of this facet, in singular form, if any. This value should be absent if the facet measures a dimensionless quantity. If the units for this facet of the chart are fractional, then this is only the numerator of that fraction.",
           "$ref": "#/$defs/name"
         },
         "multiplier": {
-          "description": "The number each record of this axis must be multiplied by to get the true value. Defaults to 1.",
+          "description": "The number each datum of this facet must be multiplied by to get the true value. Defaults to 1.",
           "type": "number"
         },
         "denominator": {
-          "description": "If the units for this axis of the chart are fractional, then this is the denominator of that fraction. For example: '(per) capita', '(per) million inhabitants'. If this property is present, then every series on the chart must measure a fractional quantity, of which this will also be the denominator.",
+          "description": "If the units for this facet of the chart are fractional, then this is the denominator of that fraction. For example: '(per) capita', '(per) million inhabitants'. If this property is present, then every series on the chart must measure a fractional quantity, of which this will also be the denominator.",
           "$ref": "#/$defs/name"
-        },
-        "minDisplayed": {
-          "description": "The lowest value displayed on this axis of the chart. Defaults to zero for the y-axis and the maximum x-value of any series for the x-axis.",
-          "type": "number"
-        },
-        "maxDisplayed": {
-          "description": "The highest value label displayed on this axis of the chart. Defaults to the maximum value of any series relative to this axis.",
-          "type": "number"
         }
       },
       "required": ["label", "variableType", "measure", "datatype"],
@@ -133,7 +121,7 @@
           "description": "The datapoints of this series represented inline.",
           "type": "array",
           "items": {
-            "$ref": "#/$defs/xyPoint"
+            "$ref": "#/$defs/datapoint"
           }
         }
       },
@@ -176,21 +164,15 @@
       "required": ["baseQuantity", "baseKind"],
       "additionalProperties": false
     },
-    "xyPoint": {
+    "datapoint": {
       "description": "A datapoint on the graph.",
       "type": "object",
-      "properties": {
-        "x": {
-          "description": "The location of the point on the x-axis.",
-          "type": "string"
-        },
-        "y": {
-          "description": "The location of the point on the y-axis.",
-          "type": "string"
-        }
+      "additionalProperties": {
+        "description": "The value of the point relative to the facet labelled by this property key.",
+        "type": "string"
       },
-      "required": ["x", "y"],
-      "additionalProperties": false
+      "minProperties": 1,
+      "$comment": "Additional validation: These properties must match those in `facets`."
     },
     "data": {
       "description": "The source for the data of a dataset.",
@@ -251,6 +233,31 @@
     "seriesName": {
       "description": "The name of a series, as a non-empty string. This is identical to `name`, but specified for semantic reasons",
       "$ref": "#/$defs/name"
+    },
+    "displayType": {
+      "description": "How a facet should be displayed on the graph.",
+      "type": "object",
+      "properties": {
+        "type": {
+          "description": "What type of chart element represents the facet.",
+          "enum": ["axis", "marking", "area"]
+        },
+        "orientation": {
+          "description": "What type of chart element represents the facet.",
+          "enum": ["horizontal", "vertical"]
+        },
+        "minDisplayed": {
+          "description": "The lowest value displayed on this axis of the chart. Defaults to zero for the dependent axis and the minimum independent value of any series for the independent axis.",
+          "type": "number"
+        },
+        "maxDisplayed": {
+          "description": "The highest value label displayed on this axis of the chart. Defaults to the maximum value of any series relative to this axis.",
+          "type": "number"
+        }
+      },
+      "required": [ ],
+      "additionalProperties": false,
+      "$comment": "Additional validation: The other properties should be only those relevant to the type."
     }
   }
 }

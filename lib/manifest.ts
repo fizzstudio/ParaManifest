@@ -33,11 +33,10 @@ export interface Dataset {
   title: string;
   chartTheme?: Theme;
   /**
-   * Metadata describing the axes of the chart.
+   * Metadata describing each facet of the chart which represents some dimension of the data.
    */
   facets: {
-    x: Facet;
-    y: Facet1;
+    [k: string]: Facet;
   };
   /**
    * Metadata, and possibly inline data, describing the series of the chart.
@@ -76,80 +75,53 @@ export interface Theme {
   aggregate?: string;
 }
 /**
- * Metadata describing the horizontal (x-)axis of the chart.
+ * Metadata describing a facet of the chart which represents some dimension of the data.
  */
 export interface Facet {
   /**
-   * A text label for the quantity measured by this axis.
+   * A text label for the quantity measured by this facet.
    */
   label: string;
   /**
-   * Whether the variable this axis measures depends on the variable measured by the other axis.
+   * Whether the variable this facet measures depends on the variable measured by another facet or facets.
    */
   variableType: "dependent" | "independent";
   /**
-   * The NOIR data scale of the quantity this axis measures.
+   * The NOIR data scale of the quantity this facet measures.
    */
   measure: "nominal" | "ordinal" | "interval" | "ratio";
   /**
-   * The primitive type of the data measured by this axis.
+   * The primitive type of the data measured by this facet.
    */
   datatype: "number" | "date" | "string";
+  displayType?: DisplayType;
   /**
-   * The units for the dependent axis of the chart, in singular form, if any. This value should be absent if the axis measures a dimensionless quantity. If the units for this axis of the chart are fractional, then this is only the numerator of that fraction.
+   * The units for the data of this facet, in singular form, if any. This value should be absent if the facet measures a dimensionless quantity. If the units for this facet of the chart are fractional, then this is only the numerator of that fraction.
    */
   units?: string;
   /**
-   * The number each record of this axis must be multiplied by to get the true value. Defaults to 1.
+   * The number each datum of this facet must be multiplied by to get the true value. Defaults to 1.
    */
   multiplier?: number;
   /**
-   * If the units for this axis of the chart are fractional, then this is the denominator of that fraction. For example: '(per) capita', '(per) million inhabitants'. If this property is present, then every series on the chart must measure a fractional quantity, of which this will also be the denominator.
+   * If the units for this facet of the chart are fractional, then this is the denominator of that fraction. For example: '(per) capita', '(per) million inhabitants'. If this property is present, then every series on the chart must measure a fractional quantity, of which this will also be the denominator.
    */
   denominator?: string;
-  /**
-   * The lowest value displayed on this axis of the chart. Defaults to zero for the y-axis and the maximum x-value of any series for the x-axis.
-   */
-  minDisplayed?: number;
-  /**
-   * The highest value label displayed on this axis of the chart. Defaults to the maximum value of any series relative to this axis.
-   */
-  maxDisplayed?: number;
 }
 /**
- * Metadata describing the vertical (y-)axis of the chart.
+ * How this facet should be displayed on the chart
  */
-export interface Facet1 {
+export interface DisplayType {
   /**
-   * A text label for the quantity measured by this axis.
+   * What type of chart element represents the facet.
    */
-  label: string;
+  type?: "axis" | "marking" | "area";
   /**
-   * Whether the variable this axis measures depends on the variable measured by the other axis.
+   * What type of chart element represents the facet.
    */
-  variableType: "dependent" | "independent";
+  orientation?: "horizontal" | "vertical";
   /**
-   * The NOIR data scale of the quantity this axis measures.
-   */
-  measure: "nominal" | "ordinal" | "interval" | "ratio";
-  /**
-   * The primitive type of the data measured by this axis.
-   */
-  datatype: "number" | "date" | "string";
-  /**
-   * The units for the dependent axis of the chart, in singular form, if any. This value should be absent if the axis measures a dimensionless quantity. If the units for this axis of the chart are fractional, then this is only the numerator of that fraction.
-   */
-  units?: string;
-  /**
-   * The number each record of this axis must be multiplied by to get the true value. Defaults to 1.
-   */
-  multiplier?: number;
-  /**
-   * If the units for this axis of the chart are fractional, then this is the denominator of that fraction. For example: '(per) capita', '(per) million inhabitants'. If this property is present, then every series on the chart must measure a fractional quantity, of which this will also be the denominator.
-   */
-  denominator?: string;
-  /**
-   * The lowest value displayed on this axis of the chart. Defaults to zero for the y-axis and the maximum x-value of any series for the x-axis.
+   * The lowest value displayed on this axis of the chart. Defaults to zero for the dependent axis and the minimum independent value of any series for the independent axis.
    */
   minDisplayed?: number;
   /**
@@ -173,7 +145,7 @@ export interface Series {
   /**
    * The datapoints of this series represented inline.
    */
-  records?: XyPoint[];
+  records?: Datapoint[];
 }
 /**
  * What quantity the series measures.
@@ -207,15 +179,11 @@ export interface Theme1 {
 /**
  * A datapoint on the graph.
  */
-export interface XyPoint {
+export interface Datapoint {
   /**
-   * The location of the point on the x-axis.
+   * The value of the point relative to the facet labelled by this property key.
    */
-  x: string;
-  /**
-   * The location of the point on the y-axis.
-   */
-  y: string;
+  [k: string]: string;
 }
 /**
  * The settings needed to present a chart in ParaCharts.
