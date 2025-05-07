@@ -26,7 +26,7 @@ export interface Dataset {
   /**
    * The type of the chart, such as 'line' or 'column'.
    */
-  type: "line" | "column" | "bar" | "scatter" | "lollipop" | "stepline" | "pie";
+  type: "line" | "column" | "bar" | "scatter" | "lollipop" | "stepline" | "pie" | "donut";
   /**
    * The title of the chart.
    */

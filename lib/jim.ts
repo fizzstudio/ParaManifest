@@ -66,7 +66,8 @@ const CHART_TYPE_MAP: Record<ChartType, SeriesType> = {
   line: 'line',
   stepline: 'line',
   scatter: 'other',
-  pie: 'other'
+  pie: 'other',
+  donut: 'other'
 }
 
 export class JimError extends Error {

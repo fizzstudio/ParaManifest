@@ -50,7 +50,7 @@ export interface Dataset {
     // (undocumented)
     settings?: Settings;
     title: string;
-    type: "line" | "column" | "bar" | "scatter" | "lollipop" | "stepline" | "pie";
+    type: "line" | "column" | "bar" | "scatter" | "lollipop" | "stepline" | "pie" | "donut";
 }
 
 // @public (undocumented)
