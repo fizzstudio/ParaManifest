@@ -61,7 +61,7 @@ export interface DisplayType {
     maxDisplayed?: number;
     minDisplayed?: number;
     orientation?: "horizontal" | "vertical";
-    type: "axis" | "marking" | "area";
+    type: "axis" | "marking" | "area" | "angle";
 }
 
 // @public

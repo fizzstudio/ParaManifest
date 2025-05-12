@@ -115,7 +115,7 @@ export interface DisplayType {
   /**
    * What type of chart element represents the facet.
    */
-  type: "axis" | "marking" | "area";
+  type: "axis" | "marking" | "area" | "angle";
   /**
    * What type of chart element represents the facet.
    */
