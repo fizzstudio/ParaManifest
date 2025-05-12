@@ -61,7 +61,7 @@ export interface DisplayType {
     maxDisplayed?: number;
     minDisplayed?: number;
     orientation?: "horizontal" | "vertical";
-    type?: "axis" | "marking" | "area";
+    type: "axis" | "marking" | "area";
 }
 
 // @public
@@ -69,7 +69,7 @@ export interface Facet {
     datatype: "number" | "date" | "string";
     denominator?: string;
     // (undocumented)
-    displayType?: DisplayType;
+    displayType: DisplayType;
     label: string;
     measure: "nominal" | "ordinal" | "interval" | "ratio";
     multiplier?: number;
