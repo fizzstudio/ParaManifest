@@ -240,7 +240,7 @@
       "properties": {
         "type": {
           "description": "What type of chart element represents the facet.",
-          "enum": ["axis", "marking", "area"]
+          "enum": ["axis", "marking", "area", "angle"]
         },
         "orientation": {
           "description": "What type of chart element represents the facet.",
