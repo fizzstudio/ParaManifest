@@ -69,6 +69,10 @@
           "description": "A text label for the quantity measured by this facet.",
           "$ref": "#/$defs/name"
         },
+        "description": {
+          "description": "An extended text description for the quantity measured by this facet.",
+          "type": "string"
+        },
         "variableType": {
           "description": "Whether the variable this facet measures depends on the variable measured by another facet or facets.",
           "enum": ["dependent", "independent"]

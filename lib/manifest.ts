@@ -83,6 +83,10 @@ export interface Facet {
    */
   label: string;
   /**
+   * An extended text description for the quantity measured by this facet.
+   */
+  description?: string;
+  /**
    * Whether the variable this facet measures depends on the variable measured by another facet or facets.
    */
   variableType: "dependent" | "independent";
