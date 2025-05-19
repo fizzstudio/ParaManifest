@@ -68,6 +68,7 @@ export interface DisplayType {
 export interface Facet {
     datatype: "number" | "date" | "string";
     denominator?: string;
+    description?: string;
     // (undocumented)
     displayType: DisplayType;
     label: string;
