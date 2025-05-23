@@ -45,7 +45,7 @@
           "description": "Metadata, and possibly inline data, describing the series of the chart.",
           "type": "array",
           "items": {
-            "$ref": "#/$defs/series"
+            "$ref": "#/$defs/seriesManifest"
           },
           "uniqueItems": true
         },
@@ -105,7 +105,7 @@
       "required": ["label", "variableType", "measure", "datatype", "displayType"],
       "additionalProperties": false
     },
-    "series": {
+    "seriesManifest": {
       "description": "Metadata, and possibly inline data, describing a series on the chart.",
       "type": "object",
       "properties": {

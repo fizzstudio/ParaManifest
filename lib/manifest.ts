@@ -41,7 +41,7 @@ export interface Dataset {
   /**
    * Metadata, and possibly inline data, describing the series of the chart.
    */
-  series: Series[];
+  series: SeriesManifest[];
   data: Data;
   settings?: Settings;
 }
@@ -136,7 +136,7 @@ export interface DisplayType {
 /**
  * Metadata, and possibly inline data, describing a series on the chart.
  */
-export interface Series {
+export interface SeriesManifest {
   /**
    * A unique identifier for the series, which may have spaces, punctuation, or other non-alphanumeric characters that aren't allowed in DOM ids, but which still may not be suitable for the text label.
    */

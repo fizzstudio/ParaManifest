@@ -46,7 +46,7 @@ export interface Dataset {
     facets: {
         [k: string]: Facet;
     };
-    series: Series[];
+    series: SeriesManifest[];
     // (undocumented)
     settings?: Settings;
     title: string;
@@ -102,7 +102,7 @@ export class ManifestValidator {
 }
 
 // @public
-export interface Series {
+export interface SeriesManifest {
     key: string;
     label?: string;
     records?: Datapoint[];
