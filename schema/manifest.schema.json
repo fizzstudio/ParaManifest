@@ -45,7 +45,7 @@
           "description": "Metadata, and possibly inline data, describing the series of the chart.",
           "type": "array",
           "items": {
-            "$ref": "#/$defs/series"
+            "$ref": "#/$defs/seriesManifest"
           },
           "uniqueItems": true
         },
@@ -68,6 +68,10 @@
         "label": {
           "description": "A text label for the quantity measured by this facet.",
           "$ref": "#/$defs/name"
+        },
+        "description": {
+          "description": "An extended text description for the quantity measured by this facet.",
+          "type": "string"
         },
         "variableType": {
           "description": "Whether the variable this facet measures depends on the variable measured by another facet or facets.",
@@ -98,10 +102,10 @@
           "$ref": "#/$defs/name"
         }
       },
-      "required": ["label", "variableType", "measure", "datatype"],
+      "required": ["label", "variableType", "measure", "datatype", "displayType"],
       "additionalProperties": false
     },
-    "series": {
+    "seriesManifest": {
       "description": "Metadata, and possibly inline data, describing a series on the chart.",
       "type": "object",
       "properties": {
@@ -240,7 +244,7 @@
       "properties": {
         "type": {
           "description": "What type of chart element represents the facet.",
-          "enum": ["axis", "marking", "area"]
+          "enum": ["axis", "marking", "area", "angle"]
         },
         "orientation": {
           "description": "What type of chart element represents the facet.",
@@ -255,7 +259,7 @@
           "type": "number"
         }
       },
-      "required": [ ],
+      "required": [ "type" ],
       "additionalProperties": false,
       "$comment": "Additional validation: The other properties should be only those relevant to the type."
     }

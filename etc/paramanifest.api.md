@@ -46,7 +46,7 @@ export interface Dataset {
     facets: {
         [k: string]: Facet;
     };
-    series: Series[];
+    series: SeriesManifest[];
     // (undocumented)
     settings?: Settings;
     title: string;
@@ -61,15 +61,16 @@ export interface DisplayType {
     maxDisplayed?: number;
     minDisplayed?: number;
     orientation?: "horizontal" | "vertical";
-    type?: "axis" | "marking" | "area";
+    type: "axis" | "marking" | "area" | "angle";
 }
 
 // @public
 export interface Facet {
     datatype: "number" | "date" | "string";
     denominator?: string;
+    description?: string;
     // (undocumented)
-    displayType?: DisplayType;
+    displayType: DisplayType;
     label: string;
     measure: "nominal" | "ordinal" | "interval" | "ratio";
     multiplier?: number;
@@ -101,7 +102,7 @@ export class ManifestValidator {
 }
 
 // @public
-export interface Series {
+export interface SeriesManifest {
     key: string;
     label?: string;
     records?: Datapoint[];

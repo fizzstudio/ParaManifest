@@ -41,7 +41,7 @@ export interface Dataset {
   /**
    * Metadata, and possibly inline data, describing the series of the chart.
    */
-  series: Series[];
+  series: SeriesManifest[];
   data: Data;
   settings?: Settings;
 }
@@ -83,6 +83,10 @@ export interface Facet {
    */
   label: string;
   /**
+   * An extended text description for the quantity measured by this facet.
+   */
+  description?: string;
+  /**
    * Whether the variable this facet measures depends on the variable measured by another facet or facets.
    */
   variableType: "dependent" | "independent";
@@ -94,7 +98,7 @@ export interface Facet {
    * The primitive type of the data measured by this facet.
    */
   datatype: "number" | "date" | "string";
-  displayType?: DisplayType;
+  displayType: DisplayType;
   /**
    * The units for the data of this facet, in singular form, if any. This value should be absent if the facet measures a dimensionless quantity. If the units for this facet of the chart are fractional, then this is only the numerator of that fraction.
    */
@@ -115,7 +119,7 @@ export interface DisplayType {
   /**
    * What type of chart element represents the facet.
    */
-  type?: "axis" | "marking" | "area";
+  type: "axis" | "marking" | "area" | "angle";
   /**
    * What type of chart element represents the facet.
    */
@@ -132,7 +136,7 @@ export interface DisplayType {
 /**
  * Metadata, and possibly inline data, describing a series on the chart.
  */
-export interface Series {
+export interface SeriesManifest {
   /**
    * A unique identifier for the series, which may have spaces, punctuation, or other non-alphanumeric characters that aren't allowed in DOM ids, but which still may not be suitable for the text label.
    */
