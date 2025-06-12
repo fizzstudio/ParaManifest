@@ -49,6 +49,10 @@
           },
           "uniqueItems": true
         },
+        "seriesRelations": {
+          "description": "How series are related to each other in multi-series bar family charts. Defaults to 'stacked'.",
+          "enum": ["stacked", "groups"]
+        },
         "data": {
           "description": "The source for the data for this dataset.",
           "$ref": "#/$defs/data"
