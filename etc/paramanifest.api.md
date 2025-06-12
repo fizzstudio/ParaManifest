@@ -53,7 +53,7 @@ export interface Dataset {
         [k: string]: Facet;
     };
     series: SeriesManifest[];
-    seriesRelations?: "stacked" | "groups";
+    seriesRelations?: "stacked" | "grouped";
     // (undocumented)
     settings?: Settings;
     title: string;

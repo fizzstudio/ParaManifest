@@ -45,7 +45,7 @@ export interface Dataset {
   /**
    * How series are related to each other in multi-series bar family charts. Defaults to 'stacked'.
    */
-  seriesRelations?: "stacked" | "groups";
+  seriesRelations?: "stacked" | "grouped";
   data: Data;
   settings?: Settings;
 }
