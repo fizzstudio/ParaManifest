@@ -23,7 +23,7 @@
       "properties": {
         "type": {
           "description": "The type of the chart, such as 'line' or 'column'.",
-          "enum": ["line", "column", "bar", "scatter", "lollipop", "stepline", "pie", "donut"]
+          "enum": ["line", "stepline", "bar", "column", "lollipop", "histogram", "scatter", "pie", "donut"]
         },
         "title": {
           "description": "The title of the chart.",
@@ -48,6 +48,10 @@
             "$ref": "#/$defs/seriesManifest"
           },
           "uniqueItems": true
+        },
+        "seriesRelations": {
+          "description": "How series are related to each other in multi-series bar family charts. Defaults to 'stacked'.",
+          "enum": ["stacked", "groups"]
         },
         "data": {
           "description": "The source for the data for this dataset.",

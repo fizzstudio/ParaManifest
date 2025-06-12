@@ -18,7 +18,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.*/
 
 import { Datapoint, Manifest } from "./manifest";
 
-// Types
+//  Types
 
 /**
  * A datapoint on the graph.
@@ -34,7 +34,6 @@ export interface XyPoint {
   y: string;
 }
 
-export type ChartType = Manifest['datasets'][number]['type'];
 export type Datatype = Manifest['datasets'][number]['facets']['x']['datatype'];
 export type AllSeriesDataXY = Record<string, XyPoint[]>;
 export type AllSeriesData = Record<string, Datapoint[]>;

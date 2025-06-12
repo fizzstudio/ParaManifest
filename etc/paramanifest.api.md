@@ -14,10 +14,16 @@ export type AllSeriesData = Record<string, Datapoint[]>;
 export type AllSeriesDataXY = Record<string, XyPoint[]>;
 
 // @public (undocumented)
+export const CHART_FAMILY_MAP: Record<ChartType, ChartTypeFamily>;
+
+// @public (undocumented)
 export function chartDataIsOrdered(data: AllSeriesData): boolean;
 
 // @public (undocumented)
 export type ChartType = Manifest['datasets'][number]['type'];
+
+// @public (undocumented)
+export type ChartTypeFamily = 'line' | 'bar' | 'pastry' | 'scatter';
 
 // @public (undocumented)
 export function collectXs(data: Datapoint[]): Set<string>;
@@ -47,10 +53,11 @@ export interface Dataset {
         [k: string]: Facet;
     };
     series: SeriesManifest[];
+    seriesRelations?: "stacked" | "groups";
     // (undocumented)
     settings?: Settings;
     title: string;
-    type: "line" | "column" | "bar" | "scatter" | "lollipop" | "stepline" | "pie" | "donut";
+    type: "line" | "stepline" | "bar" | "column" | "lollipop" | "histogram" | "scatter" | "pie" | "donut";
 }
 
 // @public (undocumented)
@@ -79,6 +86,21 @@ export interface Facet {
 }
 
 // @public (undocumented)
+export function isBarType(chartType: ChartType): boolean;
+
+// @public (undocumented)
+export function isLineType(chartType: ChartType): boolean;
+
+// @public (undocumented)
+export function isPastryType(chartType: ChartType): boolean;
+
+// @public (undocumented)
+export function isPlaneType(chartType: ChartType): boolean;
+
+// @public (undocumented)
+export function isScatterType(chartType: ChartType): boolean;
+
+// @public (undocumented)
 export class Jimerator {
     constructor(_manifest: Manifest, externalData?: AllSeriesData);
     // Warning: (ae-forgotten-export) The symbol "Jim" needs to be exported by the entry point index.d.ts
@@ -100,6 +122,9 @@ export class ManifestValidator {
     fullValidate(json: Json): Promise<OutputUnit>;
     validate(json: Json): Promise<ValidateOutput>;
 }
+
+// @public (undocumented)
+export const PLANE_CHART_FAMILIES: ChartTypeFamily[];
 
 // @public
 export interface SeriesManifest {
