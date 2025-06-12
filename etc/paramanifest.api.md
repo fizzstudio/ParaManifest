@@ -47,10 +47,11 @@ export interface Dataset {
         [k: string]: Facet;
     };
     series: SeriesManifest[];
+    seriesRelations?: "stacked" | "groups";
     // (undocumented)
     settings?: Settings;
     title: string;
-    type: "line" | "column" | "bar" | "scatter" | "lollipop" | "stepline" | "pie" | "donut";
+    type: "line" | "stepline" | "bar" | "column" | "lollipop" | "histogram" | "scatter" | "pie" | "donut";
 }
 
 // @public (undocumented)

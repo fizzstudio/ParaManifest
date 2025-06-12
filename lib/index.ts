@@ -22,4 +22,5 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.*/
 export * from './manifest';
 export * from './validator';
 export * from './helpers';
+export * from './chart_types';
 export { Jimerator } from './jim';

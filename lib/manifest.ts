@@ -26,7 +26,7 @@ export interface Dataset {
   /**
    * The type of the chart, such as 'line' or 'column'.
    */
-  type: "line" | "column" | "bar" | "scatter" | "lollipop" | "stepline" | "pie" | "donut";
+  type: "line" | "stepline" | "bar" | "column" | "lollipop" | "histogram" | "scatter" | "pie" | "donut";
   /**
    * The title of the chart.
    */
@@ -42,6 +42,10 @@ export interface Dataset {
    * Metadata, and possibly inline data, describing the series of the chart.
    */
   series: SeriesManifest[];
+  /**
+   * How series are related to each other in multi-series bar family charts. Defaults to 'stacked'.
+   */
+  seriesRelations?: "stacked" | "groups";
   data: Data;
   settings?: Settings;
 }
