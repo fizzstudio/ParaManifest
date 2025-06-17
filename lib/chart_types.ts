@@ -18,13 +18,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.*/
 
 import { Manifest } from "./manifest";
 
-// Types
+// Types & Constants
 
 export type ChartType = Manifest['datasets'][number]['type'];
 
-export type ChartTypeFamily = 'line' | 'bar' | 'pastry' | 'scatter';
-
-// Constants
+export const CHART_TYPE_FAMILIES = ['line', 'bar', 'pastry', 'scatter'] as const;
+export type ChartTypeFamily = typeof CHART_TYPE_FAMILIES[number];
 
 export const CHART_FAMILY_MAP: Record<ChartType, ChartTypeFamily> = {
   'line': 'line',
@@ -38,6 +37,26 @@ export const CHART_FAMILY_MAP: Record<ChartType, ChartTypeFamily> = {
   'pie': 'pastry',
   'donut': 'pastry'
 }
+
+/*export const CHART_FAMILY_MEMBERS: Record<ChartTypeFamily, ChartType[]> = {
+  'line': ['line', 'stepline'],
+  'bar': ['bar', 'column', 'lollipop', 'histogram'],
+  'pastry': ['pie', 'donut'],
+  'scatter': ['scatter']
+}*/
+
+export const CHART_FAMILY_MEMBERS: Record<ChartTypeFamily, ChartType[]> = (() => {
+  const members: Record<ChartTypeFamily, ChartType[]> = {
+    'line': [],
+    'bar': [],
+    'pastry': [],
+    'scatter': []
+  };
+  for (let chartType of Object.keys(CHART_FAMILY_MAP)) {
+    members[CHART_FAMILY_MAP[chartType as ChartType]].push(chartType as ChartType);
+  }
+  return members;
+})();
 
 export const PLANE_CHART_FAMILIES: ChartTypeFamily[] = ['line', 'bar', 'scatter'];
 
