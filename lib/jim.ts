@@ -68,6 +68,7 @@ const CHART_TYPE_MAP: Record<ChartType, SeriesType> = {
   line: 'line',
   stepline: 'line',
   scatter: 'other',
+  heatmap: 'other',
   pie: 'other',
   donut: 'other'
 }

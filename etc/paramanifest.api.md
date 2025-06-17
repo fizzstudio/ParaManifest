@@ -57,7 +57,7 @@ export interface Dataset {
     // (undocumented)
     settings?: Settings;
     title: string;
-    type: "line" | "stepline" | "bar" | "column" | "lollipop" | "histogram" | "scatter" | "pie" | "donut";
+    type: "line" | "stepline" | "bar" | "column" | "lollipop" | "histogram" | "scatter" | "heatmap" | "pie" | "donut";
 }
 
 // @public (undocumented)
