@@ -17,13 +17,19 @@ export type AllSeriesDataXY = Record<string, XyPoint[]>;
 export const CHART_FAMILY_MAP: Record<ChartType, ChartTypeFamily>;
 
 // @public (undocumented)
+export const CHART_FAMILY_MEMBERS: Record<ChartTypeFamily, ChartType[]>;
+
+// @public (undocumented)
+export const CHART_TYPE_FAMILIES: readonly ["line", "bar", "pastry", "scatter"];
+
+// @public (undocumented)
 export function chartDataIsOrdered(data: AllSeriesData): boolean;
 
 // @public (undocumented)
 export type ChartType = Manifest['datasets'][number]['type'];
 
 // @public (undocumented)
-export type ChartTypeFamily = 'line' | 'bar' | 'pastry' | 'scatter';
+export type ChartTypeFamily = typeof CHART_TYPE_FAMILIES[number];
 
 // @public (undocumented)
 export function collectXs(data: Datapoint[]): Set<string>;
