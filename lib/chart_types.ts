@@ -34,6 +34,7 @@ export const CHART_FAMILY_MAP: Record<ChartType, ChartTypeFamily> = {
   'lollipop': 'bar',
   'histogram': 'bar',
   'scatter': 'scatter',
+  'heatmap': 'scatter',
   'pie': 'pastry',
   'donut': 'pastry'
 }
