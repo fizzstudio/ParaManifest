@@ -28,6 +28,7 @@
     "test": "vitest run",
     "coverage": "vitest run --coverage",
     "doc": "api-documenter markdown --input-folder ./temp --output-folder ./docs",
+    "doc:schema": "node --experimental-strip-types build/build_docs.ts",
     "pubalpha": "npm version prerelease --preid alpha && npm publish --tag alpha",
     "pubpatch": "npm version patch && npm publish",
     "pubminor": "npm version minor && npm publish",
@@ -75,6 +76,7 @@
   "dependencies": {
     "@hyperjump/json-pointer": "^1.1.0",
     "@hyperjump/json-schema": "^1.11.0",
+    "json-schema-static-docs": "^0.28.1",
     "json-schema-to-typescript": "^15.0.4",
     "jsonpath": "^1.1.1"
   }
