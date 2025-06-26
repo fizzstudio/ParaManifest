@@ -16,7 +16,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.*/
 
 import { ChartType } from "./chart_types";
 import { AllSeriesData, chartDataIsOrdered, collectXs, dataFromManifest } from "./helpers";
-import { Datapoint, Manifest, Dataset as ManifestDataset } from "./manifest";
+import { DatapointManifest, Manifest, Dataset as ManifestDataset } from "./manifest";
 
 export interface Jim {
   dataset: Dataset;
@@ -47,7 +47,7 @@ type SeriesType = 'row' | 'column' | 'line' | 'other';
 export interface Series {
   name: string;
   type: SeriesType;
-  records: Datapoint[];
+  records: DatapointManifest[];
 }
 
 export interface Href {

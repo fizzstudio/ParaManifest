@@ -8,7 +8,7 @@ import { Json } from '@hyperjump/json-pointer';
 import { OutputUnit } from '@hyperjump/json-schema/draft-2020-12';
 
 // @public (undocumented)
-export type AllSeriesData = Record<string, Datapoint[]>;
+export type AllSeriesData = Record<string, DatapointManifest[]>;
 
 // @public (undocumented)
 export type AllSeriesDataXY = Record<string, XyPoint[]>;
@@ -32,7 +32,7 @@ export type ChartType = Manifest['datasets'][number]['type'];
 export type ChartTypeFamily = typeof CHART_TYPE_FAMILIES[number];
 
 // @public (undocumented)
-export function collectXs(data: Datapoint[]): Set<string>;
+export function collectXs(data: DatapointManifest[]): Set<string>;
 
 // @public
 export type Data = {
@@ -45,7 +45,7 @@ export type Data = {
 export function dataFromManifest(manifest: Manifest): AllSeriesData;
 
 // @public
-export interface Datapoint {
+export interface DatapointManifest {
     [k: string]: string;
 }
 
@@ -136,7 +136,7 @@ export const PLANE_CHART_FAMILIES: ChartTypeFamily[];
 export interface SeriesManifest {
     key: string;
     label?: string;
-    records?: Datapoint[];
+    records?: DatapointManifest[];
     // (undocumented)
     theme: Theme1;
 }
