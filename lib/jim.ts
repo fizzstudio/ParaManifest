@@ -14,7 +14,8 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.*/
 
-import { AllSeriesData, chartDataIsOrdered, ChartType, collectXs, dataFromManifest } from "./helpers";
+import { ChartType } from "./chart_types";
+import { AllSeriesData, chartDataIsOrdered, collectXs, dataFromManifest } from "./helpers";
 import { Datapoint, Manifest, Dataset as ManifestDataset } from "./manifest";
 
 export interface Jim {
@@ -63,9 +64,11 @@ const CHART_TYPE_MAP: Record<ChartType, SeriesType> = {
   bar: 'column',
   column: 'column',
   lollipop: 'column',
+  histogram: 'column',
   line: 'line',
   stepline: 'line',
   scatter: 'other',
+  heatmap: 'other',
   pie: 'other',
   donut: 'other'
 }
