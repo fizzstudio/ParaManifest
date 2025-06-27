@@ -19,7 +19,7 @@ Description
 </th></tr></thead>
 <tbody><tr><td>
 
-[@fizz/ParaManifest](./ParaManifest.md)
+[@fizz/paramanifest](./paramanifest.md)
 
 
 </td><td>

@@ -16,7 +16,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.*/
 
 // Imports
 
-import { Datapoint, Manifest } from "./manifest";
+import { DatapointManifest, Manifest } from "./manifest";
 
 //  Types
 
@@ -36,7 +36,7 @@ export interface XyPoint {
 
 export type Datatype = Manifest['datasets'][number]['facets']['x']['datatype'];
 export type AllSeriesDataXY = Record<string, XyPoint[]>;
-export type AllSeriesData = Record<string, Datapoint[]>;
+export type AllSeriesData = Record<string, DatapointManifest[]>;
 
 // Functions
 
@@ -52,7 +52,7 @@ export function dataFromManifest(manifest: Manifest): AllSeriesData {
   return data;
 }
 
-export function collectXs(data: Datapoint[]): Set<string> {
+export function collectXs(data: DatapointManifest[]): Set<string> {
   return new Set(...data.map((datapoint) => datapoint.x));
 }
 

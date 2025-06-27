@@ -153,7 +153,7 @@ export interface SeriesManifest {
   /**
    * The datapoints of this series represented inline.
    */
-  records?: Datapoint[];
+  records?: DatapointManifest[];
 }
 /**
  * What quantity the series measures.
@@ -187,7 +187,7 @@ export interface Theme1 {
 /**
  * A datapoint on the graph.
  */
-export interface Datapoint {
+export interface DatapointManifest {
   /**
    * The value of the point relative to the facet labelled by this property key.
    */

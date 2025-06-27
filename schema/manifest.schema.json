@@ -129,7 +129,7 @@
           "description": "The datapoints of this series represented inline.",
           "type": "array",
           "items": {
-            "$ref": "#/$defs/datapoint"
+            "$ref": "#/$defs/datapointManifest"
           }
         }
       },
@@ -172,7 +172,7 @@
       "required": ["baseQuantity", "baseKind"],
       "additionalProperties": false
     },
-    "datapoint": {
+    "datapointManifest": {
       "description": "A datapoint on the graph.",
       "type": "object",
       "additionalProperties": {
