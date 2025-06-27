@@ -40,7 +40,8 @@
     "demo": "vite"
   },
   "files": [
-    "dist"
+    "dist",
+    "schema"
   ],
   "exports": {
     ".": "./dist/ParaManifest.js"
