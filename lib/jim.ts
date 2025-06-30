@@ -14,9 +14,15 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.*/
 
+// * Prelude *
+
+// Imports
+
 import { ChartType } from "./chart_types";
 import { AllSeriesData, chartDataIsOrdered, collectXs, dataFromManifest } from "./helpers";
 import { DatapointManifest, Manifest, Dataset as ManifestDataset } from "./manifest";
+
+// Types
 
 export interface Jim {
   dataset: Dataset;
@@ -61,6 +67,8 @@ export interface Selector {
   json: string | string[];
 }
 
+// Helpers
+
 const CHART_TYPE_MAP: Record<ChartType, SeriesType> = {
   bar: 'column',
   column: 'column',
@@ -79,6 +87,12 @@ export class JimError extends Error {
     super(`[jimifier]: ${msg}`);
   }
 }
+
+function sanitized(input: string): string {
+  return input.replaceAll('.', '_');
+}
+
+// * Main Class *
 
 export class Jimerator {
 
@@ -110,7 +124,7 @@ export class Jimerator {
     this._seriesKeys.forEach((key, seriesIndex) => {
       xs.forEach((x, pointIndex) => {
         selectors[`datapoint${datapointIndex}`] = {
-          "dom": `#datapoint-${x}_${key}`,
+          "dom": `#datapoint-${sanitized(x)}_${key}`,
           "json": [
             `$.datasets[0].series[${seriesIndex}].name`,
             `$.datasets[0].series[${seriesIndex}].records[${pointIndex}].*`
@@ -125,9 +139,11 @@ export class Jimerator {
     let datapointIndex = 1;
     Object.keys(this._data).forEach((key, seriesIndex) => {
       this._data[key].forEach((datapoint, pointIndex) => {
+        const xSanitized = sanitized(datapoint.x);
+        const ySanitized = sanitized(datapoint.y);
         selectors[`datapoint${datapointIndex}`] = {
-          "dom": `#datapoint-${datapoint.x}_${datapoint.y}_${key}`,
-          "json": [
+          dom: `#datapoint-${xSanitized}_${ySanitized}_${key}`,
+          json: [
             `$.datasets[0].series[${seriesIndex}].name`,
             `$.datasets[0].series[${seriesIndex}].records[${pointIndex}].*`
           ]
