@@ -57,7 +57,8 @@ export interface Href {
 }
 
 export interface Selector {
-  [id: string]: string | string[];
+  dom: string | string[];
+  json: string | string[];
 }
 
 const CHART_TYPE_MAP: Record<ChartType, SeriesType> = {
@@ -93,7 +94,7 @@ export class Jimerator {
     } else if (externalData) {
       this._data = externalData;
     } else {
-      throw new JimError('JIM cannot be created without external or inline chart data')
+      throw new JimError('JIM cannot be created without external or inline chart data');
     }
     this._seriesKeys = Object.keys(this._data);
   }
@@ -102,13 +103,7 @@ export class Jimerator {
     return this._jim;
   }
 
-  private renderSelectorsOrdered(): Record<string, Selector> {
-    const selectors: Record<string, Selector> = {
-      "chartTitle": {
-        "dom": "#chart-title",
-        "json": "$.datasets[0].title"
-      }
-    }
+  private _addSelectorsOrdered(selectors: Record<string, Selector>): void {
     let datapointIndex = 1;
     // FIXME: Assumes at least 1 series in data
     const xs = collectXs(this._data[this._seriesKeys[0]]);
@@ -124,16 +119,9 @@ export class Jimerator {
         datapointIndex++;
       })
     });
-    return selectors;
   }
 
-  private renderSelectors(): Record<string, Selector> {
-    const selectors: Record<string, Selector> = {
-      "chartTitle": {
-        "dom": "#chart-title",
-        "json": "$.datasets[0].title"
-      }
-    }
+  private _addSelectorsUnordered(selectors: Record<string, Selector>): void {
     let datapointIndex = 1;
     Object.keys(this._data).forEach((key, seriesIndex) => {
       this._data[key].forEach((datapoint, pointIndex) => {
@@ -147,6 +135,20 @@ export class Jimerator {
         datapointIndex++;
       })
     });
+  }
+
+  private _renderSelectors(): Record<string, Selector> {
+    const selectors: Record<string, Selector> = {
+      chartTitle: {
+        dom: "#chart-title",
+        json: "$.datasets[0].title"
+      }
+    }
+    if (chartDataIsOrdered(this._data)) {
+      this._addSelectorsOrdered(selectors);
+    } else {
+      this._addSelectorsUnordered(selectors);
+    }
     return selectors;
   }
 
@@ -161,7 +163,7 @@ export class Jimerator {
       type: CHART_TYPE_MAP[this._dataset.type],
       records: this._data[aSeries.key]
     }));
-    const selectors = chartDataIsOrdered(this._data) ? this.renderSelectorsOrdered() : this.renderSelectors();
+    const selectors = this._renderSelectors();
     this._jim = {dataset, selectors};
   }
 
