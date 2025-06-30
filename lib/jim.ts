@@ -14,9 +14,15 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.*/
 
+// * Prelude *
+
+// Imports
+
 import { ChartType } from "./chart_types";
 import { AllSeriesData, chartDataIsOrdered, collectXs, dataFromManifest } from "./helpers";
 import { DatapointManifest, Manifest, Dataset as ManifestDataset } from "./manifest";
+
+// Types
 
 export interface Jim {
   dataset: Dataset;
@@ -57,8 +63,11 @@ export interface Href {
 }
 
 export interface Selector {
-  [id: string]: string | string[];
+  dom: string | string[];
+  json: string | string[];
 }
+
+// Helpers
 
 const CHART_TYPE_MAP: Record<ChartType, SeriesType> = {
   bar: 'column',
@@ -79,6 +88,12 @@ export class JimError extends Error {
   }
 }
 
+function sanitized(input: string): string {
+  return input.replaceAll('.', '_');
+}
+
+// * Main Class *
+
 export class Jimerator {
 
   private _jim!: Jim;
@@ -93,7 +108,7 @@ export class Jimerator {
     } else if (externalData) {
       this._data = externalData;
     } else {
-      throw new JimError('JIM cannot be created without external or inline chart data')
+      throw new JimError('JIM cannot be created without external or inline chart data');
     }
     this._seriesKeys = Object.keys(this._data);
   }
@@ -102,20 +117,14 @@ export class Jimerator {
     return this._jim;
   }
 
-  private renderSelectorsOrdered(): Record<string, Selector> {
-    const selectors: Record<string, Selector> = {
-      "chartTitle": {
-        "dom": "#chart-title",
-        "json": "$.datasets[0].title"
-      }
-    }
+  private _addSelectorsOrdered(selectors: Record<string, Selector>): void {
     let datapointIndex = 1;
     // FIXME: Assumes at least 1 series in data
     const xs = collectXs(this._data[this._seriesKeys[0]]);
     this._seriesKeys.forEach((key, seriesIndex) => {
       xs.forEach((x, pointIndex) => {
         selectors[`datapoint${datapointIndex}`] = {
-          "dom": `#datapoint-${x}_${key}`,
+          "dom": `#datapoint-${sanitized(x)}_${key}`,
           "json": [
             `$.datasets[0].series[${seriesIndex}].name`,
             `$.datasets[0].series[${seriesIndex}].records[${pointIndex}].*`
@@ -124,22 +133,17 @@ export class Jimerator {
         datapointIndex++;
       })
     });
-    return selectors;
   }
 
-  private renderSelectors(): Record<string, Selector> {
-    const selectors: Record<string, Selector> = {
-      "chartTitle": {
-        "dom": "#chart-title",
-        "json": "$.datasets[0].title"
-      }
-    }
+  private _addSelectorsUnordered(selectors: Record<string, Selector>): void {
     let datapointIndex = 1;
     Object.keys(this._data).forEach((key, seriesIndex) => {
       this._data[key].forEach((datapoint, pointIndex) => {
+        const xSanitized = sanitized(datapoint.x);
+        const ySanitized = sanitized(datapoint.y);
         selectors[`datapoint${datapointIndex}`] = {
-          "dom": `#datapoint-${datapoint.x}_${datapoint.y}_${key}`,
-          "json": [
+          dom: `#datapoint-${xSanitized}_${ySanitized}_${key}`,
+          json: [
             `$.datasets[0].series[${seriesIndex}].name`,
             `$.datasets[0].series[${seriesIndex}].records[${pointIndex}].*`
           ]
@@ -147,6 +151,20 @@ export class Jimerator {
         datapointIndex++;
       })
     });
+  }
+
+  private _renderSelectors(): Record<string, Selector> {
+    const selectors: Record<string, Selector> = {
+      chartTitle: {
+        dom: "#chart-title",
+        json: "$.datasets[0].title"
+      }
+    }
+    if (chartDataIsOrdered(this._data)) {
+      this._addSelectorsOrdered(selectors);
+    } else {
+      this._addSelectorsUnordered(selectors);
+    }
     return selectors;
   }
 
@@ -161,7 +179,7 @@ export class Jimerator {
       type: CHART_TYPE_MAP[this._dataset.type],
       records: this._data[aSeries.key]
     }));
-    const selectors = chartDataIsOrdered(this._data) ? this.renderSelectorsOrdered() : this.renderSelectors();
+    const selectors = this._renderSelectors();
     this._jim = {dataset, selectors};
   }
 
