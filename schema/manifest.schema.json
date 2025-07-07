@@ -150,12 +150,10 @@
         },
         "locale": {
           "description": "The particular location or locations that the quantity measured by this series or chart is limited to, if any.",
-          "type": "string",
           "$ref": "#/$defs/nameOrNames"
         },
         "entity": {
           "description": "The particular entity or entities the quantity measured by this series or chart belongs to, if any.",
-          "type": "string",
           "$ref": "#/$defs/nameOrNames"
         },
         "items": {
@@ -165,7 +163,6 @@
         },
         "aggregate": {
           "description": "The statistical aggregate or aggregates measured by this series or chart, such as 'total' or 'estimated', if any.",
-          "type": "string",
           "$ref": "#/$defs/nameOrNames"
         }
       },
@@ -239,17 +236,25 @@
       "minLength": 1
     },
     "nameOrNames": {
-      "description": "Either the name of a sing thing, as a non-empty string, or multiple things, as an array of names.",
+      "description": "Either the name of a single thing, as a non-empty string, or multiple things, as an array of names.",
       "oneOf": [
-        { "$ref": "#/$defs/name" },
+        { 
+          "$ref": "#/$defs/name"
+        },
         {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/name"
-          }
+          "$ref": "#/$defs/multipleNames"
         }
-      ]
+      ],
+      "$comment": "`multipleNames` is necessary here because each member of oneOf must have the same type to avoid TypeScript type inference errors."
     },
+    "multipleNames": {
+      "description": "The names of multiple things, as an array of names.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/name"
+      },
+      "$comment": "`multipleNames` is necessary for `nameOrNames` to avoid TypeScript type inference errors."
+    },    
     "seriesName": {
       "description": "The name of a series, as a non-empty string. This is identical to `name`, but specified for semantic reasons",
       "$ref": "#/$defs/name"
