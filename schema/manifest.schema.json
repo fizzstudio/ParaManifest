@@ -141,32 +141,32 @@
       "type": "object",
       "properties": {
         "baseQuantity": {
-          "description": "The base quantity measured by the series or chart, such as 'item price' or 'inflation rate'.",
-          "$ref": "#/$defs/name"
+          "description": "The base quantity or quantities measured by the series or chart, such as 'item price' or 'inflation rate'.",
+          "$ref": "#/$defs/nameOrNames"
         },
         "baseKind": {
           "description": "What kind of base quantity this is: either a number of things (number), a quantity measured by a unit (dimensioned), a rate of change (rate), or a proportion of a whole (proportion).",
           "enum": ["number", "dimensioned", "rate", "proportion"]
         },
         "locale": {
-          "description": "The particular location that the quantity measured by this series or chart is limited to, if any.",
+          "description": "The particular location or locations that the quantity measured by this series or chart is limited to, if any.",
           "type": "string",
-          "$ref": "#/$defs/name"
+          "$ref": "#/$defs/nameOrNames"
         },
         "entity": {
-          "description": "The singular, definite entity the quantity measured by this series or chart belongs to, if any.",
+          "description": "The particular entity or entities the quantity measured by this series or chart belongs to, if any.",
           "type": "string",
-          "$ref": "#/$defs/name"
+          "$ref": "#/$defs/nameOrNames"
         },
         "items": {
-          "description": "The multiple, indefinite items the quantity measured by this series or chart belongs to, if any.",
+          "description": "A general term for the multiple, indefinite items the quantity measured by this series or chart belongs to, if any.",
           "type": "string",
           "$ref": "#/$defs/name"
         },
         "aggregate": {
-          "description": "The statistical aggregate measured by this series or chart, such as 'total' or 'estimated', if any.",
+          "description": "The statistical aggregate or aggregates measured by this series or chart, such as 'total' or 'estimated', if any.",
           "type": "string",
-          "$ref": "#/$defs/name"
+          "$ref": "#/$defs/nameOrNames"
         }
       },
       "required": ["baseQuantity", "baseKind"],
@@ -237,6 +237,18 @@
       "description": "The name of something, as a non-empty string.",
       "type": "string",
       "minLength": 1
+    },
+    "nameOrNames": {
+      "description": "Either the name of a sing thing, as a non-empty string, or multiple things, as an array of names.",
+      "oneOf": [
+        { "$ref": "#/$defs/name" },
+        {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/name"
+          }
+        }
+      ]
     },
     "seriesName": {
       "description": "The name of a series, as a non-empty string. This is identical to `name`, but specified for semantic reasons",
