@@ -28,6 +28,7 @@ export type ChartTypeFamily = typeof CHART_TYPE_FAMILIES[number];
 export const CHART_FAMILY_MAP: Record<ChartType, ChartTypeFamily> = {
   'line': 'line',
   'stepline': 'line',
+  'graph' : 'line',
   'bar': 'bar',
   'column': 'bar',
   'lollipop': 'bar',
