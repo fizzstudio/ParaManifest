@@ -76,6 +76,7 @@ const CHART_TYPE_MAP: Record<ChartType, SeriesType> = {
   histogram: 'column',
   line: 'line',
   stepline: 'line',
+  graph: 'line',
   scatter: 'other',
   heatmap: 'other',
   pie: 'other',
