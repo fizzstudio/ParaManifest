@@ -1,6 +1,6 @@
 {
   "name": "@fizz/paramanifest",
-  "version": "0.4.2",
+  "version": "0.5.0",
   "description": "Manifest file format for ParaCharts",
   "contributors": [
     "Simon Varey",
