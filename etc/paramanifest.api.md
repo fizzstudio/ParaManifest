@@ -129,6 +129,12 @@ export class ManifestValidator {
     validate(json: Json): Promise<ValidateOutput>;
 }
 
+// @public
+export type MultipleNames = Name[];
+
+// @public
+export type Name = string;
+
 // @public (undocumented)
 export const PLANE_CHART_FAMILIES: ChartTypeFamily[];
 
@@ -149,22 +155,22 @@ export interface Settings {
 
 // @public
 export interface Theme {
-    aggregate?: string;
+    aggregate?: Name | MultipleNames;
     baseKind: "number" | "dimensioned" | "rate" | "proportion";
-    baseQuantity: string;
-    entity?: string;
+    baseQuantity: Name | MultipleNames;
+    entity?: Name | MultipleNames;
     items?: string;
-    locale?: string;
+    locale?: Name | MultipleNames;
 }
 
 // @public
 export interface Theme1 {
-    aggregate?: string;
+    aggregate?: Name | MultipleNames;
     baseKind: "number" | "dimensioned" | "rate" | "proportion";
-    baseQuantity: string;
-    entity?: string;
+    baseQuantity: Name | MultipleNames;
+    entity?: Name | MultipleNames;
     items?: string;
-    locale?: string;
+    locale?: Name | MultipleNames;
 }
 
 // @public (undocumented)

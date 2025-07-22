@@ -6,6 +6,14 @@
  */
 
 /**
+ * The name of something, as a non-empty string.
+ */
+export type Name = string;
+/**
+ * The names of multiple things, as an array of names.
+ */
+export type MultipleNames = Name[];
+/**
  * The source for the data for this dataset.
  */
 export type Data = {source: "inline" | "external"; path?: string; format?: string};
@@ -65,36 +73,36 @@ export interface Dataset {
  */
 export interface Theme {
   /**
-   * The base quantity measured by the series or chart, such as 'item price' or 'inflation rate'.
+   * The base quantity or quantities measured by the series or chart, such as 'item price' or 'inflation rate'.
    */
-  baseQuantity: string;
+  baseQuantity: Name | MultipleNames;
   /**
    * What kind of base quantity this is: either a number of things (number), a quantity measured by a unit (dimensioned), a rate of change (rate), or a proportion of a whole (proportion).
    */
   baseKind: "number" | "dimensioned" | "rate" | "proportion";
   /**
-   * The particular location that the quantity measured by this series or chart is limited to, if any.
+   * The particular location or locations that the quantity measured by this series or chart is limited to, if any.
    */
-  locale?: string;
+  locale?: Name | MultipleNames;
   /**
-   * The singular, definite entity the quantity measured by this series or chart belongs to, if any.
+   * The particular entity or entities the quantity measured by this series or chart belongs to, if any.
    */
-  entity?: string;
+  entity?: Name | MultipleNames;
   /**
-   * The multiple, indefinite items the quantity measured by this series or chart belongs to, if any.
+   * The name of something, as a non-empty string.
    */
   items?: string;
   /**
-   * The statistical aggregate measured by this series or chart, such as 'total' or 'estimated', if any.
+   * The statistical aggregate or aggregates measured by this series or chart, such as 'total' or 'estimated', if any.
    */
-  aggregate?: string;
+  aggregate?: Name | MultipleNames;
 }
 /**
  * Metadata describing a facet of the chart which represents some dimension of the data.
  */
 export interface Facet {
   /**
-   * A text label for the quantity measured by this facet.
+   * The name of something, as a non-empty string.
    */
   label: string;
   /**
@@ -115,7 +123,7 @@ export interface Facet {
   datatype: "number" | "date" | "string";
   displayType: DisplayType;
   /**
-   * The units for the data of this facet, in singular form, if any. This value should be absent if the facet measures a dimensionless quantity. If the units for this facet of the chart are fractional, then this is only the numerator of that fraction.
+   * The name of something, as a non-empty string.
    */
   units?: string;
   /**
@@ -123,7 +131,7 @@ export interface Facet {
    */
   multiplier?: number;
   /**
-   * If the units for this facet of the chart are fractional, then this is the denominator of that fraction. For example: '(per) capita', '(per) million inhabitants'. If this property is present, then every series on the chart must measure a fractional quantity, of which this will also be the denominator.
+   * The name of something, as a non-empty string.
    */
   denominator?: string;
 }
@@ -171,29 +179,29 @@ export interface SeriesManifest {
  */
 export interface Theme1 {
   /**
-   * The base quantity measured by the series or chart, such as 'item price' or 'inflation rate'.
+   * The base quantity or quantities measured by the series or chart, such as 'item price' or 'inflation rate'.
    */
-  baseQuantity: string;
+  baseQuantity: Name | MultipleNames;
   /**
    * What kind of base quantity this is: either a number of things (number), a quantity measured by a unit (dimensioned), a rate of change (rate), or a proportion of a whole (proportion).
    */
   baseKind: "number" | "dimensioned" | "rate" | "proportion";
   /**
-   * The particular location that the quantity measured by this series or chart is limited to, if any.
+   * The particular location or locations that the quantity measured by this series or chart is limited to, if any.
    */
-  locale?: string;
+  locale?: Name | MultipleNames;
   /**
-   * The singular, definite entity the quantity measured by this series or chart belongs to, if any.
+   * The particular entity or entities the quantity measured by this series or chart belongs to, if any.
    */
-  entity?: string;
+  entity?: Name | MultipleNames;
   /**
-   * The multiple, indefinite items the quantity measured by this series or chart belongs to, if any.
+   * The name of something, as a non-empty string.
    */
   items?: string;
   /**
-   * The statistical aggregate measured by this series or chart, such as 'total' or 'estimated', if any.
+   * The statistical aggregate or aggregates measured by this series or chart, such as 'total' or 'estimated', if any.
    */
-  aggregate?: string;
+  aggregate?: Name | MultipleNames;
 }
 /**
  * A datapoint on the graph.
