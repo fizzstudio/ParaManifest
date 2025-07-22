@@ -50,6 +50,10 @@ export interface Dataset {
    * The title of the chart.
    */
   title: string;
+  /**
+   * The subtitle of the chart.
+   */
+  subtitle?: string;
   chartTheme?: Theme;
   /**
    * Metadata describing each facet of the chart which represents some dimension of the data.
@@ -168,7 +172,7 @@ export interface SeriesManifest {
    * The text label for the series, which may be abbreviated or expanded from the series key. Defaults to key.
    */
   label?: string;
-  theme: Theme1;
+  theme?: Theme1;
   /**
    * The datapoints of this series represented inline.
    */
