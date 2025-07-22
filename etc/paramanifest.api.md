@@ -62,6 +62,7 @@ export interface Dataset {
     seriesRelations?: "stacked" | "grouped";
     // (undocumented)
     settings?: Settings;
+    subtitle?: string;
     title: string;
     type: "line" | "stepline" | "bar" | "column" | "lollipop" | "histogram" | "scatter" | "heatmap" | "pie" | "donut" | "graph";
 }
@@ -144,7 +145,7 @@ export interface SeriesManifest {
     label?: string;
     records?: DatapointManifest[];
     // (undocumented)
-    theme: Theme1;
+    theme?: Theme1;
 }
 
 // @public
@@ -152,6 +153,11 @@ export interface Settings {
     "sonification.isEnabled"?: boolean;
     aspectRatio?: number;
 }
+
+// Warning: (ae-internal-missing-underscore) The name "strToId" should be prefixed with an underscore because the declaration is marked as @internal
+//
+// @internal
+export function strToId(s: string): string;
 
 // @public
 export interface Theme {

@@ -29,6 +29,10 @@
           "description": "The title of the chart.",
           "$ref": "#/$defs/name"
         },
+        "subtitle": {
+          "description": "The subtitle of the chart.",
+          "$ref": "#/$defs/name"
+        },
         "chartTheme": {
           "description": "What quantities the line chart displays overall. Defaults to the theme of the single series ONLY in single series charts.",
           "$ref": "#/$defs/theme"
@@ -133,7 +137,7 @@
           }
         }
       },
-      "required": ["key", "theme"],
+      "required": ["key"],
       "additionalProperties": false
     },
     "theme": {
