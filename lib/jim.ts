@@ -19,7 +19,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.*/
 // Imports
 
 import { ChartType } from "./chart_types";
-import { AllSeriesData, chartDataIsOrdered, collectXs, dataFromManifest } from "./helpers";
+import { AllSeriesData, chartDataIsOrdered, collectXs, dataFromManifest, strToId } from "./helpers";
 import { DatapointManifest, Manifest, Dataset as ManifestDataset } from "./manifest";
 
 // Types
@@ -89,10 +89,6 @@ export class JimError extends Error {
   }
 }
 
-function sanitized(input: string): string {
-  return input.replaceAll('.', '_');
-}
-
 // * Main Class *
 
 export class Jimerator {
@@ -125,7 +121,7 @@ export class Jimerator {
     this._seriesKeys.forEach((key, seriesIndex) => {
       xs.forEach((x, pointIndex) => {
         selectors[`datapoint${datapointIndex}`] = {
-          "dom": `#datapoint-${sanitized(x)}_${key}`,
+          "dom": `#datapoint-${strToId(x)}_${key}`,
           "json": [
             `$.datasets[0].series[${seriesIndex}].name`,
             `$.datasets[0].series[${seriesIndex}].records[${pointIndex}].*`
@@ -140,8 +136,8 @@ export class Jimerator {
     let datapointIndex = 1;
     Object.keys(this._data).forEach((key, seriesIndex) => {
       this._data[key].forEach((datapoint, pointIndex) => {
-        const xSanitized = sanitized(datapoint.x);
-        const ySanitized = sanitized(datapoint.y);
+        const xSanitized = strToId(datapoint.x);
+        const ySanitized = strToId(datapoint.y);
         selectors[`datapoint${datapointIndex}`] = {
           dom: `#datapoint-${xSanitized}_${ySanitized}_${key}`,
           json: [
