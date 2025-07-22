@@ -137,7 +137,7 @@
           }
         }
       },
-      "required": ["key", "theme"],
+      "required": ["key"],
       "additionalProperties": false
     },
     "theme": {
