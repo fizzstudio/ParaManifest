@@ -16,7 +16,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.*/
 
 // Imports
 
-import { DatapointManifest, Manifest } from "./manifest";
+import { DatapointManifest, Manifest, Theme } from "./manifest";
 
 //  Types
 
@@ -37,6 +37,8 @@ export interface XyPoint {
 export type Datatype = Manifest['datasets'][number]['facets']['x']['datatype'];
 export type AllSeriesDataXY = Record<string, XyPoint[]>;
 export type AllSeriesData = Record<string, DatapointManifest[]>;
+
+export type BaseKind = Theme['baseKind'];
 
 // Functions
 

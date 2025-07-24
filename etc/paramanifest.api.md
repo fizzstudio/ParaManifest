@@ -14,6 +14,9 @@ export type AllSeriesData = Record<string, DatapointManifest[]>;
 export type AllSeriesDataXY = Record<string, XyPoint[]>;
 
 // @public (undocumented)
+export type BaseKind = Theme['baseKind'];
+
+// @public (undocumented)
 export const CHART_FAMILY_MAP: Record<ChartType, ChartTypeFamily>;
 
 // @public (undocumented)
