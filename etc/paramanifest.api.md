@@ -58,6 +58,7 @@ export interface Dataset {
     chartTheme?: Theme;
     // (undocumented)
     data: Data;
+    description?: string;
     facets: {
         [k: string]: Facet;
     };
