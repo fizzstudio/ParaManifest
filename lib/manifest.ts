@@ -54,6 +54,10 @@ export interface Dataset {
    * The subtitle of the chart.
    */
   subtitle?: string;
+  /**
+   * A manually created description of the whole chart.
+   */
+  description?: string;
   chartTheme?: Theme;
   /**
    * Metadata describing each facet of the chart which represents some dimension of the data.
