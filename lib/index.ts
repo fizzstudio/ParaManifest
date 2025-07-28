@@ -24,3 +24,4 @@ export * from './validator';
 export * from './helpers';
 export * from './chart_types';
 export { Jimerator } from './jim';
+export { inlineData } from './inliner';
