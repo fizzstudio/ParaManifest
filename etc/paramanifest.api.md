@@ -97,6 +97,9 @@ export interface Facet {
 }
 
 // @public (undocumented)
+export function inlineData(manifest: Manifest, data: AllSeriesData): Manifest;
+
+// @public (undocumented)
 export function isBarType(chartType: ChartType): boolean;
 
 // @public (undocumented)
