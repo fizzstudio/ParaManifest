@@ -32,7 +32,8 @@ function getSeriesManifest(manifest: Manifest, key: string): SeriesManifest | nu
 
 export function inlineData(manifest: Manifest, data: AllSeriesData): Manifest {
   const dataset = manifest.datasets[0];
-  if (dataset.data.source === 'inline') {
+  // FIXME: '?' can be removed when chart-data manifest parameters become proper external data manifests
+  if (dataset.data?.source === 'inline') {
     throw new Error('[ParaManifest/Inliner]: Cannot inline data into manifest which already has inline data.')
   }
 
