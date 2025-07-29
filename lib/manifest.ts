@@ -225,11 +225,54 @@ export interface DatapointManifest {
  */
 export interface Settings {
   /**
-   * Whether sonification is enabled for this chart. Defaults to true.
+   * Sonification Settings
    */
-  "sonification.isEnabled"?: boolean;
+  sonification?: {
+    /**
+     * Whether sonification is enabled for this chart. Defaults to true.
+     */
+    isSoniEnabled?: boolean;
+    [k: string]: unknown;
+  };
   /**
    * The ratio of the height to the width of the chart on the screen (i.e. x-axis size / y-axis size). Defaults to 1 (i.e. a square chart).
    */
   aspectRatio?: number;
+  /**
+   * Settings for each Axis
+   */
+  axis?: {
+    x?: AxisSettings;
+    y?: AxisSettings1;
+    [k: string]: unknown;
+  };
+  [k: string]: unknown;
+}
+/**
+ * X Axis Settings
+ */
+export interface AxisSettings {
+  /**
+   * The minimum value of the axis.
+   */
+  minValue?: number | "unset";
+  /**
+   * The maximum value of the axis.
+   */
+  maxValue?: number | "unset";
+  [k: string]: unknown;
+}
+/**
+ * Y Axis Settings
+ */
+export interface AxisSettings1 {
+  /**
+   * The minimum value of the axis.
+   */
+  minValue?: number | "unset";
+  /**
+   * The maximum value of the axis.
+   */
+  maxValue?: number | "unset";
+  [k: string]: unknown;
 }
