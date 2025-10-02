@@ -25,8 +25,9 @@ import { DatapointManifest, Manifest, Dataset as ManifestDataset } from "./manif
 // Types
 
 export interface Jim {
-  dataset: Dataset;
+  datasets: Dataset[];
   selectors: Record<string, Selector>;
+  version: { jim: string };
 }
 
 export interface Dataset {
@@ -121,7 +122,7 @@ export class Jimerator {
     this._seriesKeys.forEach((key, seriesIndex) => {
       xs.forEach((x, pointIndex) => {
         selectors[`datapoint${datapointIndex}`] = {
-          "dom": `#datapoint-${strToId(x)}_${key}`,
+          "dom": `#datapoint-${strToId(x)}_${strToId(key)}`,
           "json": [
             `$.datasets[0].series[${seriesIndex}].name`,
             `$.datasets[0].series[${seriesIndex}].records[${pointIndex}].*`
@@ -139,7 +140,7 @@ export class Jimerator {
         const xSanitized = strToId(datapoint.x);
         const ySanitized = strToId(datapoint.y);
         selectors[`datapoint${datapointIndex}`] = {
-          dom: `#datapoint-${xSanitized}_${ySanitized}_${key}`,
+          dom: `#datapoint-${xSanitized}_${ySanitized}_${strToId(key)}`,
           json: [
             `$.datasets[0].series[${seriesIndex}].name`,
             `$.datasets[0].series[${seriesIndex}].records[${pointIndex}].*`
@@ -177,7 +178,11 @@ export class Jimerator {
       records: this._data[aSeries.key]
     }));
     const selectors = this._renderSelectors();
-    this._jim = {dataset, selectors};
+    this._jim = { 
+      datasets: [dataset], 
+      selectors,
+      version: { jim: '0.4.0' }
+    };
   }
 
 }
