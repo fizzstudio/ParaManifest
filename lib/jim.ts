@@ -89,6 +89,11 @@ export class JimError extends Error {
   }
 }
 
+export function chartDataIsXY(data: AllSeriesData): boolean {
+  const firstPoint = Object.values(data)[0][0]
+  return 'x' in firstPoint && 'y' in firstPoint;
+}
+
 // * Main Class *
 
 export class Jimerator {
@@ -150,6 +155,23 @@ export class Jimerator {
     });
   }
 
+  private _addSelectorsNonXY(selectors: Record<string, Selector>): void {
+    let datapointIndex = 1;
+    Object.keys(this._data).forEach((key, seriesIndex) => {
+      this._data[key].forEach((datapoint, pointIndex) => {
+        const facetValues = Object.values(datapoint).map(strToId).join('_');
+        selectors[`datapoint${datapointIndex}`] = {
+          dom: `#datapoint-${facetValues}_${key}`,
+          json: [
+            `$.datasets[0].series[${seriesIndex}].name`,
+            `$.datasets[0].series[${seriesIndex}].records[${pointIndex}].*`
+          ]
+        };
+        datapointIndex++;
+      })
+    });
+  }
+
   private _renderSelectors(): Record<string, Selector> {
     const selectors: Record<string, Selector> = {
       chartTitle: {
@@ -157,7 +179,9 @@ export class Jimerator {
         json: "$.datasets[0].title"
       }
     }
-    if (chartDataIsOrdered(this._data)) {
+    if (!chartDataIsXY(this._data)) {
+      this._addSelectorsNonXY(selectors);
+    } else if (chartDataIsOrdered(this._data)) {
       this._addSelectorsOrdered(selectors);
     } else {
       this._addSelectorsUnordered(selectors);
