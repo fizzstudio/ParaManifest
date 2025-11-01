@@ -4,10 +4,10 @@
 
 ## Theme1.entity property
 
-The singular, definite entity the quantity measured by this series or chart belongs to, if any.
+The particular entity or entities the quantity measured by this series or chart belongs to, if any.
 
 **Signature:**
 
 ```typescript
-entity?: string;
+entity?: Name | MultipleNames;
 ```

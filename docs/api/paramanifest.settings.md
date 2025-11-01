@@ -37,25 +37,6 @@ Description
 </th></tr></thead>
 <tbody><tr><td>
 
-["sonification.isEnabled"?](./paramanifest.settings._sonification.isenabled_.md)
-
-
-</td><td>
-
-
-</td><td>
-
-boolean
-
-
-</td><td>
-
-_(Optional)_ Whether sonification is enabled for this chart. Defaults to true.
-
-
-</td></tr>
-<tr><td>
-
 [aspectRatio?](./paramanifest.settings.aspectratio.md)
 
 
@@ -70,6 +51,44 @@ number
 </td><td>
 
 _(Optional)_ The ratio of the height to the width of the chart on the screen (i.e. x-axis size / y-axis size). Defaults to 1 (i.e. a square chart).
+
+
+</td></tr>
+<tr><td>
+
+[axis?](./paramanifest.settings.axis.md)
+
+
+</td><td>
+
+
+</td><td>
+
+{ x?: [AxisSettings](./paramanifest.axissettings.md)<!-- -->; y?: [AxisSettings1](./paramanifest.axissettings1.md)<!-- -->; \[k: string\]: unknown; }
+
+
+</td><td>
+
+_(Optional)_ Settings for each Axis
+
+
+</td></tr>
+<tr><td>
+
+[sonification?](./paramanifest.settings.sonification.md)
+
+
+</td><td>
+
+
+</td><td>
+
+{ isSoniEnabled?: boolean; \[k: string\]: unknown; }
+
+
+</td><td>
+
+_(Optional)_ Sonification Settings
 
 
 </td></tr>

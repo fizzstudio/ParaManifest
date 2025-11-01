@@ -7,7 +7,7 @@
 **Signature:**
 
 ```typescript
-export declare function collectXs(data: Datapoint[]): Set<string>;
+export declare function collectXs(data: DatapointManifest[]): Set<string>;
 ```
 
 ## Parameters
@@ -35,7 +35,7 @@ data
 
 </td><td>
 
-[Datapoint](./paramanifest.datapoint.md)<!-- -->\[\]
+[DatapointManifest](./paramanifest.datapointmanifest.md)<!-- -->\[\]
 
 
 </td><td>

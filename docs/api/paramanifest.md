@@ -19,15 +19,6 @@ Description
 </th></tr></thead>
 <tbody><tr><td>
 
-[Jimerator](./paramanifest.jimerator.md)
-
-
-</td><td>
-
-
-</td></tr>
-<tr><td>
-
 [ManifestValidator](./paramanifest.manifestvalidator.md)
 
 
@@ -79,6 +70,60 @@ Description
 
 
 </td></tr>
+<tr><td>
+
+[inlineData(manifest, data)](./paramanifest.inlinedata.md)
+
+
+</td><td>
+
+
+</td></tr>
+<tr><td>
+
+[isBarType(chartType)](./paramanifest.isbartype.md)
+
+
+</td><td>
+
+
+</td></tr>
+<tr><td>
+
+[isLineType(chartType)](./paramanifest.islinetype.md)
+
+
+</td><td>
+
+
+</td></tr>
+<tr><td>
+
+[isPastryType(chartType)](./paramanifest.ispastrytype.md)
+
+
+</td><td>
+
+
+</td></tr>
+<tr><td>
+
+[isPlaneType(chartType)](./paramanifest.isplanetype.md)
+
+
+</td><td>
+
+
+</td></tr>
+<tr><td>
+
+[isScatterType(chartType)](./paramanifest.isscattertype.md)
+
+
+</td><td>
+
+
+</td></tr>
 </tbody></table>
 
 ## Interfaces
@@ -96,7 +141,29 @@ Description
 </th></tr></thead>
 <tbody><tr><td>
 
-[Datapoint](./paramanifest.datapoint.md)
+[AxisSettings](./paramanifest.axissettings.md)
+
+
+</td><td>
+
+X Axis Settings
+
+
+</td></tr>
+<tr><td>
+
+[AxisSettings1](./paramanifest.axissettings1.md)
+
+
+</td><td>
+
+Y Axis Settings
+
+
+</td></tr>
+<tr><td>
+
+[DatapointManifest](./paramanifest.datapointmanifest.md)
 
 
 </td><td>
@@ -206,6 +273,57 @@ A datapoint on the graph.
 </td></tr>
 </tbody></table>
 
+## Variables
+
+<table><thead><tr><th>
+
+Variable
+
+
+</th><th>
+
+Description
+
+
+</th></tr></thead>
+<tbody><tr><td>
+
+[CHART\_FAMILY\_MAP](./paramanifest.chart_family_map.md)
+
+
+</td><td>
+
+
+</td></tr>
+<tr><td>
+
+[CHART\_FAMILY\_MEMBERS](./paramanifest.chart_family_members.md)
+
+
+</td><td>
+
+
+</td></tr>
+<tr><td>
+
+[CHART\_TYPE\_FAMILIES](./paramanifest.chart_type_families.md)
+
+
+</td><td>
+
+
+</td></tr>
+<tr><td>
+
+[PLANE\_CHART\_FAMILIES](./paramanifest.plane_chart_families.md)
+
+
+</td><td>
+
+
+</td></tr>
+</tbody></table>
+
 ## Type Aliases
 
 <table><thead><tr><th>
@@ -239,7 +357,25 @@ Description
 </td></tr>
 <tr><td>
 
+[BaseKind](./paramanifest.basekind.md)
+
+
+</td><td>
+
+
+</td></tr>
+<tr><td>
+
 [ChartType](./paramanifest.charttype.md)
+
+
+</td><td>
+
+
+</td></tr>
+<tr><td>
+
+[ChartTypeFamily](./paramanifest.charttypefamily.md)
 
 
 </td><td>
@@ -263,6 +399,28 @@ The source for the data for this dataset.
 
 
 </td><td>
+
+
+</td></tr>
+<tr><td>
+
+[MultipleNames](./paramanifest.multiplenames.md)
+
+
+</td><td>
+
+The names of multiple things, as an array of names.
+
+
+</td></tr>
+<tr><td>
+
+[Name](./paramanifest.name.md)
+
+
+</td><td>
+
+The name of something, as a non-empty string.
 
 
 </td></tr>

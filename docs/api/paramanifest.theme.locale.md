@@ -4,10 +4,10 @@
 
 ## Theme.locale property
 
-The particular location that the quantity measured by this series or chart is limited to, if any.
+The particular location or locations that the quantity measured by this series or chart is limited to, if any.
 
 **Signature:**
 
 ```typescript
-locale?: string;
+locale?: Name | MultipleNames;
 ```
