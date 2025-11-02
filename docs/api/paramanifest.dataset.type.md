@@ -9,5 +9,5 @@ The type of the chart, such as 'line' or 'column'.
 **Signature:**
 
 ```typescript
-type: "line" | "column" | "bar" | "scatter" | "lollipop" | "stepline" | "pie" | "donut";
+type: "line" | "stepline" | "bar" | "column" | "lollipop" | "histogram" | "scatter" | "heatmap" | "pie" | "donut" | "graph";
 ```

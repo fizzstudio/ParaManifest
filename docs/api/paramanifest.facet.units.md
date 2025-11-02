@@ -4,7 +4,7 @@
 
 ## Facet.units property
 
-The units for the data of this facet, in singular form, if any. This value should be absent if the facet measures a dimensionless quantity. If the units for this facet of the chart are fractional, then this is only the numerator of that fraction.
+The name of something, as a non-empty string.
 
 **Signature:**
 

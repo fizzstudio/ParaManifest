@@ -73,6 +73,25 @@ _(Optional)_
 </td></tr>
 <tr><td>
 
+[description?](./paramanifest.dataset.description.md)
+
+
+</td><td>
+
+
+</td><td>
+
+string
+
+
+</td><td>
+
+_(Optional)_ A manually created description of the whole chart.
+
+
+</td></tr>
+<tr><td>
+
 [facets](./paramanifest.dataset.facets.md)
 
 
@@ -111,6 +130,25 @@ Metadata, and possibly inline data, describing the series of the chart.
 </td></tr>
 <tr><td>
 
+[seriesRelations?](./paramanifest.dataset.seriesrelations.md)
+
+
+</td><td>
+
+
+</td><td>
+
+"stacked" \| "grouped"
+
+
+</td><td>
+
+_(Optional)_ How series are related to each other in multi-series bar family charts. Defaults to 'stacked'.
+
+
+</td></tr>
+<tr><td>
+
 [settings?](./paramanifest.dataset.settings.md)
 
 
@@ -125,6 +163,25 @@ Metadata, and possibly inline data, describing the series of the chart.
 </td><td>
 
 _(Optional)_
+
+
+</td></tr>
+<tr><td>
+
+[subtitle?](./paramanifest.dataset.subtitle.md)
+
+
+</td><td>
+
+
+</td><td>
+
+string
+
+
+</td><td>
+
+_(Optional)_ The subtitle of the chart.
 
 
 </td></tr>
@@ -157,7 +214,7 @@ The title of the chart.
 
 </td><td>
 
-"line" \| "column" \| "bar" \| "scatter" \| "lollipop" \| "stepline" \| "pie" \| "donut"
+"line" \| "stepline" \| "bar" \| "column" \| "lollipop" \| "histogram" \| "scatter" \| "heatmap" \| "pie" \| "donut" \| "graph"
 
 
 </td><td>

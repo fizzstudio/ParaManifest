@@ -4,10 +4,10 @@
 
 ## Theme1.aggregate property
 
-The statistical aggregate measured by this series or chart, such as 'total' or 'estimated', if any.
+The statistical aggregate or aggregates measured by this series or chart, such as 'total' or 'estimated', if any.
 
 **Signature:**
 
 ```typescript
-aggregate?: string;
+aggregate?: Name | MultipleNames;
 ```

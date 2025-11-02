@@ -130,17 +130,6 @@ export function isPlaneType(chartType: ChartType): boolean;
 // @public (undocumented)
 export function isScatterType(chartType: ChartType): boolean;
 
-// @public (undocumented)
-export class Jimerator {
-    constructor(_manifest: Manifest, externalData?: AllSeriesData);
-    // Warning: (ae-forgotten-export) The symbol "Jim" needs to be exported by the entry point index.d.ts
-    //
-    // (undocumented)
-    get jim(): Jim;
-    // (undocumented)
-    render(): void;
-}
-
 // @public
 export interface Manifest {
     datasets: Dataset[];

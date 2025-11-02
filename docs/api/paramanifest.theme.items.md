@@ -4,7 +4,7 @@
 
 ## Theme.items property
 
-The multiple, indefinite items the quantity measured by this series or chart belongs to, if any.
+The name of something, as a non-empty string.
 
 **Signature:**
 

@@ -7,5 +7,5 @@
 **Signature:**
 
 ```typescript
-theme: Theme1;
+theme?: Theme1;
 ```
