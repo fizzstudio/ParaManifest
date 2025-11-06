@@ -90,5 +90,5 @@ export function chartDataIsOrdered(data: AllSeriesData): boolean {
  * @internal
  */
 export function strToId(s: string): string {
-  return s.toLowerCase().replace(/\s+/g, '_').replace(/[^\w-]+/g, '_');
+  return s.replace(/\s+/g, '_').replace(/\W/g, '_').toLowerCase();
 }
