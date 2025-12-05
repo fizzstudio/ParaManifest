@@ -41,6 +41,7 @@ export interface Dataset {
     | "column"
     | "lollipop"
     | "histogram"
+    | "waterfall"
     | "scatter"
     | "heatmap"
     | "pie"
