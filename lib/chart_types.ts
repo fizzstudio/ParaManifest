@@ -22,7 +22,7 @@ import { Manifest } from "./manifest";
 
 export type ChartType = Manifest['datasets'][number]['type'];
 
-export const CHART_TYPE_FAMILIES = ['line', 'bar', 'pastry', 'scatter', 'histogram', 'waterfall', 'graph'] as const;
+export const CHART_TYPE_FAMILIES = ['line', 'bar', 'pastry', 'scatter', 'histogram', 'waterfall', 'graph', 'venn'] as const;
 export type ChartTypeFamily = typeof CHART_TYPE_FAMILIES[number];
 
 export const CHART_FAMILY_MAP: Record<ChartType, ChartTypeFamily> = {
@@ -37,7 +37,8 @@ export const CHART_FAMILY_MAP: Record<ChartType, ChartTypeFamily> = {
   'heatmap': 'scatter',
   'pie': 'pastry',
   'donut': 'pastry',
-  'graph': 'graph'
+  'graph': 'graph',
+  'venn': 'venn'
 }
 
 /*export const CHART_FAMILY_MEMBERS: Record<ChartTypeFamily, ChartType[]> = {
@@ -55,7 +56,8 @@ export const CHART_FAMILY_MEMBERS: Record<ChartTypeFamily, ChartType[]> = (() =>
     'scatter': [],
     'histogram': [],
     'waterfall': [],
-    'graph': []
+    'graph': [],
+	'venn': []
   };
   for (let chartType of Object.keys(CHART_FAMILY_MAP)) {
     members[CHART_FAMILY_MAP[chartType as ChartType]].push(chartType as ChartType);

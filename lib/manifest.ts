@@ -46,7 +46,8 @@ export interface Dataset {
     | "heatmap"
     | "pie"
     | "donut"
-    | "graph";
+    | "graph"
+    | "venn";
   /**
    * The title of the chart.
    */
