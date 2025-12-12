@@ -42,16 +42,10 @@ export const CHART_FAMILY_MEMBERS: Record<ChartTypeFamily, ChartType[]>;
 export const CHART_TYPE_FAMILIES: readonly ["line", "bar", "pastry", "scatter", "histogram", "waterfall", "graph", "venn"];
 
 // @public (undocumented)
-export function chartDataIsOrdered(data: AllSeriesData): boolean;
-
-// @public (undocumented)
 export type ChartType = Manifest['datasets'][number]['type'];
 
 // @public (undocumented)
 export type ChartTypeFamily = typeof CHART_TYPE_FAMILIES[number];
-
-// @public (undocumented)
-export function collectXs(data: DatapointManifest[]): Set<string>;
 
 // @public
 export type Data = {
