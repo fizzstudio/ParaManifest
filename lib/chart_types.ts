@@ -88,3 +88,7 @@ export function isScatterType(chartType: ChartType): boolean {
 export function isPastryType(chartType: ChartType): boolean {
   return CHART_FAMILY_MAP[chartType] === 'pastry';
 }
+
+export function isVennType(chartType: ChartType): boolean {
+  return CHART_FAMILY_MAP[chartType] === 'venn';
+}
