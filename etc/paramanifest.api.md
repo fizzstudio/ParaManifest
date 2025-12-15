@@ -124,6 +124,9 @@ export function isPlaneType(chartType: ChartType): boolean;
 // @public (undocumented)
 export function isScatterType(chartType: ChartType): boolean;
 
+// @public (undocumented)
+export function isVennType(chartType: ChartType): boolean;
+
 // @public
 export interface Manifest {
     datasets: Dataset[];
