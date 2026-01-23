@@ -201,7 +201,8 @@
       },
       "additionalProperties": {
         "description": "The value of the point relative to the facet labelled by this property key.",
-        "type": "string"
+        "type": "string",
+        "tsType": "string | { type?: \"total\"; [k: string]: unknown; } | undefined;"
       },
       "minProperties": 1,
       "$comment": "Additional validation: These properties (other than `properties`) must match those in `facets`."

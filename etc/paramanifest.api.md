@@ -59,7 +59,14 @@ export function dataFromManifest(manifest: Manifest): AllSeriesData;
 
 // @public
 export interface DatapointManifest {
-    [k: string]: string;
+    [k: string]: string | {
+        type?: "total";
+        [k: string]: unknown;
+    } | undefined;
+    properties?: {
+        type?: "total";
+        [k: string]: unknown;
+    };
 }
 
 // @public
@@ -103,6 +110,9 @@ export interface Facet {
     measure: "nominal" | "ordinal" | "interval" | "ratio";
     multiplier?: number;
     units?: string;
+    valueLabels?: {
+        [k: string]: string;
+    };
     variableType: "dependent" | "independent";
 }
 
