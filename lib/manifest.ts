@@ -103,9 +103,9 @@ export interface Theme {
    */
   entity?: Name | MultipleNames;
   /**
-   * The name of something, as a non-empty string.
+   * A general term or terms for the multiple, indefinite items the quantity measured by this series or chart belongs to, if any.
    */
-  items?: string;
+  items?: (Name | MultipleNames) & string;
   /**
    * The statistical aggregate or aggregates measured by this series or chart, such as 'total' or 'estimated', if any.
    */
@@ -215,9 +215,9 @@ export interface Theme1 {
    */
   entity?: Name | MultipleNames;
   /**
-   * The name of something, as a non-empty string.
+   * A general term or terms for the multiple, indefinite items the quantity measured by this series or chart belongs to, if any.
    */
-  items?: string;
+  items?: (Name | MultipleNames) & string;
   /**
    * The statistical aggregate or aggregates measured by this series or chart, such as 'total' or 'estimated', if any.
    */

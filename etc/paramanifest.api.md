@@ -192,7 +192,7 @@ export interface Theme {
     baseKind: "number" | "dimensioned" | "rate" | "proportion";
     baseQuantity: Name | MultipleNames;
     entity?: Name | MultipleNames;
-    items?: string;
+    items?: (Name | MultipleNames) & string;
     locale?: Name | MultipleNames;
 }
 
@@ -202,7 +202,7 @@ export interface Theme1 {
     baseKind: "number" | "dimensioned" | "rate" | "proportion";
     baseQuantity: Name | MultipleNames;
     entity?: Name | MultipleNames;
-    items?: string;
+    items?: (Name | MultipleNames) & string;
     locale?: Name | MultipleNames;
 }
 
