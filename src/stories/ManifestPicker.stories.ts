@@ -17,17 +17,18 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.*/
 import type { Meta, StoryObj } from '@storybook/web-components';
 
 import { type CatalogListing } from '@fizz/chart-data';
+import { ManifestPickerProps } from '@fizz/test-utils';
 
 import CATALOG from '../../node_modules/@fizz/chart-data/data/chart_catalog.json'; 
 
-import { ManifestPickerMaker, ManifestPickerProps } from './ManifestPicker';
+import { ManifestValidatorPickerMaker } from './ManifestPicker';
 
 const FILENAMES = (CATALOG as CatalogListing[]).map((listing) => listing.path);
 
 const meta = {
   title: 'Manifest Picker',
   tags: ['autodocs'],
-  render: (args) => ManifestPickerMaker(args),
+  render: (args) => ManifestValidatorPickerMaker(args),
   argTypes: {
     filename: {
       description: 'Manifest filename',

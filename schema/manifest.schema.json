@@ -173,7 +173,6 @@
         },
         "items": {
           "description": "A general term or terms for the multiple, indefinite items the quantity measured by this series or chart belongs to, if any.",
-          "type": "string",
           "$ref": "#/$defs/nameOrNames"
         },
         "aggregate": {
