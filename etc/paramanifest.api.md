@@ -58,16 +58,14 @@ export type Data = {
 export function dataFromManifest(manifest: Manifest): AllSeriesData;
 
 // @public
-export interface DatapointManifest {
-    [k: string]: string | {
-        type?: "total";
-        [k: string]: unknown;
-    } | undefined;
+export type DatapointManifest = {
     properties?: {
-        type?: "total";
-        [k: string]: unknown;
+        type: "total";
+        [k: string]: string;
     };
-}
+} & {
+    [k: string]: string;
+};
 
 // @public
 export interface Dataset {

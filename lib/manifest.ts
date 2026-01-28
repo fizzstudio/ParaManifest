@@ -14,6 +14,10 @@ export type Name = string;
  */
 export type MultipleNames = Name[];
 /**
+ * A datapoint on the graph.
+ */
+export type DatapointManifest = {properties?: {type: "total"; [k: string]: string}} & {[k: string]: string};
+/**
  * The source for the data for this dataset.
  */
 export type Data = {source: "inline" | "external"; path?: string; format?: string};
@@ -218,25 +222,6 @@ export interface Theme1 {
    * The statistical aggregate or aggregates measured by this series or chart, such as 'total' or 'estimated', if any.
    */
   aggregate?: Name | MultipleNames;
-}
-/**
- * A datapoint on the graph.
- */
-export interface DatapointManifest {
-  /**
-   * Additional properties of the datapoint
-   */
-  properties?: {
-    /**
-     * The type of the datapoint
-     */
-    type?: "total";
-    [k: string]: unknown;
-  };
-  /**
-   * The value of the point relative to the facet labelled by this property key.
-   */
-  [k: string]: string | {type?: "total"; [k: string]: unknown} | undefined;
 }
 /**
  * The settings needed to present a chart in ParaCharts.
