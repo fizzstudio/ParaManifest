@@ -57,7 +57,7 @@ export const CHART_FAMILY_MEMBERS: Record<ChartTypeFamily, ChartType[]> = (() =>
     'histogram': [],
     'waterfall': [],
     'graph': [],
-	'venn': []
+	  'venn': []
   };
   for (let chartType of Object.keys(CHART_FAMILY_MAP)) {
     members[CHART_FAMILY_MAP[chartType as ChartType]].push(chartType as ChartType);
@@ -65,7 +65,7 @@ export const CHART_FAMILY_MEMBERS: Record<ChartTypeFamily, ChartType[]> = (() =>
   return members;
 })();
 
-export const PLANE_CHART_FAMILIES: ChartTypeFamily[] = ['line', 'bar', 'scatter'];
+export const PLANE_CHART_FAMILIES: ChartTypeFamily[] = ['line', 'bar', 'scatter', 'waterfall'];
 
 // Functions
 
