@@ -105,7 +105,7 @@ export interface Theme {
   /**
    * A general term or terms for the multiple, indefinite items the quantity measured by this series or chart belongs to, if any.
    */
-  items?: (Name | MultipleNames) & string;
+  items?: Name | MultipleNames;
   /**
    * The statistical aggregate or aggregates measured by this series or chart, such as 'total' or 'estimated', if any.
    */
@@ -162,7 +162,7 @@ export interface DisplayType {
   /**
    * What type of chart element represents the facet.
    */
-  type: "axis" | "marking" | "area" | "angle";
+  type: "axis" | "marking" | "area" | "angle" | "text";
   /**
    * What type of chart element represents the facet.
    */
@@ -217,7 +217,7 @@ export interface Theme1 {
   /**
    * A general term or terms for the multiple, indefinite items the quantity measured by this series or chart belongs to, if any.
    */
-  items?: (Name | MultipleNames) & string;
+  items?: Name | MultipleNames;
   /**
    * The statistical aggregate or aggregates measured by this series or chart, such as 'total' or 'estimated', if any.
    */

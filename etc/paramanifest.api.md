@@ -94,7 +94,7 @@ export interface DisplayType {
     maxDisplayed?: number;
     minDisplayed?: number;
     orientation?: "horizontal" | "vertical";
-    type: "axis" | "marking" | "area" | "angle";
+    type: "axis" | "marking" | "area" | "angle" | "text";
 }
 
 // @public
@@ -192,7 +192,7 @@ export interface Theme {
     baseKind: "number" | "dimensioned" | "rate" | "proportion";
     baseQuantity: Name | MultipleNames;
     entity?: Name | MultipleNames;
-    items?: (Name | MultipleNames) & string;
+    items?: Name | MultipleNames;
     locale?: Name | MultipleNames;
 }
 
@@ -202,7 +202,7 @@ export interface Theme1 {
     baseKind: "number" | "dimensioned" | "rate" | "proportion";
     baseQuantity: Name | MultipleNames;
     entity?: Name | MultipleNames;
-    items?: (Name | MultipleNames) & string;
+    items?: Name | MultipleNames;
     locale?: Name | MultipleNames;
 }
 
