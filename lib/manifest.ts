@@ -14,6 +14,10 @@ export type Name = string;
  */
 export type MultipleNames = Name[];
 /**
+ * A datapoint on the graph.
+ */
+export type DatapointManifest = {properties?: {type: "total"; [k: string]: string}} & {[k: string]: string};
+/**
  * The source for the data for this dataset.
  */
 export type Data = {source: "inline" | "external"; path?: string; format?: string};
@@ -99,9 +103,9 @@ export interface Theme {
    */
   entity?: Name | MultipleNames;
   /**
-   * The name of something, as a non-empty string.
+   * A general term or terms for the multiple, indefinite items the quantity measured by this series or chart belongs to, if any.
    */
-  items?: string;
+  items?: Name | MultipleNames;
   /**
    * The statistical aggregate or aggregates measured by this series or chart, such as 'total' or 'estimated', if any.
    */
@@ -144,6 +148,12 @@ export interface Facet {
    * The name of something, as a non-empty string.
    */
   denominator?: string;
+  /**
+   * A text label for specific values of the facet, to be used for axis labels and similar purposes. Each property key represents a raw value of the facet and each property value represents the label that facet value should have.
+   */
+  valueLabels?: {
+    [k: string]: string;
+  };
 }
 /**
  * How this facet should be displayed on the chart
@@ -152,7 +162,7 @@ export interface DisplayType {
   /**
    * What type of chart element represents the facet.
    */
-  type: "axis" | "marking" | "area" | "angle";
+  type: "axis" | "marking" | "area" | "angle" | "text";
   /**
    * What type of chart element represents the facet.
    */
@@ -205,22 +215,13 @@ export interface Theme1 {
    */
   entity?: Name | MultipleNames;
   /**
-   * The name of something, as a non-empty string.
+   * A general term or terms for the multiple, indefinite items the quantity measured by this series or chart belongs to, if any.
    */
-  items?: string;
+  items?: Name | MultipleNames;
   /**
    * The statistical aggregate or aggregates measured by this series or chart, such as 'total' or 'estimated', if any.
    */
   aggregate?: Name | MultipleNames;
-}
-/**
- * A datapoint on the graph.
- */
-export interface DatapointManifest {
-  /**
-   * The value of the point relative to the facet labelled by this property key.
-   */
-  [k: string]: string;
 }
 /**
  * The settings needed to present a chart in ParaCharts.

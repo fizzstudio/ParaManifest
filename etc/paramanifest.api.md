@@ -58,9 +58,14 @@ export type Data = {
 export function dataFromManifest(manifest: Manifest): AllSeriesData;
 
 // @public
-export interface DatapointManifest {
+export type DatapointManifest = {
+    properties?: {
+        type: "total";
+        [k: string]: string;
+    };
+} & {
     [k: string]: string;
-}
+};
 
 // @public
 export interface Dataset {
@@ -89,7 +94,7 @@ export interface DisplayType {
     maxDisplayed?: number;
     minDisplayed?: number;
     orientation?: "horizontal" | "vertical";
-    type: "axis" | "marking" | "area" | "angle";
+    type: "axis" | "marking" | "area" | "angle" | "text";
 }
 
 // @public
@@ -103,6 +108,9 @@ export interface Facet {
     measure: "nominal" | "ordinal" | "interval" | "ratio";
     multiplier?: number;
     units?: string;
+    valueLabels?: {
+        [k: string]: string;
+    };
     variableType: "dependent" | "independent";
 }
 
@@ -184,7 +192,7 @@ export interface Theme {
     baseKind: "number" | "dimensioned" | "rate" | "proportion";
     baseQuantity: Name | MultipleNames;
     entity?: Name | MultipleNames;
-    items?: string;
+    items?: Name | MultipleNames;
     locale?: Name | MultipleNames;
 }
 
@@ -194,7 +202,7 @@ export interface Theme1 {
     baseKind: "number" | "dimensioned" | "rate" | "proportion";
     baseQuantity: Name | MultipleNames;
     entity?: Name | MultipleNames;
-    items?: string;
+    items?: Name | MultipleNames;
     locale?: Name | MultipleNames;
 }
 

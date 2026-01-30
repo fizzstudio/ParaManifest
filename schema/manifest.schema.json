@@ -112,6 +112,13 @@
         "denominator": {
           "description": "If the units for this facet of the chart are fractional, then this is the denominator of that fraction. For example: '(per) capita', '(per) million inhabitants'. If this property is present, then every series on the chart must measure a fractional quantity, of which this will also be the denominator.",
           "$ref": "#/$defs/name"
+        },
+        "valueLabels": {
+          "description": "A text label for specific values of the facet, to be used for axis labels and similar purposes. Each property key represents a raw value of the facet and each property value represents the label that facet value should have.",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
         }
       },
       "required": ["label", "variableType", "measure", "datatype", "displayType"],
@@ -165,9 +172,8 @@
           "$ref": "#/$defs/nameOrNames"
         },
         "items": {
-          "description": "A general term for the multiple, indefinite items the quantity measured by this series or chart belongs to, if any.",
-          "type": "string",
-          "$ref": "#/$defs/name"
+          "description": "A general term or terms for the multiple, indefinite items the quantity measured by this series or chart belongs to, if any.",
+          "$ref": "#/$defs/nameOrNames"
         },
         "aggregate": {
           "description": "The statistical aggregate or aggregates measured by this series or chart, such as 'total' or 'estimated', if any.",
@@ -180,12 +186,25 @@
     "datapointManifest": {
       "description": "A datapoint on the graph.",
       "type": "object",
+      "properties": {
+        "properties": {
+          "description": "Additional properties of the datapoint",
+          "type": "object",
+          "properties": {
+            "type": {
+              "description": "The type of the datapoint",
+              "const": "total"
+            }
+          }
+        }
+      },
       "additionalProperties": {
         "description": "The value of the point relative to the facet labelled by this property key.",
         "type": "string"
       },
       "minProperties": 1,
-      "$comment": "Additional validation: These properties must match those in `facets`."
+      "tsType": "{ properties?: { type: 'total', [k: string]: string }; } & { [k: string]: string; };",
+      "$comment": "Additional validation: These properties (other than `properties`) must match those in `facets`."
     },
     "data": {
       "description": "The source for the data of a dataset.",
@@ -291,7 +310,7 @@
       "properties": {
         "type": {
           "description": "What type of chart element represents the facet.",
-          "enum": ["axis", "marking", "area", "angle"]
+          "enum": ["axis", "marking", "area", "angle", "text"]
         },
         "orientation": {
           "description": "What type of chart element represents the facet.",

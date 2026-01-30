@@ -14,81 +14,40 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.*/
 
-import { html, LitElement, PropertyValues } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
-
-// import { type Manifest } from '../../types/manifest'; May be needed for non-specific
-import { ManifestValidator, ValidateOutput } from '../../lib'; // Specific
+import { html, TemplateResult } from 'lit';
+import { customElement } from 'lit/decorators.js';
 import { Json } from '@hyperjump/json-pointer';
 
-@customElement('manifest-picker')
-export class ManifestPicker extends LitElement {
-  @property()
-  accessor filename: string = '';
+import { ManifestPicker, ManifestPickerProps } from "@fizz/test-utils";
 
-  private manifest?: Json;
+import { ManifestValidator, ValidateOutput } from '../../lib';
 
-  // Specific
+@customElement('manifest-validator-picker')
+export class ManifestValidatorPicker extends ManifestPicker {
+
   private validator = new ManifestValidator();
   private validationResult?: ValidateOutput;
 
-  async loadManifest() {
-    const NODE_PREFIX = './node_modules/@fizz/chart-data/data/';
-    const filePath = NODE_PREFIX + this.filename;
-    const manifestRaw = await fetch(filePath);
-    this.manifest = await manifestRaw.json() as Json; // Specific, otherwise as Manifest;
-    this.validationResult = await this.validator.validate(this.manifest);
-    this.requestUpdate();
+  protected async onManifestLoad(): Promise<void> {
+    this.validationResult = await this.validator.validate(this.manifest as unknown as Json);
   }
 
-  connectedCallback(): void {
-    super.connectedCallback();
-    console.log(this.filename)
-    if (this.filename) {
-      this.loadManifest();
-    }
-  }
-
-  protected async willUpdate(changedProperties: PropertyValues) {
-    console.log('MOCK WILL UPDATE');
-    for (const [k, v] of changedProperties.entries()) {
-      console.log(`- ${k.toString()}:`, v, '->', this[k]);
-    }
-    if (changedProperties.has('filename') && this.filename) {
-      console.log('LOADING MANIFEST');
-      await this.loadManifest();
-    }
-  }
-
-  render() {
-    if (!this.manifest) {
-      return html`No manifest selected`;
-    }
-
-    // Specific
+  protected async renderManifest(): Promise<TemplateResult> {
     if (this.validationResult!.valid) {
       return html`Manifest is valid`;
     }
 
-    // Specific
-    return html`${this.validationResult!.errors}`;
+    return html`<pre>${this.validationResult!.errors}</pre>`;
   }
   
 }
 
-export interface ManifestPickerProps {
-  filename: string;
-}
-
-/**
- * Function that takes MenuItem properties and returns
- * the markup for a MenuItem.
- */
-export const ManifestPickerMaker = ({ filename }: ManifestPickerProps) => {
+export const ManifestValidatorPickerMaker = ({ filename, debug }: ManifestPickerProps) => {
   return html`
-    <manifest-picker
+    <manifest-validator-picker
       filename=${filename}
+      debug=${debug}
     >
-    </manifest-picker>
+    </manifest-validator-picker>
   `;
 };
