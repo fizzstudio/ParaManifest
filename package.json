@@ -1,6 +1,6 @@
 {
   "name": "@fizz/paramanifest",
-  "version": "0.5.9",
+  "version": "0.10.1",
   "description": "Manifest file format for ParaCharts",
   "contributors": [
     "Simon Varey",
@@ -14,12 +14,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/fizzstudio/ParaManifest.git"
+    "url": "git+https://github.com/fizzstudio/paramanifest.git"
   },
   "bugs": {
-    "url": "https://github.com/fizzstudio/ParaManifest/issues"
+    "url": "https://github.com/fizzstudio/paramanifest/issues"
   },
-  "homepage": "https://github.com/fizzstudio/ParaManifest#readme",
+  "homepage": "https://github.com/fizzstudio/paramanifest#readme",
   "type": "module",
   "scripts": {
     "dev": "storybook dev --no-open",
@@ -44,11 +44,12 @@
     "schema"
   ],
   "exports": {
-    ".": "./dist/ParaManifest.js"
+    ".": "./dist/paramanifest.js"
   },
-  "types": "./dist/ParaManifest.d.ts",
+  "types": "./dist/paramanifest.d.ts",
   "devDependencies": {
-    "@fizz/chart-data": "^2.2.2",
+    "@fizz/chart-data": "^2.3.9-alpha.1",
+    "@fizz/test-utils": "^0.4.5",
     "@microsoft/api-documenter": "^7.26.4",
     "@microsoft/api-extractor": "^7.49.0",
     "@storybook/addon-coverage": "^1.0.5",

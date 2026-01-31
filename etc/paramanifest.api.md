@@ -39,19 +39,13 @@ export const CHART_FAMILY_MAP: Record<ChartType, ChartTypeFamily>;
 export const CHART_FAMILY_MEMBERS: Record<ChartTypeFamily, ChartType[]>;
 
 // @public (undocumented)
-export const CHART_TYPE_FAMILIES: readonly ["line", "bar", "pastry", "scatter", "histogram", "graph"];
-
-// @public (undocumented)
-export function chartDataIsOrdered(data: AllSeriesData): boolean;
+export const CHART_TYPE_FAMILIES: readonly ["line", "bar", "pastry", "scatter", "histogram", "waterfall", "graph", "venn"];
 
 // @public (undocumented)
 export type ChartType = Manifest['datasets'][number]['type'];
 
 // @public (undocumented)
 export type ChartTypeFamily = typeof CHART_TYPE_FAMILIES[number];
-
-// @public (undocumented)
-export function collectXs(data: DatapointManifest[]): Set<string>;
 
 // @public
 export type Data = {
@@ -64,9 +58,14 @@ export type Data = {
 export function dataFromManifest(manifest: Manifest): AllSeriesData;
 
 // @public
-export interface DatapointManifest {
+export type DatapointManifest = {
+    properties?: {
+        type: "total";
+        [k: string]: string;
+    };
+} & {
     [k: string]: string;
-}
+};
 
 // @public
 export interface Dataset {
@@ -84,7 +83,7 @@ export interface Dataset {
     settings?: Settings;
     subtitle?: string;
     title: string;
-    type: "line" | "stepline" | "bar" | "column" | "lollipop" | "histogram" | "scatter" | "heatmap" | "pie" | "donut" | "graph";
+    type: "line" | "stepline" | "bar" | "column" | "lollipop" | "histogram" | "waterfall" | "scatter" | "heatmap" | "pie" | "donut" | "graph" | "venn";
 }
 
 // @public (undocumented)
@@ -95,7 +94,7 @@ export interface DisplayType {
     maxDisplayed?: number;
     minDisplayed?: number;
     orientation?: "horizontal" | "vertical";
-    type: "axis" | "marking" | "area" | "angle";
+    type: "axis" | "marking" | "area" | "angle" | "text";
 }
 
 // @public
@@ -109,6 +108,9 @@ export interface Facet {
     measure: "nominal" | "ordinal" | "interval" | "ratio";
     multiplier?: number;
     units?: string;
+    valueLabels?: {
+        [k: string]: string;
+    };
     variableType: "dependent" | "independent";
 }
 
@@ -131,15 +133,7 @@ export function isPlaneType(chartType: ChartType): boolean;
 export function isScatterType(chartType: ChartType): boolean;
 
 // @public (undocumented)
-export class Jimerator {
-    constructor(_manifest: Manifest, externalData?: AllSeriesData);
-    // Warning: (ae-forgotten-export) The symbol "Jim" needs to be exported by the entry point index.d.ts
-    //
-    // (undocumented)
-    get jim(): Jim;
-    // (undocumented)
-    render(): void;
-}
+export function isVennType(chartType: ChartType): boolean;
 
 // @public
 export interface Manifest {
@@ -198,7 +192,7 @@ export interface Theme {
     baseKind: "number" | "dimensioned" | "rate" | "proportion";
     baseQuantity: Name | MultipleNames;
     entity?: Name | MultipleNames;
-    items?: string;
+    items?: Name | MultipleNames;
     locale?: Name | MultipleNames;
 }
 
@@ -208,7 +202,7 @@ export interface Theme1 {
     baseKind: "number" | "dimensioned" | "rate" | "proportion";
     baseQuantity: Name | MultipleNames;
     entity?: Name | MultipleNames;
-    items?: string;
+    items?: Name | MultipleNames;
     locale?: Name | MultipleNames;
 }
 

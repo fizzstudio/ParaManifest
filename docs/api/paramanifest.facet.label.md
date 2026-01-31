@@ -4,7 +4,7 @@
 
 ## Facet.label property
 
-A text label for the quantity measured by this facet.
+The name of something, as a non-empty string.
 
 **Signature:**
 

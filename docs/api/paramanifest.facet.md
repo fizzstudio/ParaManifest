@@ -69,7 +69,7 @@ string
 
 </td><td>
 
-_(Optional)_ If the units for this facet of the chart are fractional, then this is the denominator of that fraction. For example: '(per) capita', '(per) million inhabitants'. If this property is present, then every series on the chart must measure a fractional quantity, of which this will also be the denominator.
+_(Optional)_ The name of something, as a non-empty string.
 
 
 </td></tr>
@@ -124,7 +124,7 @@ string
 
 </td><td>
 
-A text label for the quantity measured by this facet.
+The name of something, as a non-empty string.
 
 
 </td></tr>
@@ -181,7 +181,7 @@ string
 
 </td><td>
 
-_(Optional)_ The units for the data of this facet, in singular form, if any. This value should be absent if the facet measures a dimensionless quantity. If the units for this facet of the chart are fractional, then this is only the numerator of that fraction.
+_(Optional)_ The name of something, as a non-empty string.
 
 
 </td></tr>

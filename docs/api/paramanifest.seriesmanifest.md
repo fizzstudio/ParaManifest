@@ -83,7 +83,7 @@ _(Optional)_ The text label for the series, which may be abbreviated or expanded
 
 </td><td>
 
-[Datapoint](./paramanifest.datapoint.md)<!-- -->\[\]
+[DatapointManifest](./paramanifest.datapointmanifest.md)<!-- -->\[\]
 
 
 </td><td>
@@ -94,7 +94,7 @@ _(Optional)_ The datapoints of this series represented inline.
 </td></tr>
 <tr><td>
 
-[theme](./paramanifest.seriesmanifest.theme.md)
+[theme?](./paramanifest.seriesmanifest.theme.md)
 
 
 </td><td>
@@ -106,6 +106,8 @@ _(Optional)_ The datapoints of this series represented inline.
 
 
 </td><td>
+
+_(Optional)_
 
 
 </td></tr>

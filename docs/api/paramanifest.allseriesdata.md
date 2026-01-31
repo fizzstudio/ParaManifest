@@ -7,7 +7,7 @@
 **Signature:**
 
 ```typescript
-export type AllSeriesData = Record<string, Datapoint[]>;
+export type AllSeriesData = Record<string, DatapointManifest[]>;
 ```
-**References:** [Datapoint](./paramanifest.datapoint.md)
+**References:** [DatapointManifest](./paramanifest.datapointmanifest.md)
 

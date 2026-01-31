@@ -18,7 +18,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.*/
 
 // External Imports
 
-import { validate, registerSchema, OutputUnit, SchemaObject, hasSchema, SchemaFragment } from '@hyperjump/json-schema/draft-2020-12';
+import { validate, registerSchema, OutputUnit, SchemaObject, hasSchema } from '@hyperjump/json-schema/draft-2020-12';
 import { BASIC } from '@hyperjump/json-schema/experimental';
 import { Json } from '@hyperjump/json-pointer';
 

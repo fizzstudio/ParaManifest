@@ -9,5 +9,5 @@ The datapoints of this series represented inline.
 **Signature:**
 
 ```typescript
-records?: Datapoint[];
+records?: DatapointManifest[];
 ```

@@ -45,12 +45,12 @@ Description
 
 </td><td>
 
-string
+[Name](./paramanifest.name.md) \| [MultipleNames](./paramanifest.multiplenames.md)
 
 
 </td><td>
 
-_(Optional)_ The statistical aggregate measured by this series or chart, such as 'total' or 'estimated', if any.
+_(Optional)_ The statistical aggregate or aggregates measured by this series or chart, such as 'total' or 'estimated', if any.
 
 
 </td></tr>
@@ -83,12 +83,12 @@ What kind of base quantity this is: either a number of things (number), a quanti
 
 </td><td>
 
-string
+[Name](./paramanifest.name.md) \| [MultipleNames](./paramanifest.multiplenames.md)
 
 
 </td><td>
 
-The base quantity measured by the series or chart, such as 'item price' or 'inflation rate'.
+The base quantity or quantities measured by the series or chart, such as 'item price' or 'inflation rate'.
 
 
 </td></tr>
@@ -102,12 +102,12 @@ The base quantity measured by the series or chart, such as 'item price' or 'infl
 
 </td><td>
 
-string
+[Name](./paramanifest.name.md) \| [MultipleNames](./paramanifest.multiplenames.md)
 
 
 </td><td>
 
-_(Optional)_ The singular, definite entity the quantity measured by this series or chart belongs to, if any.
+_(Optional)_ The particular entity or entities the quantity measured by this series or chart belongs to, if any.
 
 
 </td></tr>
@@ -126,7 +126,7 @@ string
 
 </td><td>
 
-_(Optional)_ The multiple, indefinite items the quantity measured by this series or chart belongs to, if any.
+_(Optional)_ The name of something, as a non-empty string.
 
 
 </td></tr>
@@ -140,12 +140,12 @@ _(Optional)_ The multiple, indefinite items the quantity measured by this series
 
 </td><td>
 
-string
+[Name](./paramanifest.name.md) \| [MultipleNames](./paramanifest.multiplenames.md)
 
 
 </td><td>
 
-_(Optional)_ The particular location that the quantity measured by this series or chart is limited to, if any.
+_(Optional)_ The particular location or locations that the quantity measured by this series or chart is limited to, if any.
 
 
 </td></tr>

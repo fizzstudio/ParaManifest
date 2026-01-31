@@ -4,7 +4,7 @@
 
 ## Facet.denominator property
 
-If the units for this facet of the chart are fractional, then this is the denominator of that fraction. For example: '(per) capita', '(per) million inhabitants'. If this property is present, then every series on the chart must measure a fractional quantity, of which this will also be the denominator.
+The name of something, as a non-empty string.
 
 **Signature:**
 
