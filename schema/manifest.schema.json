@@ -21,9 +21,21 @@
       "description": "A set of data and parameters needed to present a chart in ParaCharts.",
       "type": "object",
       "properties": {
-        "type": {
-          "description": "The type of the chart, such as 'line' or 'column'.",
-          "enum": ["line", "stepline", "bar", "column", "lollipop", "histogram", "waterfall", "scatter", "heatmap", "pie", "donut", "graph", "venn"]
+        "representation": {
+          "description": "In what form the data is presented in the ParaChart element.",
+          "type": "object",
+          "properties": {
+            "type": {
+              "description": "The type of the visualization, which is always 'chart'.",
+              "const": "chart"
+            },
+            "subtype": {
+              "description": "The type of the chart, such as 'line' or 'column'.",
+              "enum": ["line", "stepline", "bar", "column", "lollipop", "histogram", "waterfall", "scatter", "heatmap", "pie", "donut", "graph", "venn"]
+            }
+          },
+          "required": ["type", "subtype"],
+          "additionalProperties": false
         },
         "title": {
           "description": "The title of the chart.",
@@ -70,7 +82,7 @@
           "$ref": "#/$defs/settings"
         }
       },
-      "required": ["type", "title", "facets", "series", "data"],
+      "required": ["representation", "title", "facets", "series", "data"],
       "additionalProperties": false
     },
     "facet": {
