@@ -36,22 +36,31 @@ export interface Manifest {
  */
 export interface Dataset {
   /**
-   * The type of the chart, such as 'line' or 'column'.
+   * In what form the data is presented in the ParaChart element.
    */
-  type:
-    | "line"
-    | "stepline"
-    | "bar"
-    | "column"
-    | "lollipop"
-    | "histogram"
-    | "waterfall"
-    | "scatter"
-    | "heatmap"
-    | "pie"
-    | "donut"
-    | "graph"
-    | "venn";
+  representation: {
+    /**
+     * The type of the visualization, which is always 'chart'.
+     */
+    type: "chart";
+    /**
+     * The type of the chart, such as 'line' or 'column'.
+     */
+    subtype:
+      | "line"
+      | "stepline"
+      | "bar"
+      | "column"
+      | "lollipop"
+      | "histogram"
+      | "waterfall"
+      | "scatter"
+      | "heatmap"
+      | "pie"
+      | "donut"
+      | "graph"
+      | "venn";
+  };
   /**
    * The title of the chart.
    */

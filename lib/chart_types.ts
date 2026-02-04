@@ -20,7 +20,7 @@ import { Manifest } from "./manifest";
 
 // Types & Constants
 
-export type ChartType = Manifest['datasets'][number]['type'];
+export type ChartType = Manifest['datasets'][number]['representation']['subtype'];
 
 export const CHART_TYPE_FAMILIES = ['line', 'bar', 'pastry', 'scatter', 'histogram', 'waterfall', 'graph', 'venn'] as const;
 export type ChartTypeFamily = typeof CHART_TYPE_FAMILIES[number];

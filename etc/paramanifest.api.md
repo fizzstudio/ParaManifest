@@ -42,7 +42,7 @@ export const CHART_FAMILY_MEMBERS: Record<ChartTypeFamily, ChartType[]>;
 export const CHART_TYPE_FAMILIES: readonly ["line", "bar", "pastry", "scatter", "histogram", "waterfall", "graph", "venn"];
 
 // @public (undocumented)
-export type ChartType = Manifest['datasets'][number]['type'];
+export type ChartType = Manifest['datasets'][number]['representation']['subtype'];
 
 // @public (undocumented)
 export type ChartTypeFamily = typeof CHART_TYPE_FAMILIES[number];
@@ -77,13 +77,16 @@ export interface Dataset {
     facets: {
         [k: string]: Facet;
     };
+    representation: {
+        type: "chart";
+        subtype: "line" | "stepline" | "bar" | "column" | "lollipop" | "histogram" | "waterfall" | "scatter" | "heatmap" | "pie" | "donut" | "graph" | "venn";
+    };
     series: SeriesManifest[];
     seriesRelations?: "stacked" | "grouped";
     // (undocumented)
     settings?: Settings;
     subtitle?: string;
     title: string;
-    type: "line" | "stepline" | "bar" | "column" | "lollipop" | "histogram" | "waterfall" | "scatter" | "heatmap" | "pie" | "donut" | "graph" | "venn";
 }
 
 // @public (undocumented)
