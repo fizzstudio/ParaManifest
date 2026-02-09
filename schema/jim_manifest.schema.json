@@ -76,10 +76,6 @@
         "data": {
           "description": "The source for the data for this dataset.",
           "$ref": "#/$defs/data"
-        },
-        "settings": {
-          "description": "The settings needed to present a chart in ParaCharts.",
-          "$ref": "#/$defs/settings"
         }
       },
       "required": ["representation", "title", "facets", "series", "data"],
@@ -252,40 +248,6 @@
       "unevaluatedProperties": false,
       "required": ["source"],
       "tsType": "{ source: 'inline' | 'external', path?: string, format?: string }"
-    },
-    "settings": {
-      "description": "The settings needed to present a chart in ParaCharts.",
-      "type": "object",
-      "properties": {
-        "sonification": {
-          "description": "Sonification Settings",
-          "type": "object",
-          "properties": {
-            "isSoniEnabled": {
-              "description": "Whether sonification is enabled for this chart. Defaults to true.",
-              "type": "boolean"
-            }
-          }
-        },
-        "aspectRatio": {
-          "description": "The ratio of the height to the width of the chart on the screen (i.e. x-axis size / y-axis size). Defaults to 1 (i.e. a square chart).",
-          "type": "number"
-        },
-        "axis": {
-          "description": "Settings for each Axis",
-          "type": "object",
-          "properties": {
-            "x": {
-              "description": "X Axis Settings",
-              "$ref": "#/$defs/axisSettings"
-            },
-            "y": {
-              "description": "Y Axis Settings",
-              "$ref": "#/$defs/axisSettings"
-            }
-          }
-        }
-      }
     },
     "name": {
       "description": "The name of something, as a non-empty string.",

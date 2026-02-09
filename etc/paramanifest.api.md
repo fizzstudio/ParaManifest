@@ -42,7 +42,7 @@ export const CHART_FAMILY_MEMBERS: Record<ChartTypeFamily, ChartType[]>;
 export const CHART_TYPE_FAMILIES: readonly ["line", "bar", "pastry", "scatter", "histogram", "waterfall", "graph", "venn"];
 
 // @public (undocumented)
-export type ChartType = Manifest['datasets'][number]['representation']['subtype'];
+export type ChartType = JIMManifest['datasets'][number]['representation']['subtype'];
 
 // @public (undocumented)
 export type ChartTypeFamily = typeof CHART_TYPE_FAMILIES[number];
@@ -55,7 +55,7 @@ export type Data = {
 };
 
 // @public (undocumented)
-export function dataFromManifest(manifest: Manifest): AllSeriesData;
+export function dataFromManifest(manifest: JIMManifest): AllSeriesData;
 
 // @public
 export type DatapointManifest = {
@@ -90,7 +90,7 @@ export interface Dataset {
 }
 
 // @public (undocumented)
-export type Datatype = Manifest['datasets'][number]['facets']['x']['datatype'];
+export type Datatype = JIMManifest['datasets'][number]['facets']['x']['datatype'];
 
 // @public
 export interface DisplayType {
@@ -118,7 +118,7 @@ export interface Facet {
 }
 
 // @public (undocumented)
-export function inlineData(manifest: Manifest, data: AllSeriesData): Manifest;
+export function inlineData(manifest: JIMManifest, data: AllSeriesData): JIMManifest;
 
 // @public (undocumented)
 export function isBarType(chartType: ChartType): boolean;
@@ -139,7 +139,7 @@ export function isScatterType(chartType: ChartType): boolean;
 export function isVennType(chartType: ChartType): boolean;
 
 // @public
-export interface Manifest {
+export interface JIMManifest {
     datasets: Dataset[];
 }
 

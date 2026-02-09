@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://fizz.studio/schema/extensions_manifest.schema.json",
+  "title": "Extensions Manifest",
+  "description": "Metadata and settings needed to present a ParaCharts element which are extensions to JIM. @public",
+  "type": "object",
+  "properties": {
+    "paracharts": {
+      "description": "ParaCharts-specific extensional metadata.",
+      "type": "object",
+      "properties": {
+        "settings": {
+          "description": "The settings needed to present a chart in ParaCharts.",
+          "$ref": "#/$defs/settings"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "settings": {
+      "description": "The settings needed to present a chart in ParaCharts.",
+      "type": "object",
+      "properties": {
+        "sonification": {
+          "description": "Sonification Settings",
+          "type": "object",
+          "properties": {
+            "isSoniEnabled": {
+              "description": "Whether sonification is enabled for this chart. Defaults to true.",
+              "type": "boolean"
+            }
+          }
+        },
+        "aspectRatio": {
+          "description": "The ratio of the height to the width of the chart on the screen (i.e. x-axis size / y-axis size). Defaults to 1 (i.e. a square chart).",
+          "type": "number"
+        },
+        "axis": {
+          "description": "Settings for each Axis",
+          "type": "object",
+          "properties": {
+            "x": {
+              "description": "X Axis Settings",
+              "$ref": "#/$defs/axisSettings"
+            },
+            "y": {
+              "description": "Y Axis Settings",
+              "$ref": "#/$defs/axisSettings"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -23,11 +23,11 @@ export type DatapointManifest = {properties?: {type: "total"; [k: string]: strin
 export type Data = {source: "inline" | "external"; path?: string; format?: string};
 
 /**
- * The data, parameters and settings needed to present a chart in ParaCharts. @public
+ * Metadata, and optionally inline data, needed to present a ParaCharts element, in JIM format. @public
  */
-export interface Manifest {
+export interface JIMManifest {
   /**
-   * The data and parameters needed to present a chart in ParaCharts.
+   * Metadata, and optionally inline data, needed to present a chart in ParaCharts.
    */
   datasets: Dataset[];
 }

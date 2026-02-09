@@ -16,7 +16,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.*/
 
 // Imports
 
-import { DatapointManifest, Manifest, Theme } from "./manifest";
+import { DatapointManifest, JIMManifest, Theme } from "./manifest";
 
 //  Types
 
@@ -34,7 +34,7 @@ export interface XyPoint {
   y: string;
 }
 
-export type Datatype = Manifest['datasets'][number]['facets']['x']['datatype'];
+export type Datatype = JIMManifest['datasets'][number]['facets']['x']['datatype'];
 export type AllSeriesDataXY = Record<string, XyPoint[]>;
 export type AllSeriesData = Record<string, DatapointManifest[]>;
 
@@ -42,7 +42,7 @@ export type BaseKind = Theme['baseKind'];
 
 // Functions
 
-export function dataFromManifest(manifest: Manifest): AllSeriesData {
+export function dataFromManifest(manifest: JIMManifest): AllSeriesData {
   const dataset = manifest.datasets[0];
   if (dataset.data.source !== 'inline') {
     throw new Error('only manifests with inline data can use this function.');

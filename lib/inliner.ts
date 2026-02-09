@@ -15,14 +15,14 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.*/
 
 import { AllSeriesData } from "./helpers";
-import { Manifest, SeriesManifest } from "./manifest";
+import { JIMManifest, SeriesManifest } from "./manifest";
 
 function copyJSON<T extends object>(source: T): T {
   return JSON.parse(JSON.stringify(source));
 }
 
 // TODO: Assumes at most 1 series with a given key
-function getSeriesManifest(manifest: Manifest, key: string): SeriesManifest | null {
+function getSeriesManifest(manifest: JIMManifest, key: string): SeriesManifest | null {
   const matching = manifest.datasets[0].series.filter((series) => series.key === key);
   if (matching.length === 0) {
     return null;
@@ -30,7 +30,7 @@ function getSeriesManifest(manifest: Manifest, key: string): SeriesManifest | nu
   return matching[0];
 }
 
-export function inlineData(manifest: Manifest, data: AllSeriesData): Manifest {
+export function inlineData(manifest: JIMManifest, data: AllSeriesData): JIMManifest {
   const dataset = manifest.datasets[0];
   // FIXME: '?' can be removed when chart-data manifest parameters become proper external data manifests
   if (dataset.data?.source === 'inline') {

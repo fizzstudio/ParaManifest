@@ -2,7 +2,7 @@ import { writeFileSync } from 'fs';
 import { compileFromFile } from 'json-schema-to-typescript';
 
 compileFromFile(
-  `./schema/manifest.schema.json`, { 
+  `./schema/jim_manifest.schema.json`, { 
     ignoreMinAndMaxItems: true,
     inferStringEnumKeysFromValues: true
   }

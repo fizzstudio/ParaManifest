@@ -16,11 +16,11 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.*/
 
 // Imports
 
-import { Manifest } from "./manifest";
+import { JIMManifest } from "./manifest";
 
 // Types & Constants
 
-export type ChartType = Manifest['datasets'][number]['representation']['subtype'];
+export type ChartType = JIMManifest['datasets'][number]['representation']['subtype'];
 
 export const CHART_TYPE_FAMILIES = ['line', 'bar', 'pastry', 'scatter', 'histogram', 'waterfall', 'graph', 'venn'] as const;
 export type ChartTypeFamily = typeof CHART_TYPE_FAMILIES[number];

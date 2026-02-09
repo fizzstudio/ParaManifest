@@ -26,7 +26,7 @@ import jp from 'jsonpath';
 
 // Internal JSON Imports
 
-import manifestSchema from '../schema/manifest.schema.json';
+import jimManifestSchema from '../schema/jim_manifest.schema.json';
 
 // * Helper Types and Objects *
 
@@ -41,8 +41,8 @@ export type ValidateOutput = {
  * Validates JSON files against the Manifest schema
  */
 export class ManifestValidator {
-  private static schema: SchemaObject = manifestSchema;
-  private static id: string = manifestSchema.$id;
+  private static schema: SchemaObject = jimManifestSchema;
+  private static id: string = jimManifestSchema.$id;
 
   /**
    * Construct an instance of ManifestValidator.
