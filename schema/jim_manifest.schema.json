@@ -1,12 +1,12 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://fizz.studio/schema/manifest.schema.json",
-  "title": "Manifest",
-  "description": "The data, parameters and settings needed to present a chart in ParaCharts. @public",
+  "$id": "https://fizz.studio/schema/jim_manifest.schema.json",
+  "title": "JIM Manifest",
+  "description": "Metadata, and optionally inline data, needed to present a ParaCharts element, in JIM format. @public",
   "type": "object",
   "properties": {
     "datasets": {
-      "description": "The data and parameters needed to present a chart in ParaCharts.",
+      "description": "Metadata, and optionally inline data, needed to present a chart in ParaCharts.",
       "type": "array",
       "items": {
         "$ref": "#/$defs/dataset"
