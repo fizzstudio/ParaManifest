@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://fizz.studio/schema/jim_manifest.schema.json",
   "title": "JIM Manifest",
-  "description": "Metadata, and optionally inline data, needed to present a ParaCharts element, in JIM format. @public",
+  "description": "Metadata, and optionally inline data, needed to present a ParaCharts element, as a root form JIM document. @public",
   "type": "object",
   "properties": {
     "datasets": {

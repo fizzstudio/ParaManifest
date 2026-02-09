@@ -6,7 +6,7 @@
   "type": "object",
   "properties": {
     "paracharts": {
-      "description": "ParaCharts-specific extensional metadata.",
+      "description": "ParaCharts-specific extensional metadata and settings.",
       "type": "object",
       "properties": {
         "settings": {

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://fizz.studio/schema/manifest.schema.json",
+  "title": "Manifest",
+  "description": "Metadata, settings, and optionally inline data needed to present a ParaCharts element, as an enveloped form JIM document. @public",
+  "type": "object",
+  "properties": {
+    "jim": {
+      "description": "Metadata, and optionally inline data, needed to present a ParaCharts element, as a root form JIM document.",
+      "$ref": "/schema/jim_manifest.schema.json"
+    },
+    "paracharts": {
+      "description": "Metadata and settings needed to present a ParaCharts element which are extensions to JIM.",
+      "$ref": "/schema/extensions_manifest.schema.json"
+    }
+  }
+}
