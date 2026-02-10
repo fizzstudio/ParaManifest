@@ -128,8 +128,11 @@ export interface JIMManifest {
 // @public
 export class ManifestValidator {
     constructor();
-    fullValidate(json: Json): Promise<OutputUnit>;
-    validate(json: Json): Promise<ValidateOutput>;
+    validateManifest(manifest: Json, type?: 'root' | 'enveloped'): Promise<ValidateOutput>;
+    validateManifestFullOutput(manifest: Json, type?: 'root' | 'enveloped'): Promise<{
+        schemaId: string;
+        output: OutputUnit;
+    }>;
 }
 
 // @public
