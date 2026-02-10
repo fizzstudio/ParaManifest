@@ -80,9 +80,15 @@ export class ManifestValidator {
     //const locationId = locationParts[0];
     //const schema = this.subschemaMap[locationId];
     const schemaPath = this._convertToJsonPath('$' + locationParts[1]);
-    const immediateSchema = jp.query(schema, schemaPath);
     const errorPath = this._convertToJsonPath(immediateError.instanceLocation);
-    const errorInstance = jp.query(instance, errorPath);
+    let immediateSchema;
+    let errorInstance;
+    try {
+      immediateSchema = jp.query(schema, schemaPath);
+      errorInstance = jp.query(instance, errorPath);
+    } catch (err) {
+      return `Error in JSONPath when attempting to pretty print validation error: ${err}`;
+    }
     let errorMsg;
     if (errorKeyword === 'keyword/required') {
       const existingPropKeys = Object.keys(errorInstance[0]);
