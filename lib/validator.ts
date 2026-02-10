@@ -26,9 +26,17 @@ import jp from 'jsonpath';
 
 // Internal JSON Imports
 
-import jimManifestSchema from '../schema/jim_manifest.schema.json';
+import JIM_MANIFEST_SCHEMA from '../schema/jim_manifest.schema.json';
+import MANIFEST_SCHEMA from '../schema/manifest_bundle.schema.json';
 
-// * Helper Types and Objects *
+// * Helpers *
+
+// Constants
+
+const JIM_MANIFEST_SCHEMA_ID = JIM_MANIFEST_SCHEMA.$id;
+const MANIFEST_SCHEMA_ID = MANIFEST_SCHEMA.$id;
+
+// Types
 
 export type ValidateOutput = {
   valid: boolean,
@@ -41,16 +49,16 @@ export type ValidateOutput = {
  * Validates JSON files against the Manifest schema
  */
 export class ManifestValidator {
-  private static schema: SchemaObject = jimManifestSchema;
-  private static id: string = jimManifestSchema.$id;
-
   /**
    * Construct an instance of ManifestValidator.
    * @constructor
    */
   constructor() { 
-    if (!hasSchema(ManifestValidator.id)) {
-      registerSchema(ManifestValidator.schema);
+    if (!hasSchema(JIM_MANIFEST_SCHEMA_ID)) {
+      registerSchema(JIM_MANIFEST_SCHEMA);
+    }
+    if (!hasSchema(MANIFEST_SCHEMA_ID)) {
+      registerSchema(MANIFEST_SCHEMA);
     }
   }
 
@@ -63,14 +71,16 @@ export class ManifestValidator {
   }
 
   // TODO: if the Error Keyword is keyword/required, work out & print which keyword is missing
-  private _prettyPrintValidationError(instance: Json, validatorOutput: OutputUnit): string {
+  private _prettyPrintValidationError(
+    instance: Json, validatorOutput: OutputUnit, schema: Json
+  ): string {
     const immediateError = validatorOutput.errors!.at(-1)!;
     const errorKeyword = immediateError.keyword.slice(24);
     const locationParts = immediateError.absoluteKeywordLocation.split('#');
     //const locationId = locationParts[0];
     //const schema = this.subschemaMap[locationId];
     const schemaPath = this._convertToJsonPath('$' + locationParts[1]);
-    const immediateSchema = jp.query(ManifestValidator.schema, schemaPath);
+    const immediateSchema = jp.query(schema, schemaPath);
     const errorPath = this._convertToJsonPath(immediateError.instanceLocation);
     const errorInstance = jp.query(instance, errorPath);
     let errorMsg;
@@ -96,33 +106,53 @@ export class ManifestValidator {
   }
 
   /**
-   * Validates a JSON object against the manifest schema, returning the full validation output from
-   * the hyperjump json-schema library.
-   * NOTE: The URL in the hyperjump validate function only needs to match the $id property of the schema.
-   * It is not actually used to load the schema, so it doesn't matter that the schema file is not 
-   * actually at that URL.
-   * @param json - The JSON object to validate
-   * @returns An object which describes the validity of the JSON object
-   * @async @public
+   * Validates a manifest object against the manifest schema, returning the full validation 
+   *   output from the hyperjump json-schema library, as well as the id of the schema used to 
+   *   validate.
+   * NOTE: The URL in the hyperjump validate function only needs to match the $id property of the 
+   *   schema. It is not actually used to load the schema, so it doesn't matter that the schema file 
+   *   is not actually at that URL.
+   * @param manifest - The manifest object to validate.
+   * @param type - The type of the manifest, either 'root' or 'enveloped'. If 'type' is not 
+   *   specified, then it is determined from the format of the manifest.
+   * @returns An object which describes the validity of the JSON object, as well as the id of the 
+   *   schema used to validate.
    */
-  async fullValidate(json: Json): Promise<OutputUnit> {
-    return await validate(ManifestValidator.id, json, BASIC);
+  public async validateManifestFullOutput(
+    manifest: Json, type?: 'root' | 'enveloped'
+  ): Promise<{ schemaId: string, output: OutputUnit}> {
+    if (type === undefined) {
+      if (typeof manifest === 'object' && manifest && 'jim' in manifest) {
+        type = 'enveloped';
+      } else {
+        type = 'root';
+      }
+    }
+    const schemaId = type === 'root' ? JIM_MANIFEST_SCHEMA_ID : MANIFEST_SCHEMA_ID;
+    const output = await validate(schemaId, manifest, BASIC);
+    return { schemaId, output };
   }
 
   /**
-   * Validates a JSON object against the validator's schema, returning whether the object is valid and a
-   * string displaying the errors if the object is invalid
-   * @param json - The JSON object to validate 
-   * @returns An object which notes whether the object is valid and a string displaying the errors if 
-   * the object is invalid
-   * @async @public
+   * Validates a manifest object against the manifest schema, returning whether the object is valid
+   *   and a string describing the errors if the object is invalid.
+   * NOTE: The URL in the hyperjump validate function only needs to match the $id property of the 
+   *   schema. It is not actually used to load the schema, so it doesn't matter that the schema file 
+   *   is not actually at that URL.
+   * @param manifest - The manifest object to validate.
+   * @param type - The type of the manifest, either 'root' or 'enveloped'. If 'type' is not 
+   *   specified, then it is determined from the format of the manifest.
+   * @returns An object which notes whether the object is valid and a string describing the 
+   *   errors if the object is invalid.
    */
-    async validate(json: Json): Promise<ValidateOutput> {
-      const output = await validate(ManifestValidator.id, json, BASIC);
-      if (output.valid) {
-        return { valid: true };
-      }
-      const errors = this._prettyPrintValidationError(json, output);
-      return { valid: false, errors };
+  public async validateManifest(
+    manifest: Json, type?: 'root' | 'enveloped'
+  ): Promise<ValidateOutput> {
+    const { schemaId, output } = await this.validateManifestFullOutput(manifest, type);
+    if (output.valid) {
+      return { valid: true };
     }
+    const errors = this._prettyPrintValidationError(manifest, output, schemaId);
+    return { valid: false, errors };
+  }
 }
