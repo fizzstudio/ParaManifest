@@ -393,42 +393,6 @@
           ],
           "additionalProperties": false,
           "$comment": "Additional validation: The other properties should be only those relevant to the type."
-        },
-        "axisSettings": {
-          "description": "Settings for a particular Axis",
-          "type": "object",
-          "properties": {
-            "minValue": {
-              "description": "The minimum value of the axis.",
-              "$ref": "#/$defs/axisExtremeValue"
-            },
-            "maxValue": {
-              "description": "The maximum value of the axis.",
-              "$ref": "#/$defs/axisExtremeValue"
-            }
-          }
-        },
-        "axisExtremeValue": {
-          "description": "Settings for an extreme of a particular Axis",
-          "oneOf": [
-            {
-              "$ref": "#/$defs/number"
-            },
-            {
-              "$ref": "#/$defs/constUnset"
-            }
-          ],
-          "tsType": "number | 'unset'"
-        },
-        "number": {
-          "description": "A number.",
-          "type": "number",
-          "$comment": "`number` is necessary for `axisExtremeValue` to avoid TypeScript type inference errors."
-        },
-        "constUnset": {
-          "description": "The constant 'unset'.",
-          "const": "unset",
-          "$comment": "`constUnset` is necessary for `axisExtremeValue` to avoid TypeScript type inference errors."
         }
       }
     },
@@ -483,6 +447,42 @@
               }
             }
           }
+        },
+        "axisSettings": {
+          "description": "Settings for a particular Axis",
+          "type": "object",
+          "properties": {
+            "minValue": {
+              "description": "The minimum value of the axis.",
+              "$ref": "#/$defs/axisExtremeValue"
+            },
+            "maxValue": {
+              "description": "The maximum value of the axis.",
+              "$ref": "#/$defs/axisExtremeValue"
+            }
+          }
+        },
+        "axisExtremeValue": {
+          "description": "Settings for an extreme of a particular Axis",
+          "oneOf": [
+            {
+              "$ref": "#/$defs/number"
+            },
+            {
+              "$ref": "#/$defs/constUnset"
+            }
+          ],
+          "tsType": "number | 'unset'"
+        },
+        "number": {
+          "description": "A number.",
+          "type": "number",
+          "$comment": "`number` is necessary for `axisExtremeValue` to avoid TypeScript type inference errors."
+        },
+        "constUnset": {
+          "description": "The constant 'unset'.",
+          "const": "unset",
+          "$comment": "`constUnset` is necessary for `axisExtremeValue` to avoid TypeScript type inference errors."
         }
       }
     }
