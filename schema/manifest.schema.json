@@ -9,9 +9,11 @@
       "description": "Metadata, and optionally inline data, needed to present a ParaCharts element, as a root form JIM document.",
       "$ref": "/schema/jim_manifest.schema.json"
     },
-    "paracharts": {
+    "extensions": {
       "description": "Metadata and settings needed to present a ParaCharts element which are extensions to JIM.",
       "$ref": "/schema/extensions_manifest.schema.json"
     }
-  }
+  },
+  "required": [ "jim" ],
+  "additionalProperties": false
 }
