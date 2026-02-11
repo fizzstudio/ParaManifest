@@ -24,6 +24,7 @@
   "scripts": {
     "dev": "storybook dev --no-open -p 5172",
     "build:types": "node build/build_types.ts",
+    "bundle": "node build/bundler.ts",
     "build": "npm run build:types && rimraf dist types && tsc && vite build && api-extractor run --local --verbose",
     "test": "vitest run",
     "coverage": "vitest run --coverage",

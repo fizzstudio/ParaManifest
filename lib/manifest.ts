@@ -23,6 +23,13 @@ export type DatapointManifest = {properties?: {type: "total"; [k: string]: strin
 export type Data = {source: "inline" | "external"; path?: string; format?: string};
 
 /**
+ * Metadata, settings, and optionally inline data needed to present a ParaCharts element, as an enveloped form JIM document. @public
+ */
+export interface Manifest {
+  jim: JIMManifest;
+  extensions?: ExtensionsManifest;
+}
+/**
  * Metadata, and optionally inline data, needed to present a ParaCharts element, as a root form JIM document. @public
  */
 export interface JIMManifest {
@@ -230,4 +237,73 @@ export interface Theme1 {
    * The statistical aggregate or aggregates measured by this series or chart, such as 'total' or 'estimated', if any.
    */
   aggregate?: Name | MultipleNames;
+}
+/**
+ * Metadata and settings needed to present a ParaCharts element which are extensions to JIM. @public
+ */
+export interface ExtensionsManifest {
+  /**
+   * ParaCharts-specific extensional metadata and settings.
+   */
+  paracharts?: {
+    settings?: Settings;
+    [k: string]: unknown;
+  };
+  [k: string]: unknown;
+}
+/**
+ * The settings needed to present a chart in ParaCharts.
+ */
+export interface Settings {
+  /**
+   * Sonification Settings
+   */
+  sonification?: {
+    /**
+     * Whether sonification is enabled for this chart. Defaults to true.
+     */
+    isSoniEnabled?: boolean;
+    [k: string]: unknown;
+  };
+  /**
+   * The ratio of the height to the width of the chart on the screen (i.e. x-axis size / y-axis size). Defaults to 1 (i.e. a square chart).
+   */
+  aspectRatio?: number;
+  /**
+   * Settings for each Axis
+   */
+  axis?: {
+    x?: AxisSettings;
+    y?: AxisSettings1;
+    [k: string]: unknown;
+  };
+  [k: string]: unknown;
+}
+/**
+ * X Axis Settings
+ */
+export interface AxisSettings {
+  /**
+   * The minimum value of the axis.
+   */
+  minValue?: number | "unset";
+  /**
+   * The maximum value of the axis.
+   */
+  maxValue?: number | "unset";
+  [k: string]: unknown;
+}
+/**
+ * Y Axis Settings
+ */
+export interface AxisSettings1 {
+  /**
+   * The minimum value of the axis.
+   */
+  minValue?: number | "unset";
+  /**
+   * The maximum value of the axis.
+   */
+  maxValue?: number | "unset";
+  [k: string]: unknown;
 }
