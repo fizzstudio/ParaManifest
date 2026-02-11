@@ -6,8 +6,6 @@
   "type": "object",
   "properties": {
     "jim": {
-      "$schema": "https://json-schema.org/draft/2020-12/schema",
-      "$id": "https://fizz.studio/schema/jim_manifest.schema.json",
       "title": "JIM Manifest",
       "description": "Metadata, and optionally inline data, needed to present a ParaCharts element, as a root form JIM document. @public",
       "type": "object",
@@ -27,8 +25,6 @@
       "additionalProperties": false
     },
     "extensions": {
-      "$schema": "https://json-schema.org/draft/2020-12/schema",
-      "$id": "https://fizz.studio/schema/extensions_manifest.schema.json",
       "title": "Extensions Manifest",
       "description": "Metadata and settings needed to present a ParaCharts element which are extensions to JIM. @public",
       "type": "object",

@@ -33,6 +33,12 @@ function bundleInExternal(path: string, defs: JsonObject): JsonObject {
     }
     delete (child as JsonObject).$defs;
   }
+  if ('$id' in child) {
+    delete child.$id;
+  }
+  if ('$schema' in child) {
+    delete child.$schema;
+  }
   return child;
 }
 
