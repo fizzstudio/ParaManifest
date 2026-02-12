@@ -30,7 +30,7 @@ export interface AxisSettings1 {
 }
 
 // @public (undocumented)
-export type BaseKind = Theme['baseKind'];
+export type BaseKind = Topic['baseKind'];
 
 // @public (undocumented)
 export const CHART_FAMILY_MAP: Record<ChartType, ChartTypeFamily>;
@@ -70,8 +70,6 @@ export type DatapointManifest = {
 // @public
 export interface Dataset {
     // (undocumented)
-    chartTheme?: Theme;
-    // (undocumented)
     data: Data;
     description?: string;
     facets: {
@@ -85,6 +83,8 @@ export interface Dataset {
     seriesRelations?: "stacked" | "grouped";
     subtitle?: string;
     title: string;
+    // (undocumented)
+    topic?: Topic;
 }
 
 // @public (undocumented)
@@ -184,7 +184,7 @@ export interface SeriesManifest {
     label?: string;
     records?: DatapointManifest[];
     // (undocumented)
-    theme?: Theme1;
+    topic?: Topic1;
 }
 
 // @public
@@ -209,7 +209,7 @@ export interface Settings {
 export function strToId(s: string): string;
 
 // @public
-export interface Theme {
+export interface Topic {
     aggregate?: Name | MultipleNames;
     baseKind: "number" | "dimensioned" | "rate" | "proportion";
     baseQuantity: Name | MultipleNames;
@@ -219,7 +219,7 @@ export interface Theme {
 }
 
 // @public
-export interface Theme1 {
+export interface Topic1 {
     aggregate?: Name | MultipleNames;
     baseKind: "number" | "dimensioned" | "rate" | "proportion";
     baseQuantity: Name | MultipleNames;

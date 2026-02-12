@@ -80,7 +80,7 @@ export interface Dataset {
    * A manually created description of the whole chart.
    */
   description?: string;
-  chartTheme?: Theme;
+  topic?: Topic;
   /**
    * Metadata describing each facet of the chart which represents some dimension of the data.
    */
@@ -98,9 +98,9 @@ export interface Dataset {
   data: Data;
 }
 /**
- * What quantities the line chart displays overall. Defaults to the theme of the single series ONLY in single series charts.
+ * The overall topic of the chart. Defaults to the topic of the single series ONLY in single series charts.
  */
-export interface Theme {
+export interface Topic {
   /**
    * The base quantity or quantities measured by the series or chart, such as 'item price' or 'inflation rate'.
    */
@@ -203,7 +203,7 @@ export interface SeriesManifest {
    * The text label for the series, which may be abbreviated or expanded from the series key. Defaults to key.
    */
   label?: string;
-  theme?: Theme1;
+  topic?: Topic1;
   /**
    * The datapoints of this series represented inline.
    */
@@ -212,7 +212,7 @@ export interface SeriesManifest {
 /**
  * What quantity the series measures.
  */
-export interface Theme1 {
+export interface Topic1 {
   /**
    * The base quantity or quantities measured by the series or chart, such as 'item price' or 'inflation rate'.
    */

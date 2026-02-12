@@ -16,7 +16,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.*/
 
 // Imports
 
-import { DatapointManifest, JIMManifest, Theme } from "./manifest";
+import { DatapointManifest, JIMManifest, Topic } from "./manifest";
 
 //  Types
 
@@ -38,7 +38,7 @@ export type Datatype = JIMManifest['datasets'][number]['facets']['x']['datatype'
 export type AllSeriesDataXY = Record<string, XyPoint[]>;
 export type AllSeriesData = Record<string, DatapointManifest[]>;
 
-export type BaseKind = Theme['baseKind'];
+export type BaseKind = Topic['baseKind'];
 
 // Functions
 

@@ -49,9 +49,9 @@
           "description": "A manually created description of the whole chart.",
           "$ref": "#/$defs/name"
         },
-        "chartTheme": {
-          "description": "What quantities the line chart displays overall. Defaults to the theme of the single series ONLY in single series charts.",
-          "$ref": "#/$defs/theme"
+        "topic": {
+          "description": "The overall topic of the chart. Defaults to the topic of the single series ONLY in single series charts.",
+          "$ref": "#/$defs/topic"
         },
         "facets": {
           "description": "Metadata describing each facet of the chart which represents some dimension of the data.",
@@ -144,9 +144,9 @@
           "description": "The text label for the series, which may be abbreviated or expanded from the series key. Defaults to key.",
           "$ref": "#/$defs/seriesName"
         },
-        "theme": {
+        "topic": {
           "description": "What quantity the series measures.",
-          "$ref": "#/$defs/theme"
+          "$ref": "#/$defs/topic"
         },
         "records": {
           "description": "The datapoints of this series represented inline.",
@@ -159,7 +159,7 @@
       "required": ["key"],
       "additionalProperties": false
     },
-    "theme": {
+    "topic": {
       "description": "The topic of a series or chart.",
       "type": "object",
       "properties": {
