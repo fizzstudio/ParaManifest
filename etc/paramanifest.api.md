@@ -67,8 +67,8 @@ export interface Dataset {
         [k: string]: Facet;
     };
     href?: {
-        path?: string;
-        format?: string;
+        path: string;
+        format: string;
     };
     representation: {
         type: "chart";
