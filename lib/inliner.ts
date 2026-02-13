@@ -32,14 +32,13 @@ function getSeriesManifest(manifest: JIMManifest, key: string): SeriesManifest |
 
 export function inlineData(manifest: JIMManifest, data: AllSeriesData): JIMManifest {
   const dataset = manifest.datasets[0];
-  // FIXME: '?' can be removed when chart-data manifest parameters become proper external data manifests
-  if (dataset.data?.source === 'inline') {
+  if ('records' in dataset.series[0]) {
     throw new Error('[ParaManifest/Inliner]: Cannot inline data into manifest which already has inline data.')
   }
 
   const newManifest = copyJSON(manifest);
   const newDataset = newManifest.datasets[0];
-  newDataset.data = { source: 'inline' };
+  delete newDataset.href;
 
   for (const dataSeriesKey in data) {
     const newManifestSeries = getSeriesManifest(newManifest, dataSeriesKey);

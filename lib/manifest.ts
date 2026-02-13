@@ -17,10 +17,6 @@ export type MultipleNames = Name[];
  * A datapoint on the graph.
  */
 export type DatapointManifest = {properties?: {type: "total"; [k: string]: string}} & {[k: string]: string};
-/**
- * The source for the data for this dataset.
- */
-export type Data = {source: "inline" | "external"; path?: string; format?: string};
 
 /**
  * Metadata, settings, and optionally inline data needed to present a ParaCharts element, as an enveloped form JIM document. @public
@@ -95,7 +91,19 @@ export interface Dataset {
    * How series are related to each other in multi-series bar family charts. Defaults to 'stacked'.
    */
   seriesRelations?: "stacked" | "grouped";
-  data: Data;
+  /**
+   * An external data source for this dataset.
+   */
+  href?: {
+    /**
+     * The location of the external data file.
+     */
+    path?: string;
+    /**
+     * The format of the data file.
+     */
+    format?: string;
+  };
 }
 /**
  * The overall topic of the chart. Defaults to the topic of the single series ONLY in single series charts.

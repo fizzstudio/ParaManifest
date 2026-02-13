@@ -73,12 +73,26 @@
           "description": "How series are related to each other in multi-series bar family charts. Defaults to 'stacked'.",
           "enum": ["stacked", "grouped"]
         },
-        "data": {
-          "description": "The source for the data for this dataset.",
-          "$ref": "#/$defs/data"
+        "href": {
+          "description": "An external data source for this dataset.",
+          "type": "object",
+          "properties": {
+            "path": {
+              "description": "The location of the external data file.",
+              "type": "string",
+              "$comment": "Additional validation?: check path is a URL or a relative path."
+            },
+            "format": {
+              "description": "The format of the data file.",
+              "type": "string",
+              "$comment": "Additional validation?: check format is a MIME type."
+            }
+          },
+          "required": ["source"],
+          "additionalProperties": false
         }
       },
-      "required": ["representation", "title", "facets", "series", "data"],
+      "required": ["representation", "title", "facets", "series"],
       "additionalProperties": false
     },
     "facet": {
@@ -213,41 +227,6 @@
       "minProperties": 1,
       "tsType": "{ properties?: { type: 'total', [k: string]: string }; } & { [k: string]: string; };",
       "$comment": "Additional validation: These properties (other than `properties`) must match those in `facets`."
-    },
-    "data": {
-      "description": "The source for the data of a dataset.",
-      "type": "object",
-      "properties": {
-        "source": {
-          "description": "Whether the data is inline or sourced externally.",
-          "enum": ["inline", "external"]
-        }
-      },
-      "if": {
-        "properties": {
-          "source": {
-            "const": "external"
-          }
-        }
-      },
-      "then": {
-        "properties": {
-          "path": {
-            "description": "The location of the external data file.",
-            "type": "string",
-            "$comment": "Additional validation?: check path is a URL or a relative path."
-          },
-          "format": {
-            "description": "The format of the data file.",
-            "type": "string",
-            "$comment": "Additional validation?: check format is a MIME type."
-          }
-        },
-        "required": ["path", "format"]
-      },
-      "unevaluatedProperties": false,
-      "required": ["source"],
-      "tsType": "{ source: 'inline' | 'external', path?: string, format?: string }"
     },
     "name": {
       "description": "The name of something, as a non-empty string.",

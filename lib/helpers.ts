@@ -44,7 +44,7 @@ export type BaseKind = Topic['baseKind'];
 
 export function dataFromManifest(manifest: JIMManifest): AllSeriesData {
   const dataset = manifest.datasets[0];
-  if (dataset.data.source !== 'inline') {
+  if (!('records' in dataset.series[0])) {
     throw new Error('only manifests with inline data can use this function.');
   }
   const data: AllSeriesData = {};
