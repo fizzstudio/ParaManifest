@@ -63,17 +63,21 @@ export interface Dataset {
       | "donut"
       | "graph"
       | "venn";
+    /**
+     * Describes how the chart groups, nests, or otherwise organizes one or more facets.
+     */
+    structure?: RepresentationStructure[];
   };
   /**
-   * The title of the chart.
+   * The name of something, as a non-empty string.
    */
   title: string;
   /**
-   * The subtitle of the chart.
+   * The name of something, as a non-empty string.
    */
   subtitle?: string;
   /**
-   * A manually created description of the whole chart.
+   * The name of something, as a non-empty string.
    */
   description?: string;
   topic?: Topic;
@@ -88,10 +92,6 @@ export interface Dataset {
    */
   series: SeriesManifest[];
   /**
-   * How series are related to each other in multi-series bar family charts. Defaults to 'stacked'.
-   */
-  seriesRelations?: "stacked" | "grouped";
-  /**
    * An external data source for this dataset.
    */
   href?: {
@@ -104,6 +104,21 @@ export interface Dataset {
      */
     format?: string;
   };
+}
+/**
+ * Describes how the chart groups, nests, or otherwise organizes one or more facets.
+ */
+export interface RepresentationStructure {
+  /**
+   * A lowercase ASCII token naming the intended organizational role of the step.
+   */
+  role: string;
+  /**
+   * An array of facet keys which are organized according to the role.
+   *
+   * @minItems 1
+   */
+  facetKeys: Name[];
 }
 /**
  * The overall topic of the chart. Defaults to the topic of the single series ONLY in single series charts.

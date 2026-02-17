@@ -73,9 +73,9 @@ export interface Dataset {
     representation: {
         type: "chart";
         subtype: "line" | "stepline" | "bar" | "column" | "lollipop" | "histogram" | "waterfall" | "scatter" | "heatmap" | "pie" | "donut" | "graph" | "venn";
+        structure?: RepresentationStructure[];
     };
     series: SeriesManifest[];
-    seriesRelations?: "stacked" | "grouped";
     subtitle?: string;
     title: string;
     // (undocumented)
@@ -172,6 +172,12 @@ export type Name = string;
 
 // @public (undocumented)
 export const PLANE_CHART_FAMILIES: ChartTypeFamily[];
+
+// @public
+export interface RepresentationStructure {
+    facetKeys: Name[];
+    role: string;
+}
 
 // @public
 export interface SeriesManifest {

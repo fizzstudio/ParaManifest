@@ -32,6 +32,14 @@
             "subtype": {
               "description": "The type of the chart, such as 'line' or 'column'.",
               "enum": ["line", "stepline", "bar", "column", "lollipop", "histogram", "waterfall", "scatter", "heatmap", "pie", "donut", "graph", "venn"]
+            },
+            "structure": {
+              "description": "Describes how the chart groups, nests, or otherwise organizes one or more facets.",
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/representationStructure"
+              },
+              "uniqueItems": true
             }
           },
           "required": ["type", "subtype"],
@@ -68,10 +76,6 @@
             "$ref": "#/$defs/seriesManifest"
           },
           "uniqueItems": true
-        },
-        "seriesRelations": {
-          "description": "How series are related to each other in multi-series bar family charts. Defaults to 'stacked'.",
-          "enum": ["stacked", "grouped"]
         },
         "href": {
           "description": "An external data source for this dataset.",
@@ -281,6 +285,28 @@
       "required": [ "type" ],
       "additionalProperties": false,
       "$comment": "Additional validation: The other properties should be only those relevant to the type."
+    },
+    "representationStructure": {
+      "description": "Describes how the chart groups, nests, or otherwise organizes one or more facets.",
+      "type": "object",
+      "properties": {
+        "role": {
+          "description": "A lowercase ASCII token naming the intended organizational role of the step.",
+          "$ref": "#/$defs/name",
+          "$comment": "Additional validation: Check that the role is only lowercase ASCII."
+        },
+        "facetKeys": {
+          "description": "An array of facet keys which are organized according to the role.",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/name"
+          },
+          "minItems": 1,
+          "$comment": "Additional validation: Check that the keys all match keys in facets."
+        }
+      },
+      "required": [ "role", "facetKeys" ],
+      "additionalProperties": false
     }
   }
 }
