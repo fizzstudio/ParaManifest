@@ -135,16 +135,9 @@
           "description": "The number each datum of this facet must be multiplied by to get the true value. Defaults to 1.",
           "type": "number"
         },
-        "denominator": {
-          "description": "If the units for this facet of the chart are fractional, then this is the denominator of that fraction. For example: '(per) capita', '(per) million inhabitants'. If this property is present, then every series on the chart must measure a fractional quantity, of which this will also be the denominator.",
-          "$ref": "#/$defs/name"
-        },
-        "valueLabels": {
-          "description": "A text label for specific values of the facet, to be used for axis labels and similar purposes. Each property key represents a raw value of the facet and each property value represents the label that facet value should have.",
-          "type": "object",
-          "additionalProperties": {
-            "type": "string"
-          }
+        "topic": {
+          "description": "Topic information for the facet.",
+          "$ref": "#/$defs/facetTopic"
         }
       },
       "required": ["label", "variableType", "measure", "datatype", "displayType"],
@@ -207,6 +200,24 @@
         }
       },
       "required": ["baseQuantity", "baseKind"],
+      "additionalProperties": false
+    },
+    "facetTopic": {
+      "description": "Topic information for the facet.",
+      "type": "object",
+      "properties": {
+        "denominator": {
+          "description": "If the units for this facet of the chart are fractional, then this is the denominator of that fraction. For example: '(per) capita', '(per) million inhabitants'. If this property is present, then every series on the chart must measure a fractional quantity, of which this will also be the denominator.",
+          "$ref": "#/$defs/name"
+        },
+        "valueLabels": {
+          "description": "A text label for specific values of the facet, to be used for axis labels and similar purposes. Each property key represents a raw value of the facet and each property value represents the label that facet value should have.",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      },
       "additionalProperties": false
     },
     "datapointManifest": {

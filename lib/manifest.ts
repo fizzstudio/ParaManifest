@@ -182,16 +182,7 @@ export interface Facet {
    * The number each datum of this facet must be multiplied by to get the true value. Defaults to 1.
    */
   multiplier?: number;
-  /**
-   * The name of something, as a non-empty string.
-   */
-  denominator?: string;
-  /**
-   * A text label for specific values of the facet, to be used for axis labels and similar purposes. Each property key represents a raw value of the facet and each property value represents the label that facet value should have.
-   */
-  valueLabels?: {
-    [k: string]: string;
-  };
+  topic?: FacetTopic;
 }
 /**
  * How this facet should be displayed on the chart
@@ -213,6 +204,21 @@ export interface DisplayType {
    * The highest value label displayed on this axis of the chart. Defaults to the maximum value of any series relative to this axis.
    */
   maxDisplayed?: number;
+}
+/**
+ * Topic information for the facet.
+ */
+export interface FacetTopic {
+  /**
+   * The name of something, as a non-empty string.
+   */
+  denominator?: string;
+  /**
+   * A text label for specific values of the facet, to be used for axis labels and similar purposes. Each property key represents a raw value of the facet and each property value represents the label that facet value should have.
+   */
+  valueLabels?: {
+    [k: string]: string;
+  };
 }
 /**
  * Metadata, and possibly inline data, describing a series on the chart.

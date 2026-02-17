@@ -106,18 +106,24 @@ export interface ExtensionsManifest {
 // @public
 export interface Facet {
     datatype: "number" | "date" | "string";
-    denominator?: string;
     description?: string;
     // (undocumented)
     displayType: DisplayType;
     label: string;
     measure: "nominal" | "ordinal" | "interval" | "ratio";
     multiplier?: number;
+    // (undocumented)
+    topic?: FacetTopic;
     units?: string;
+    variableType: "dependent" | "independent";
+}
+
+// @public
+export interface FacetTopic {
+    denominator?: string;
     valueLabels?: {
         [k: string]: string;
     };
-    variableType: "dependent" | "independent";
 }
 
 // @public (undocumented)
