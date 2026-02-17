@@ -140,7 +140,8 @@
             }
           },
           "required": [
-            "source"
+            "path",
+            "format"
           ],
           "additionalProperties": false
         }

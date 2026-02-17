@@ -92,7 +92,7 @@
               "$comment": "Additional validation?: check format is a MIME type."
             }
           },
-          "required": ["source"],
+          "required": ["path", "format"],
           "additionalProperties": false
         }
       },

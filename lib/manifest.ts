@@ -98,11 +98,11 @@ export interface Dataset {
     /**
      * The location of the external data file.
      */
-    path?: string;
+    path: string;
     /**
      * The format of the data file.
      */
-    format?: string;
+    format: string;
   };
 }
 /**
