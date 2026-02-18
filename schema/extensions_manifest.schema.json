@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://fizz.studio/schema/extensions_manifest.schema.json",
+  "title": "Extensions Manifest",
+  "description": "Metadata and settings needed to present a ParaCharts element which are extensions to JIM. @public",
+  "type": "object",
+  "properties": {
+    "paracharts": {
+      "description": "ParaCharts-specific extensional metadata and settings.",
+      "type": "object",
+      "properties": {
+        "settings": {
+          "description": "The settings needed to present a chart in ParaCharts.",
+          "$ref": "#/$defs/settings"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "settings": {
+      "description": "The settings needed to present a chart in ParaCharts.",
+      "type": "object",
+      "properties": {
+        "sonification": {
+          "description": "Sonification Settings",
+          "type": "object",
+          "properties": {
+            "isSoniEnabled": {
+              "description": "Whether sonification is enabled for this chart. Defaults to true.",
+              "type": "boolean"
+            }
+          }
+        },
+        "aspectRatio": {
+          "description": "The ratio of the height to the width of the chart on the screen (i.e. x-axis size / y-axis size). Defaults to 1 (i.e. a square chart).",
+          "type": "number"
+        },
+        "axis": {
+          "description": "Settings for each Axis",
+          "type": "object",
+          "properties": {
+            "x": {
+              "description": "X Axis Settings",
+              "$ref": "#/$defs/axisSettings"
+            },
+            "y": {
+              "description": "Y Axis Settings",
+              "$ref": "#/$defs/axisSettings"
+            }
+          }
+        }
+      }
+    },
+        "axisSettings": {
+      "description": "Settings for a particular Axis",
+      "type": "object",
+      "properties": {
+        "minValue": {
+          "description": "The minimum value of the axis.",
+          "$ref": "#/$defs/axisExtremeValue"
+        },
+        "maxValue": {
+          "description": "The maximum value of the axis.",
+          "$ref": "#/$defs/axisExtremeValue"
+        }
+      }
+    },
+    "axisExtremeValue": {
+      "description": "Settings for an extreme of a particular Axis",
+      "oneOf": [
+        { "$ref": "#/$defs/number" },
+        { "$ref": "#/$defs/constUnset" }
+      ],
+      "tsType": "number | 'unset'"
+    },
+    "number": {
+      "description": "A number.",
+      "type": "number",
+      "$comment": "`number` is necessary for `axisExtremeValue` to avoid TypeScript type inference errors."
+    },
+    "constUnset": {
+      "description": "The constant 'unset'.",
+      "const": "unset",
+      "$comment": "`constUnset` is necessary for `axisExtremeValue` to avoid TypeScript type inference errors."
+    }
+  }
+}

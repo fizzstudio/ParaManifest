@@ -1,6 +1,6 @@
 {
   "name": "@fizz/paramanifest",
-  "version": "0.10.2",
+  "version": "0.10.3-alpha.5",
   "description": "Manifest file format for ParaCharts",
   "contributors": [
     "Simon Varey",
@@ -22,14 +22,15 @@
   "homepage": "https://github.com/fizzstudio/paramanifest#readme",
   "type": "module",
   "scripts": {
-    "dev": "storybook dev --no-open",
-    "build:types": "node --experimental-strip-types build/build_types.ts",
+    "dev": "storybook dev --no-open -p 5172",
+    "build:types": "node build/build_types.ts",
+    "bundle": "node build/bundler.ts",
     "build": "npm run build:types && rimraf dist types && tsc && vite build && api-extractor run --local --verbose",
     "test": "vitest run",
     "coverage": "vitest run --coverage",
     "doc": "npm run doc:api && npm run doc:schema",
     "doc:api": "api-documenter markdown --input-folder ./temp --output-folder ./docs/api",
-    "doc:schema": "node --experimental-strip-types build/build_docs.ts",
+    "doc:schema": "node build/build_docs.ts",
     "pubalpha": "npm version prerelease --preid alpha && npm publish --tag alpha",
     "pubpatch": "npm version patch && npm publish",
     "pubminor": "npm version minor && npm publish",
@@ -48,7 +49,7 @@
   },
   "types": "./dist/paramanifest.d.ts",
   "devDependencies": {
-    "@fizz/chart-data": "^2.4.1-alpha.1",
+    "@fizz/chart-data": "^2.4.2-alpha.7",
     "@fizz/test-utils": "^0.4.5",
     "@microsoft/api-documenter": "^7.26.4",
     "@microsoft/api-extractor": "^7.49.0",

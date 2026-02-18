@@ -29,7 +29,9 @@ export class ManifestValidatorPicker extends ManifestPicker {
   private validationResult?: ValidateOutput;
 
   protected async onManifestLoad(): Promise<void> {
-    this.validationResult = await this.validator.validate(this.manifest as unknown as Json);
+    this.validationResult = await this.validator.validateManifest(
+      this.manifest as unknown as Json, 'enveloped'
+    );
   }
 
   protected async renderManifest(): Promise<TemplateResult> {

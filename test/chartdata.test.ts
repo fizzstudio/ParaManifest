@@ -25,7 +25,7 @@ const MANIFEST_TEST_FILE_PATHS = await collectInstanceFilepaths(TEST_MANIFEST_DI
 async function testInstanceValidity(jsonFilepath: string, validator: ManifestValidator): Promise<void> {
   const rawInstance = fs.readFileSync(jsonFilepath, 'utf8');
   const instance = JSON.parse(rawInstance);
-  const validatorOutput = await validator.validate(instance);
+  const validatorOutput = await validator.validateManifest(instance, 'enveloped');
   if (!validatorOutput.valid) {
     console.log(`
       Test file: ${jsonFilepath}

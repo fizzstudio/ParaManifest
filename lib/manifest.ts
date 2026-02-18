@@ -17,17 +17,20 @@ export type MultipleNames = Name[];
  * A datapoint on the graph.
  */
 export type DatapointManifest = {properties?: {type: "total"; [k: string]: string}} & {[k: string]: string};
-/**
- * The source for the data for this dataset.
- */
-export type Data = {source: "inline" | "external"; path?: string; format?: string};
 
 /**
- * The data, parameters and settings needed to present a chart in ParaCharts. @public
+ * Metadata, settings, and optionally inline data needed to present a ParaCharts element, as an enveloped form JIM document. @public
  */
 export interface Manifest {
+  jim: JIMManifest;
+  extensions?: ExtensionsManifest;
+}
+/**
+ * Metadata, and optionally inline data, needed to present a ParaCharts element, as a root form JIM document. @public
+ */
+export interface JIMManifest {
   /**
-   * The data and parameters needed to present a chart in ParaCharts.
+   * Metadata, and optionally inline data, needed to present a chart in ParaCharts.
    */
   datasets: Dataset[];
 }
@@ -60,20 +63,24 @@ export interface Dataset {
       | "donut"
       | "graph"
       | "venn";
+    /**
+     * Describes how the chart groups, nests, or otherwise organizes one or more facets.
+     */
+    structure?: RepresentationStructure[];
   };
   /**
-   * The title of the chart.
+   * The name of something, as a non-empty string.
    */
   title: string;
   /**
-   * The subtitle of the chart.
+   * The name of something, as a non-empty string.
    */
   subtitle?: string;
   /**
-   * A manually created description of the whole chart.
+   * The name of something, as a non-empty string.
    */
   description?: string;
-  chartTheme?: Theme;
+  topic?: Topic;
   /**
    * Metadata describing each facet of the chart which represents some dimension of the data.
    */
@@ -85,16 +92,38 @@ export interface Dataset {
    */
   series: SeriesManifest[];
   /**
-   * How series are related to each other in multi-series bar family charts. Defaults to 'stacked'.
+   * An external data source for this dataset.
    */
-  seriesRelations?: "stacked" | "grouped";
-  data: Data;
-  settings?: Settings;
+  href?: {
+    /**
+     * The location of the external data file.
+     */
+    path: string;
+    /**
+     * The format of the data file.
+     */
+    format: string;
+  };
 }
 /**
- * What quantities the line chart displays overall. Defaults to the theme of the single series ONLY in single series charts.
+ * Describes how the chart groups, nests, or otherwise organizes one or more facets.
  */
-export interface Theme {
+export interface RepresentationStructure {
+  /**
+   * A lowercase ASCII token naming the intended organizational role of the step.
+   */
+  role: string;
+  /**
+   * An array of facet keys which are organized according to the role.
+   *
+   * @minItems 1
+   */
+  facetKeys: Name[];
+}
+/**
+ * The overall topic of the chart. Defaults to the topic of the single series ONLY in single series charts.
+ */
+export interface Topic {
   /**
    * The base quantity or quantities measured by the series or chart, such as 'item price' or 'inflation rate'.
    */
@@ -153,16 +182,7 @@ export interface Facet {
    * The number each datum of this facet must be multiplied by to get the true value. Defaults to 1.
    */
   multiplier?: number;
-  /**
-   * The name of something, as a non-empty string.
-   */
-  denominator?: string;
-  /**
-   * A text label for specific values of the facet, to be used for axis labels and similar purposes. Each property key represents a raw value of the facet and each property value represents the label that facet value should have.
-   */
-  valueLabels?: {
-    [k: string]: string;
-  };
+  topic?: FacetTopic;
 }
 /**
  * How this facet should be displayed on the chart
@@ -186,6 +206,21 @@ export interface DisplayType {
   maxDisplayed?: number;
 }
 /**
+ * Topic information for the facet.
+ */
+export interface FacetTopic {
+  /**
+   * The name of something, as a non-empty string.
+   */
+  denominator?: string;
+  /**
+   * A text label for specific values of the facet, to be used for axis labels and similar purposes. Each property key represents a raw value of the facet and each property value represents the label that facet value should have.
+   */
+  valueLabels?: {
+    [k: string]: string;
+  };
+}
+/**
  * Metadata, and possibly inline data, describing a series on the chart.
  */
 export interface SeriesManifest {
@@ -197,7 +232,7 @@ export interface SeriesManifest {
    * The text label for the series, which may be abbreviated or expanded from the series key. Defaults to key.
    */
   label?: string;
-  theme?: Theme1;
+  topic?: Topic1;
   /**
    * The datapoints of this series represented inline.
    */
@@ -206,7 +241,7 @@ export interface SeriesManifest {
 /**
  * What quantity the series measures.
  */
-export interface Theme1 {
+export interface Topic1 {
   /**
    * The base quantity or quantities measured by the series or chart, such as 'item price' or 'inflation rate'.
    */
@@ -231,6 +266,19 @@ export interface Theme1 {
    * The statistical aggregate or aggregates measured by this series or chart, such as 'total' or 'estimated', if any.
    */
   aggregate?: Name | MultipleNames;
+}
+/**
+ * Metadata and settings needed to present a ParaCharts element which are extensions to JIM. @public
+ */
+export interface ExtensionsManifest {
+  /**
+   * ParaCharts-specific extensional metadata and settings.
+   */
+  paracharts?: {
+    settings?: Settings;
+    [k: string]: unknown;
+  };
+  [k: string]: unknown;
 }
 /**
  * The settings needed to present a chart in ParaCharts.

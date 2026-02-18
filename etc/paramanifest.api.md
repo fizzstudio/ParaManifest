@@ -30,7 +30,7 @@ export interface AxisSettings1 {
 }
 
 // @public (undocumented)
-export type BaseKind = Theme['baseKind'];
+export type BaseKind = Topic['baseKind'];
 
 // @public (undocumented)
 export const CHART_FAMILY_MAP: Record<ChartType, ChartTypeFamily>;
@@ -42,20 +42,13 @@ export const CHART_FAMILY_MEMBERS: Record<ChartTypeFamily, ChartType[]>;
 export const CHART_TYPE_FAMILIES: readonly ["line", "bar", "pastry", "scatter", "histogram", "waterfall", "graph", "venn"];
 
 // @public (undocumented)
-export type ChartType = Manifest['datasets'][number]['representation']['subtype'];
+export type ChartType = JIMManifest['datasets'][number]['representation']['subtype'];
 
 // @public (undocumented)
 export type ChartTypeFamily = typeof CHART_TYPE_FAMILIES[number];
 
-// @public
-export type Data = {
-    source: "inline" | "external";
-    path?: string;
-    format?: string;
-};
-
 // @public (undocumented)
-export function dataFromManifest(manifest: Manifest): AllSeriesData;
+export function dataFromManifest(manifest: JIMManifest): AllSeriesData;
 
 // @public
 export type DatapointManifest = {
@@ -69,28 +62,28 @@ export type DatapointManifest = {
 
 // @public
 export interface Dataset {
-    // (undocumented)
-    chartTheme?: Theme;
-    // (undocumented)
-    data: Data;
     description?: string;
     facets: {
         [k: string]: Facet;
     };
+    href?: {
+        path: string;
+        format: string;
+    };
     representation: {
         type: "chart";
         subtype: "line" | "stepline" | "bar" | "column" | "lollipop" | "histogram" | "waterfall" | "scatter" | "heatmap" | "pie" | "donut" | "graph" | "venn";
+        structure?: RepresentationStructure[];
     };
     series: SeriesManifest[];
-    seriesRelations?: "stacked" | "grouped";
-    // (undocumented)
-    settings?: Settings;
     subtitle?: string;
     title: string;
+    // (undocumented)
+    topic?: Topic;
 }
 
 // @public (undocumented)
-export type Datatype = Manifest['datasets'][number]['facets']['x']['datatype'];
+export type Datatype = JIMManifest['datasets'][number]['facets']['x']['datatype'];
 
 // @public
 export interface DisplayType {
@@ -101,24 +94,40 @@ export interface DisplayType {
 }
 
 // @public
+export interface ExtensionsManifest {
+    // (undocumented)
+    [k: string]: unknown;
+    paracharts?: {
+        settings?: Settings;
+        [k: string]: unknown;
+    };
+}
+
+// @public
 export interface Facet {
     datatype: "number" | "date" | "string";
-    denominator?: string;
     description?: string;
     // (undocumented)
     displayType: DisplayType;
     label: string;
     measure: "nominal" | "ordinal" | "interval" | "ratio";
     multiplier?: number;
+    // (undocumented)
+    topic?: FacetTopic;
     units?: string;
-    valueLabels?: {
-        [k: string]: string;
-    };
     variableType: "dependent" | "independent";
 }
 
+// @public
+export interface FacetTopic {
+    denominator?: string;
+    valueLabels?: {
+        [k: string]: string;
+    };
+}
+
 // @public (undocumented)
-export function inlineData(manifest: Manifest, data: AllSeriesData): Manifest;
+export function inlineData(manifest: JIMManifest, data: AllSeriesData): JIMManifest;
 
 // @public (undocumented)
 export function isBarType(chartType: ChartType): boolean;
@@ -139,15 +148,26 @@ export function isScatterType(chartType: ChartType): boolean;
 export function isVennType(chartType: ChartType): boolean;
 
 // @public
-export interface Manifest {
+export interface JIMManifest {
     datasets: Dataset[];
+}
+
+// @public
+export interface Manifest {
+    // (undocumented)
+    extensions?: ExtensionsManifest;
+    // (undocumented)
+    jim: JIMManifest;
 }
 
 // @public
 export class ManifestValidator {
     constructor();
-    fullValidate(json: Json): Promise<OutputUnit>;
-    validate(json: Json): Promise<ValidateOutput>;
+    validateManifest(manifest: Json, type?: 'root' | 'enveloped'): Promise<ValidateOutput>;
+    validateManifestFullOutput(manifest: Json, type?: 'root' | 'enveloped'): Promise<{
+        schemaId: string;
+        output: OutputUnit;
+    }>;
 }
 
 // @public
@@ -160,12 +180,18 @@ export type Name = string;
 export const PLANE_CHART_FAMILIES: ChartTypeFamily[];
 
 // @public
+export interface RepresentationStructure {
+    facetKeys: Name[];
+    role: string;
+}
+
+// @public
 export interface SeriesManifest {
     key: string;
     label?: string;
     records?: DatapointManifest[];
     // (undocumented)
-    theme?: Theme1;
+    topic?: Topic1;
 }
 
 // @public
@@ -190,7 +216,7 @@ export interface Settings {
 export function strToId(s: string): string;
 
 // @public
-export interface Theme {
+export interface Topic {
     aggregate?: Name | MultipleNames;
     baseKind: "number" | "dimensioned" | "rate" | "proportion";
     baseQuantity: Name | MultipleNames;
@@ -200,7 +226,7 @@ export interface Theme {
 }
 
 // @public
-export interface Theme1 {
+export interface Topic1 {
     aggregate?: Name | MultipleNames;
     baseKind: "number" | "dimensioned" | "rate" | "proportion";
     baseQuantity: Name | MultipleNames;
