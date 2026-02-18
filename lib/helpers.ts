@@ -16,7 +16,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.*/
 
 // Imports
 
-import { DatapointManifest, JIMManifest, Topic } from "./manifest";
+import { DatapointManifest, JIMManifest, Manifest, Topic } from "./manifest";
 
 //  Types
 
@@ -40,13 +40,26 @@ export type AllSeriesData = Record<string, DatapointManifest[]>;
 
 export type BaseKind = Topic['baseKind'];
 
+// Errors
+
+class ParaManifestError extends Error {
+  constructor(msg: string) {
+    super(`[ParaManifest(Internal)]: ${msg}`);
+  }
+}
+
+
 // Functions
 
-export function dataFromManifest(manifest: JIMManifest): AllSeriesData {
-  const dataset = manifest.datasets[0];
-  if (!('records' in dataset.series[0])) {
-    throw new Error('only manifests with inline data can use this function.');
+export function hasInlineData(manifest: Manifest): boolean {
+  return 'records' in manifest.jim.datasets[0].series[0];
+}
+
+export function dataFromManifest(manifest: Manifest): AllSeriesData {
+  if (!hasInlineData(manifest)) {
+    throw new ParaManifestError('Only manifests with inline data can use this function.');
   }
+  const dataset = manifest.jim.datasets[0];
   const data: AllSeriesData = {};
   for (const series of dataset.series) {
     data[series.key] = series.records!;

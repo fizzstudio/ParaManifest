@@ -48,7 +48,7 @@ export type ChartType = JIMManifest['datasets'][number]['representation']['subty
 export type ChartTypeFamily = typeof CHART_TYPE_FAMILIES[number];
 
 // @public (undocumented)
-export function dataFromManifest(manifest: JIMManifest): AllSeriesData;
+export function dataFromManifest(manifest: Manifest): AllSeriesData;
 
 // @public
 export type DatapointManifest = {
@@ -125,6 +125,9 @@ export interface FacetTopic {
         [k: string]: string;
     };
 }
+
+// @public (undocumented)
+export function hasInlineData(manifest: Manifest): boolean;
 
 // @public (undocumented)
 export function inlineData(manifest: JIMManifest, data: AllSeriesData): JIMManifest;
