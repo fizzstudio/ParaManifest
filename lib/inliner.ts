@@ -17,6 +17,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.*/
 import { AllSeriesData } from "./helpers";
 import { JIMManifest, SeriesManifest } from "./manifest";
 
+class InlinerError extends Error {
+  constructor(msg: string) {
+    super(`[ParaManifest/Inliner]: ${msg}`);
+  }
+}
+
 function copyJSON<T extends object>(source: T): T {
   return JSON.parse(JSON.stringify(source));
 }
@@ -33,7 +39,7 @@ function getSeriesManifest(manifest: JIMManifest, key: string): SeriesManifest |
 export function inlineData(manifest: JIMManifest, data: AllSeriesData): JIMManifest {
   const dataset = manifest.datasets[0];
   if ('records' in dataset.series[0]) {
-    throw new Error('[ParaManifest/Inliner]: Cannot inline data into manifest which already has inline data.')
+    throw new InlinerError('Cannot inline data into manifest which already has inline data.')
   }
 
   const newManifest = copyJSON(manifest);
@@ -44,7 +50,7 @@ export function inlineData(manifest: JIMManifest, data: AllSeriesData): JIMManif
     const newManifestSeries = getSeriesManifest(newManifest, dataSeriesKey);
     // Checks if series is in data but not manifest
     if (newManifestSeries === null) {
-      throw new Error(`[ParaManifest/Inliner]: Series key ${dataSeriesKey} is missing in manifest.`)
+      throw new InlinerError(`Series key ${dataSeriesKey} is missing in manifest.`)
     }
     newManifestSeries.records = data[dataSeriesKey];
   }
@@ -52,7 +58,7 @@ export function inlineData(manifest: JIMManifest, data: AllSeriesData): JIMManif
   // Checks if series is in manifest but not data
   const missingData = newDataset.series.filter((series) => series.records === undefined)
   if (missingData.length !== 0) {
-    throw new Error(`[ParaManifest/Inliner]: Series key ${missingData[0].key} is missing in data.`)
+    throw new InlinerError(`Series key ${missingData[0].key} is missing in data.`)
   }
 
   return newManifest;
