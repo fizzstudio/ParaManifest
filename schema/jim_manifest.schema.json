@@ -209,13 +209,6 @@
         "denominator": {
           "description": "If the units for this facet of the chart are fractional, then this is the denominator of that fraction. For example: '(per) capita', '(per) million inhabitants'. If this property is present, then every series on the chart must measure a fractional quantity, of which this will also be the denominator.",
           "$ref": "#/$defs/name"
-        },
-        "valueLabels": {
-          "description": "A text label for specific values of the facet, to be used for axis labels and similar purposes. Each property key represents a raw value of the facet and each property value represents the label that facet value should have.",
-          "type": "object",
-          "additionalProperties": {
-            "type": "string"
-          }
         }
       },
       "additionalProperties": false
@@ -223,25 +216,12 @@
     "datapointManifest": {
       "description": "A datapoint on the graph.",
       "type": "object",
-      "properties": {
-        "properties": {
-          "description": "Additional properties of the datapoint",
-          "type": "object",
-          "properties": {
-            "type": {
-              "description": "The type of the datapoint",
-              "const": "total"
-            }
-          }
-        }
-      },
       "additionalProperties": {
         "description": "The value of the point relative to the facet labelled by this property key.",
         "type": "string"
       },
       "minProperties": 1,
-      "tsType": "{ properties?: { type: 'total', [k: string]: string }; } & { [k: string]: string; };",
-      "$comment": "Additional validation: These properties (other than `properties`) must match those in `facets`."
+      "$comment": "Additional validation: These properties must match those in `facets`."
     },
     "name": {
       "description": "The name of something, as a non-empty string.",

@@ -13,10 +13,6 @@ export type Name = string;
  * The names of multiple things, as an array of names.
  */
 export type MultipleNames = Name[];
-/**
- * A datapoint on the graph.
- */
-export type DatapointManifest = {properties?: {type: "total"; [k: string]: string}} & {[k: string]: string};
 
 /**
  * Metadata, settings, and optionally inline data needed to present a ParaCharts element, as an enveloped form JIM document. @public
@@ -213,12 +209,6 @@ export interface FacetTopic {
    * The name of something, as a non-empty string.
    */
   denominator?: string;
-  /**
-   * A text label for specific values of the facet, to be used for axis labels and similar purposes. Each property key represents a raw value of the facet and each property value represents the label that facet value should have.
-   */
-  valueLabels?: {
-    [k: string]: string;
-  };
 }
 /**
  * Metadata, and possibly inline data, describing a series on the chart.
@@ -266,6 +256,15 @@ export interface Topic1 {
    * The statistical aggregate or aggregates measured by this series or chart, such as 'total' or 'estimated', if any.
    */
   aggregate?: Name | MultipleNames;
+}
+/**
+ * A datapoint on the graph.
+ */
+export interface DatapointManifest {
+  /**
+   * The value of the point relative to the facet labelled by this property key.
+   */
+  [k: string]: string;
 }
 /**
  * Metadata and settings needed to present a ParaCharts element which are extensions to JIM. @public

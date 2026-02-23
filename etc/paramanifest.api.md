@@ -51,14 +51,9 @@ export type ChartTypeFamily = typeof CHART_TYPE_FAMILIES[number];
 export function dataFromManifest(manifest: Manifest): AllSeriesData;
 
 // @public
-export type DatapointManifest = {
-    properties?: {
-        type: "total";
-        [k: string]: string;
-    };
-} & {
+export interface DatapointManifest {
     [k: string]: string;
-};
+}
 
 // @public
 export interface Dataset {
@@ -121,9 +116,6 @@ export interface Facet {
 // @public
 export interface FacetTopic {
     denominator?: string;
-    valueLabels?: {
-        [k: string]: string;
-    };
 }
 
 // @public (undocumented)
