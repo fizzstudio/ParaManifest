@@ -12,6 +12,14 @@
         "$ref": "#/$defs/dataset"
       },
       "uniqueItems": true
+    },
+    "annotations": {
+      "description": "Annotations on specific elements of the data.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/annotation"
+      },
+      "uniqueItems": true
     }
   },
   "required": [ "datasets" ],
@@ -297,6 +305,28 @@
         }
       },
       "required": [ "role", "facetKeys" ],
+      "additionalProperties": false
+    },
+    "annotation": {
+      "description": "An annotation on a specific element of the data.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "",
+          "$ref": "#/$defs/name"
+        },
+        "bodyValue": {
+          "description": "",
+          "type": "string"
+        },
+        "target": {
+          "description": ""
+        },
+        "creator": {
+          "description": ""
+        }
+      },
+      "required": [ "id", "bodyValue", "target", "creator" ],
       "additionalProperties": false
     }
   }
