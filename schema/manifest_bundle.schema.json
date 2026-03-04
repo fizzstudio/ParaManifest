@@ -280,8 +280,7 @@
         }
       },
       "required": [
-        "baseQuantity",
-        "baseKind"
+        "baseQuantity"
       ],
       "additionalProperties": false
     },

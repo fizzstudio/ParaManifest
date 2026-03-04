@@ -213,7 +213,7 @@ export function strToId(s: string): string;
 // @public
 export interface Topic {
     aggregate?: Name | MultipleNames;
-    baseKind: "number" | "dimensioned" | "rate" | "proportion";
+    baseKind?: "number" | "dimensioned" | "rate" | "proportion";
     baseQuantity: Name | MultipleNames;
     entity?: Name | MultipleNames;
     items?: Name | MultipleNames;
@@ -223,7 +223,7 @@ export interface Topic {
 // @public
 export interface Topic1 {
     aggregate?: Name | MultipleNames;
-    baseKind: "number" | "dimensioned" | "rate" | "proportion";
+    baseKind?: "number" | "dimensioned" | "rate" | "proportion";
     baseQuantity: Name | MultipleNames;
     entity?: Name | MultipleNames;
     items?: Name | MultipleNames;
