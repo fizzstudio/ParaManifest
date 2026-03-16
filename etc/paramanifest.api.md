@@ -155,6 +155,15 @@ export interface Manifest {
     jim: JIMManifest;
 }
 
+// @public (undocumented)
+export function manifestIsPlaneType(manifest: Manifest): boolean;
+
+// @public (undocumented)
+export function manifestType(manifest: Manifest): ChartType;
+
+// @public (undocumented)
+export function manifestTypeFamily(manifest: Manifest): ChartTypeFamily;
+
 // @public
 export class ManifestValidator {
     constructor();
