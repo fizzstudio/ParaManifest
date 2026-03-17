@@ -207,7 +207,7 @@
           "$ref": "#/$defs/nameOrNames"
         }
       },
-      "required": ["baseQuantity", "baseKind"],
+      "required": ["baseQuantity"],
       "additionalProperties": false
     },
     "facetTopic": {

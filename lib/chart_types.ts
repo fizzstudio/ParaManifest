@@ -16,13 +16,14 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.*/
 
 // Imports
 
-import { JIMManifest } from "./manifest";
+import { JIMManifest, Manifest } from "./manifest";
 
 // Types & Constants
 
 export type ChartType = JIMManifest['datasets'][number]['representation']['subtype'];
 
-export const CHART_TYPE_FAMILIES = ['line', 'bar', 'pastry', 'scatter', 'histogram', 'waterfall', 'graph', 'venn'] as const;
+export const CHART_TYPE_FAMILIES = ['line', 'bar', 'pastry', 'scatter', 'histogram', 'waterfall', 
+  'graph', 'venn'] as const;
 export type ChartTypeFamily = typeof CHART_TYPE_FAMILIES[number];
 
 export const CHART_FAMILY_MAP: Record<ChartType, ChartTypeFamily> = {
@@ -41,13 +42,6 @@ export const CHART_FAMILY_MAP: Record<ChartType, ChartTypeFamily> = {
   'venn': 'venn'
 }
 
-/*export const CHART_FAMILY_MEMBERS: Record<ChartTypeFamily, ChartType[]> = {
-  'line': ['line', 'stepline'],
-  'bar': ['bar', 'column', 'lollipop', 'histogram'],
-  'pastry': ['pie', 'donut'],
-  'scatter': ['scatter']
-}*/
-
 export const CHART_FAMILY_MEMBERS: Record<ChartTypeFamily, ChartType[]> = (() => {
   const members: Record<ChartTypeFamily, ChartType[]> = {
     'line': [],
@@ -59,7 +53,7 @@ export const CHART_FAMILY_MEMBERS: Record<ChartTypeFamily, ChartType[]> = (() =>
     'graph': [],
 	  'venn': []
   };
-  for (let chartType of Object.keys(CHART_FAMILY_MAP)) {
+  for (const chartType of Object.keys(CHART_FAMILY_MAP)) {
     members[CHART_FAMILY_MAP[chartType as ChartType]].push(chartType as ChartType);
   }
   return members;
@@ -91,4 +85,18 @@ export function isPastryType(chartType: ChartType): boolean {
 
 export function isVennType(chartType: ChartType): boolean {
   return CHART_FAMILY_MAP[chartType] === 'venn';
+}
+
+// Manifest Functions
+
+export function manifestType(manifest: Manifest): ChartType {
+  return manifest.jim.datasets[0].representation.subtype;
+}
+
+export function manifestTypeFamily(manifest: Manifest): ChartTypeFamily {
+  return CHART_FAMILY_MAP[manifestType(manifest)];
+}
+
+export function manifestIsPlaneType(manifest: Manifest): boolean {
+  return isPlaneType(manifestType(manifest));
 }

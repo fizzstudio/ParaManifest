@@ -127,7 +127,7 @@ export interface Topic {
   /**
    * What kind of base quantity this is: either a number of things (number), a quantity measured by a unit (dimensioned), a rate of change (rate), or a proportion of a whole (proportion).
    */
-  baseKind: "number" | "dimensioned" | "rate" | "proportion";
+  baseKind?: "number" | "dimensioned" | "rate" | "proportion";
   /**
    * The particular location or locations that the quantity measured by this series or chart is limited to, if any.
    */
@@ -239,7 +239,7 @@ export interface Topic1 {
   /**
    * What kind of base quantity this is: either a number of things (number), a quantity measured by a unit (dimensioned), a rate of change (rate), or a proportion of a whole (proportion).
    */
-  baseKind: "number" | "dimensioned" | "rate" | "proportion";
+  baseKind?: "number" | "dimensioned" | "rate" | "proportion";
   /**
    * The particular location or locations that the quantity measured by this series or chart is limited to, if any.
    */
