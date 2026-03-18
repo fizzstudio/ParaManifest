@@ -29,6 +29,10 @@ export interface JIMManifest {
    * Metadata, and optionally inline data, needed to present a chart in ParaCharts.
    */
   datasets: Dataset[];
+  /**
+   * Annotations on specific elements of the data.
+   */
+  annotations?: Annotation[];
 }
 /**
  * A set of data and parameters needed to present a chart in ParaCharts.
@@ -265,6 +269,37 @@ export interface DatapointManifest {
    * The value of the point relative to the facet labelled by this property key.
    */
   [k: string]: string;
+}
+/**
+ * An annotation on a specific element of the data.
+ */
+export interface Annotation {
+  /**
+   * The name of something, as a non-empty string.
+   */
+  id: string;
+  /**
+   * The string value of the Body of the Annotation.
+   */
+  bodyValue: string;
+  /**
+   * The name of something, as a non-empty string.
+   */
+  target: string;
+  creator: Agent;
+}
+/**
+ * The agent responsible for creating the resource.
+ */
+export interface Agent {
+  /**
+   * The name of something, as a non-empty string.
+   */
+  id: string;
+  /**
+   * Whether the agent was a human or a software program.
+   */
+  type: "Person" | "Software";
 }
 /**
  * Metadata and settings needed to present a ParaCharts element which are extensions to JIM. @public

@@ -7,11 +7,26 @@
 import { Json } from '@hyperjump/json-pointer';
 import { OutputUnit } from '@hyperjump/json-schema/draft-2020-12';
 
+// @public
+export interface Agent {
+    id: string;
+    type: "Person" | "Software";
+}
+
 // @public (undocumented)
 export type AllSeriesData = Record<string, DatapointManifest[]>;
 
 // @public (undocumented)
 export type AllSeriesDataXY = Record<string, XyPoint[]>;
+
+// @public
+export interface Annotation {
+    bodyValue: string;
+    // (undocumented)
+    creator: Agent;
+    id: string;
+    target: string;
+}
 
 // @public
 export interface AxisSettings {
@@ -144,6 +159,7 @@ export function isVennType(chartType: ChartType): boolean;
 
 // @public
 export interface JIMManifest {
+    annotations?: Annotation[];
     datasets: Dataset[];
 }
 

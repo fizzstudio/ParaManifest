@@ -17,6 +17,14 @@
             "$ref": "#/$defs/dataset"
           },
           "uniqueItems": true
+        },
+        "annotations": {
+          "description": "Annotations on specific elements of the data.",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/annotation"
+          },
+          "uniqueItems": true
         }
       },
       "required": [
@@ -394,6 +402,59 @@
         "facetKeys"
       ],
       "additionalProperties": false
+    },
+    "annotation": {
+      "description": "An annotation on a specific element of the data.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "The identity of the Annotation.",
+          "$ref": "#/$defs/name"
+        },
+        "bodyValue": {
+          "description": "The string value of the Body of the Annotation.",
+          "type": "string"
+        },
+        "target": {
+          "description": "The data element being annotated",
+          "$ref": "#/$defs/name"
+        },
+        "creator": {
+          "description": "The agent responsible for creating the resource.",
+          "$ref": "#/$defs/agent"
+        }
+      },
+      "required": [
+        "id",
+        "bodyValue",
+        "target",
+        "creator"
+      ],
+      "additionalProperties": false,
+      "$comment": "Some descriptions from Web Annotation Data Model. See https://www.w3.org/copyright/document-license-2023/"
+    },
+    "agent": {
+      "description": "An agent who created an annotation.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "The identity of the Agent.",
+          "$ref": "#/$defs/name"
+        },
+        "type": {
+          "description": "Whether the agent was a human or a software program.",
+          "enum": [
+            "Person",
+            "Software"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "type"
+      ],
+      "additionalProperties": false,
+      "$comment": "Some descriptions from Web Annotation Data Model. See https://www.w3.org/copyright/document-license-2023/"
     },
     "settings": {
       "description": "The settings needed to present a chart in ParaCharts.",
