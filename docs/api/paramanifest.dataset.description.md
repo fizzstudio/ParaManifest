@@ -4,7 +4,7 @@
 
 ## Dataset.description property
 
-A manually created description of the whole chart.
+The name of something, as a non-empty string.
 
 **Signature:**
 

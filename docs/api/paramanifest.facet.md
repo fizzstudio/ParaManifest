@@ -56,25 +56,6 @@ The primitive type of the data measured by this facet.
 </td></tr>
 <tr><td>
 
-[denominator?](./paramanifest.facet.denominator.md)
-
-
-</td><td>
-
-
-</td><td>
-
-string
-
-
-</td><td>
-
-_(Optional)_ The name of something, as a non-empty string.
-
-
-</td></tr>
-<tr><td>
-
 [description?](./paramanifest.facet.description.md)
 
 
@@ -163,6 +144,25 @@ number
 </td><td>
 
 _(Optional)_ The number each datum of this facet must be multiplied by to get the true value. Defaults to 1.
+
+
+</td></tr>
+<tr><td>
+
+[topic?](./paramanifest.facet.topic.md)
+
+
+</td><td>
+
+
+</td><td>
+
+[FacetTopic](./paramanifest.facettopic.md)
+
+
+</td><td>
+
+_(Optional)_
 
 
 </td></tr>

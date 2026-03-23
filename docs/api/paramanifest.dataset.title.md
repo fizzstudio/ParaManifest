@@ -4,7 +4,7 @@
 
 ## Dataset.title property
 
-The title of the chart.
+The name of something, as a non-empty string.
 
 **Signature:**
 

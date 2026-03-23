@@ -45,25 +45,16 @@ Description
 </th></tr></thead>
 <tbody><tr><td>
 
-[chartDataIsOrdered(data)](./paramanifest.chartdataisordered.md)
-
-
-</td><td>
-
-
-</td></tr>
-<tr><td>
-
-[collectXs(data)](./paramanifest.collectxs.md)
-
-
-</td><td>
-
-
-</td></tr>
-<tr><td>
-
 [dataFromManifest(manifest)](./paramanifest.datafrommanifest.md)
+
+
+</td><td>
+
+
+</td></tr>
+<tr><td>
+
+[hasInlineData(manifest)](./paramanifest.hasinlinedata.md)
 
 
 </td><td>
@@ -124,6 +115,42 @@ Description
 
 
 </td></tr>
+<tr><td>
+
+[isVennType(chartType)](./paramanifest.isvenntype.md)
+
+
+</td><td>
+
+
+</td></tr>
+<tr><td>
+
+[manifestIsPlaneType(manifest)](./paramanifest.manifestisplanetype.md)
+
+
+</td><td>
+
+
+</td></tr>
+<tr><td>
+
+[manifestType(manifest)](./paramanifest.manifesttype.md)
+
+
+</td><td>
+
+
+</td></tr>
+<tr><td>
+
+[manifestTypeFamily(manifest)](./paramanifest.manifesttypefamily.md)
+
+
+</td><td>
+
+
+</td></tr>
 </tbody></table>
 
 ## Interfaces
@@ -140,6 +167,28 @@ Description
 
 </th></tr></thead>
 <tbody><tr><td>
+
+[Agent](./paramanifest.agent.md)
+
+
+</td><td>
+
+The agent responsible for creating the resource.
+
+
+</td></tr>
+<tr><td>
+
+[Annotation](./paramanifest.annotation.md)
+
+
+</td><td>
+
+An annotation on a specific element of the data.
+
+
+</td></tr>
+<tr><td>
 
 [AxisSettings](./paramanifest.axissettings.md)
 
@@ -196,6 +245,17 @@ How this facet should be displayed on the chart
 </td></tr>
 <tr><td>
 
+[ExtensionsManifest](./paramanifest.extensionsmanifest.md)
+
+
+</td><td>
+
+Metadata and settings needed to present a ParaCharts element which are extensions to JIM.
+
+
+</td></tr>
+<tr><td>
+
 [Facet](./paramanifest.facet.md)
 
 
@@ -207,12 +267,45 @@ Metadata describing a facet of the chart which represents some dimension of the 
 </td></tr>
 <tr><td>
 
+[FacetTopic](./paramanifest.facettopic.md)
+
+
+</td><td>
+
+Topic information for the facet.
+
+
+</td></tr>
+<tr><td>
+
+[JIMManifest](./paramanifest.jimmanifest.md)
+
+
+</td><td>
+
+Metadata, and optionally inline data, needed to present a ParaCharts element, as a root form JIM document.
+
+
+</td></tr>
+<tr><td>
+
 [Manifest](./paramanifest.manifest.md)
 
 
 </td><td>
 
-The data, parameters and settings needed to present a chart in ParaCharts.
+Metadata, settings, and optionally inline data needed to present a ParaCharts element, as an enveloped form JIM document.
+
+
+</td></tr>
+<tr><td>
+
+[RepresentationStructure](./paramanifest.representationstructure.md)
+
+
+</td><td>
+
+Describes how the chart groups, nests, or otherwise organizes one or more facets.
 
 
 </td></tr>
@@ -240,18 +333,18 @@ The settings needed to present a chart in ParaCharts.
 </td></tr>
 <tr><td>
 
-[Theme](./paramanifest.theme.md)
+[Topic](./paramanifest.topic.md)
 
 
 </td><td>
 
-What quantities the line chart displays overall. Defaults to the theme of the single series ONLY in single series charts.
+The overall topic of the chart. Defaults to the topic of the single series ONLY in single series charts.
 
 
 </td></tr>
 <tr><td>
 
-[Theme1](./paramanifest.theme1.md)
+[Topic1](./paramanifest.topic1.md)
 
 
 </td><td>
@@ -379,17 +472,6 @@ Description
 
 
 </td><td>
-
-
-</td></tr>
-<tr><td>
-
-[Data](./paramanifest.data.md)
-
-
-</td><td>
-
-The source for the data for this dataset.
 
 
 </td></tr>

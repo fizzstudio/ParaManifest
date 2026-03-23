@@ -7,7 +7,7 @@
 **Signature:**
 
 ```typescript
-export type BaseKind = Theme['baseKind'];
+export type BaseKind = Topic['baseKind'];
 ```
-**References:** [Theme](./paramanifest.theme.md)
+**References:** [Topic](./paramanifest.topic.md)
 

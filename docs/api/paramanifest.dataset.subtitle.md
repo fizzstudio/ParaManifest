@@ -4,7 +4,7 @@
 
 ## Dataset.subtitle property
 
-The subtitle of the chart.
+The name of something, as a non-empty string.
 
 **Signature:**
 

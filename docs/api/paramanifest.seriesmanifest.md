@@ -94,7 +94,7 @@ _(Optional)_ The datapoints of this series represented inline.
 </td></tr>
 <tr><td>
 
-[theme?](./paramanifest.seriesmanifest.theme.md)
+[topic?](./paramanifest.seriesmanifest.topic.md)
 
 
 </td><td>
@@ -102,7 +102,7 @@ _(Optional)_ The datapoints of this series represented inline.
 
 </td><td>
 
-[Theme1](./paramanifest.theme1.md)
+[Topic1](./paramanifest.topic1.md)
 
 
 </td><td>

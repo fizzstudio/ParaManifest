@@ -7,7 +7,7 @@
 **Signature:**
 
 ```typescript
-export declare function inlineData(manifest: Manifest, data: AllSeriesData): Manifest;
+export declare function inlineData(manifest: JIMManifest, data: AllSeriesData): JIMManifest;
 ```
 
 ## Parameters
@@ -35,7 +35,7 @@ manifest
 
 </td><td>
 
-[Manifest](./paramanifest.manifest.md)
+[JIMManifest](./paramanifest.jimmanifest.md)
 
 
 </td><td>
@@ -59,5 +59,5 @@ data
 </tbody></table>
 **Returns:**
 
-[Manifest](./paramanifest.manifest.md)
+[JIMManifest](./paramanifest.jimmanifest.md)
 

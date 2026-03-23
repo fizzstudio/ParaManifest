@@ -9,5 +9,5 @@ What type of chart element represents the facet.
 **Signature:**
 
 ```typescript
-type: "axis" | "marking" | "area" | "angle";
+type: "axis" | "marking" | "area" | "angle" | "text";
 ```

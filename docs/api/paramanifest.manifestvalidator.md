@@ -66,7 +66,7 @@ Description
 </th></tr></thead>
 <tbody><tr><td>
 
-[fullValidate(json)](./paramanifest.manifestvalidator.fullvalidate.md)
+[validateManifest(manifest, type)](./paramanifest.manifestvalidator.validatemanifest.md)
 
 
 </td><td>
@@ -74,13 +74,13 @@ Description
 
 </td><td>
 
-Validates a JSON object against the manifest schema, returning the full validation output from the hyperjump json-schema library. NOTE: The URL in the hyperjump validate function only needs to match the $id property of the schema. It is not actually used to load the schema, so it doesn't matter that the schema file is not actually at that URL.
+Validates a manifest object against the manifest schema, returning whether the object is valid and a string describing the errors if the object is invalid. NOTE: The URL in the hyperjump validate function only needs to match the $id property of the schema. It is not actually used to load the schema, so it doesn't matter that the schema file is not actually at that URL.
 
 
 </td></tr>
 <tr><td>
 
-[validate(json)](./paramanifest.manifestvalidator.validate.md)
+[validateManifestFullOutput(manifest, type)](./paramanifest.manifestvalidator.validatemanifestfulloutput.md)
 
 
 </td><td>
@@ -88,7 +88,7 @@ Validates a JSON object against the manifest schema, returning the full validati
 
 </td><td>
 
-Validates a JSON object against the validator's schema, returning whether the object is valid and a string displaying the errors if the object is invalid
+Validates a manifest object against the manifest schema, returning the full validation output from the hyperjump json-schema library, as well as the id of the schema used to validate. NOTE: The URL in the hyperjump validate function only needs to match the $id property of the schema. It is not actually used to load the schema, so it doesn't matter that the schema file is not actually at that URL.
 
 
 </td></tr>

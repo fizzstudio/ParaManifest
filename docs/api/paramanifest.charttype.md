@@ -7,7 +7,7 @@
 **Signature:**
 
 ```typescript
-export type ChartType = Manifest['datasets'][number]['type'];
+export type ChartType = JIMManifest['datasets'][number]['representation']['subtype'];
 ```
-**References:** [Manifest](./paramanifest.manifest.md)
+**References:** [JIMManifest](./paramanifest.jimmanifest.md)
 

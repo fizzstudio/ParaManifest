@@ -37,42 +37,6 @@ Description
 </th></tr></thead>
 <tbody><tr><td>
 
-[chartTheme?](./paramanifest.dataset.charttheme.md)
-
-
-</td><td>
-
-
-</td><td>
-
-[Theme](./paramanifest.theme.md)
-
-
-</td><td>
-
-_(Optional)_
-
-
-</td></tr>
-<tr><td>
-
-[data](./paramanifest.dataset.data.md)
-
-
-</td><td>
-
-
-</td><td>
-
-[Data](./paramanifest.data.md)
-
-
-</td><td>
-
-
-</td></tr>
-<tr><td>
-
 [description?](./paramanifest.dataset.description.md)
 
 
@@ -86,7 +50,7 @@ string
 
 </td><td>
 
-_(Optional)_ A manually created description of the whole chart.
+_(Optional)_ The name of something, as a non-empty string.
 
 
 </td></tr>
@@ -111,6 +75,44 @@ Metadata describing each facet of the chart which represents some dimension of t
 </td></tr>
 <tr><td>
 
+[href?](./paramanifest.dataset.href.md)
+
+
+</td><td>
+
+
+</td><td>
+
+{ path: string; format: string; }
+
+
+</td><td>
+
+_(Optional)_ An external data source for this dataset.
+
+
+</td></tr>
+<tr><td>
+
+[representation](./paramanifest.dataset.representation.md)
+
+
+</td><td>
+
+
+</td><td>
+
+{ type: "chart"; subtype: "line" \| "stepline" \| "bar" \| "column" \| "lollipop" \| "histogram" \| "waterfall" \| "scatter" \| "heatmap" \| "pie" \| "donut" \| "graph" \| "venn"; structure?: [RepresentationStructure](./paramanifest.representationstructure.md)<!-- -->\[\]; }
+
+
+</td><td>
+
+In what form the data is presented in the ParaChart element.
+
+
+</td></tr>
+<tr><td>
+
 [series](./paramanifest.dataset.series.md)
 
 
@@ -130,44 +132,6 @@ Metadata, and possibly inline data, describing the series of the chart.
 </td></tr>
 <tr><td>
 
-[seriesRelations?](./paramanifest.dataset.seriesrelations.md)
-
-
-</td><td>
-
-
-</td><td>
-
-"stacked" \| "grouped"
-
-
-</td><td>
-
-_(Optional)_ How series are related to each other in multi-series bar family charts. Defaults to 'stacked'.
-
-
-</td></tr>
-<tr><td>
-
-[settings?](./paramanifest.dataset.settings.md)
-
-
-</td><td>
-
-
-</td><td>
-
-[Settings](./paramanifest.settings.md)
-
-
-</td><td>
-
-_(Optional)_
-
-
-</td></tr>
-<tr><td>
-
 [subtitle?](./paramanifest.dataset.subtitle.md)
 
 
@@ -181,7 +145,7 @@ string
 
 </td><td>
 
-_(Optional)_ The subtitle of the chart.
+_(Optional)_ The name of something, as a non-empty string.
 
 
 </td></tr>
@@ -200,13 +164,13 @@ string
 
 </td><td>
 
-The title of the chart.
+The name of something, as a non-empty string.
 
 
 </td></tr>
 <tr><td>
 
-[type](./paramanifest.dataset.type.md)
+[topic?](./paramanifest.dataset.topic.md)
 
 
 </td><td>
@@ -214,12 +178,12 @@ The title of the chart.
 
 </td><td>
 
-"line" \| "stepline" \| "bar" \| "column" \| "lollipop" \| "histogram" \| "scatter" \| "heatmap" \| "pie" \| "donut" \| "graph"
+[Topic](./paramanifest.topic.md)
 
 
 </td><td>
 
-The type of the chart, such as 'line' or 'column'.
+_(Optional)_
 
 
 </td></tr>

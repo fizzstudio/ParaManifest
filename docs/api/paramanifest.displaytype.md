@@ -102,7 +102,7 @@ _(Optional)_ What type of chart element represents the facet.
 
 </td><td>
 
-"axis" \| "marking" \| "area" \| "angle"
+"axis" \| "marking" \| "area" \| "angle" \| "text"
 
 
 </td><td>

@@ -7,7 +7,7 @@
 **Signature:**
 
 ```typescript
-export type Datatype = Manifest['datasets'][number]['facets']['x']['datatype'];
+export type Datatype = JIMManifest['datasets'][number]['facets']['x']['datatype'];
 ```
-**References:** [Manifest](./paramanifest.manifest.md)
+**References:** [JIMManifest](./paramanifest.jimmanifest.md)
 

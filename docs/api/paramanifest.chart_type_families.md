@@ -7,5 +7,5 @@
 **Signature:**
 
 ```typescript
-CHART_TYPE_FAMILIES: readonly ["line", "bar", "pastry", "scatter", "histogram", "graph"]
+CHART_TYPE_FAMILIES: readonly ["line", "bar", "pastry", "scatter", "histogram", "waterfall", "graph", "venn"]
 ```

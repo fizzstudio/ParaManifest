@@ -4,7 +4,7 @@
 
 ## Manifest interface
 
-The data, parameters and settings needed to present a chart in ParaCharts.
+Metadata, settings, and optionally inline data needed to present a ParaCharts element, as an enveloped form JIM document.
 
 **Signature:**
 
@@ -37,7 +37,7 @@ Description
 </th></tr></thead>
 <tbody><tr><td>
 
-[datasets](./paramanifest.manifest.datasets.md)
+[extensions?](./paramanifest.manifest.extensions.md)
 
 
 </td><td>
@@ -45,12 +45,29 @@ Description
 
 </td><td>
 
-[Dataset](./paramanifest.dataset.md)<!-- -->\[\]
+[ExtensionsManifest](./paramanifest.extensionsmanifest.md)
 
 
 </td><td>
 
-The data and parameters needed to present a chart in ParaCharts.
+_(Optional)_
+
+
+</td></tr>
+<tr><td>
+
+[jim](./paramanifest.manifest.jim.md)
+
+
+</td><td>
+
+
+</td><td>
+
+[JIMManifest](./paramanifest.jimmanifest.md)
+
+
+</td><td>
 
 
 </td></tr>
