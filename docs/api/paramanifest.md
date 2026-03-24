@@ -168,28 +168,6 @@ Description
 </th></tr></thead>
 <tbody><tr><td>
 
-[Agent](./paramanifest.agent.md)
-
-
-</td><td>
-
-The agent responsible for creating the resource.
-
-
-</td></tr>
-<tr><td>
-
-[Annotation](./paramanifest.annotation.md)
-
-
-</td><td>
-
-An annotation on a specific element of the data.
-
-
-</td></tr>
-<tr><td>
-
 [AxisSettings](./paramanifest.axissettings.md)
 
 
