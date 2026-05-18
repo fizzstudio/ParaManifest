@@ -18,9 +18,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.*/
 
 // External Imports
 
-import { validate, registerSchema, OutputUnit, SchemaObject, hasSchema } from '@hyperjump/json-schema/draft-2020-12';
+import { validate, registerSchema, OutputUnit, hasSchema } from '@hyperjump/json-schema/draft-2020-12';
 import { BASIC } from '@hyperjump/json-schema/experimental';
-import { Json } from '@hyperjump/json-pointer';
 
 import jp from 'jsonpath';
 
@@ -37,6 +36,14 @@ const JIM_MANIFEST_SCHEMA_ID = JIM_MANIFEST_SCHEMA.$id;
 const MANIFEST_SCHEMA_ID = MANIFEST_SCHEMA.$id;
 
 // Types
+
+// `Json` and `JsonObject` are copied from `@hyperjump/json-pointer` which is MIT licensed
+
+type Json = string | number | boolean | null | JsonObject | Json[];
+type JsonObject = {
+  [property: string]: Json;
+};
+
 
 export type ValidateOutput = {
   valid: boolean,

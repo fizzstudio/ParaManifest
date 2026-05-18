@@ -4,7 +4,6 @@
 
 ```ts
 
-import { Json } from '@hyperjump/json-pointer';
 import { OutputUnit } from '@hyperjump/json-schema/draft-2020-12';
 
 // @public (undocumented)
@@ -12,22 +11,6 @@ export type AllSeriesData = Record<string, DatapointManifest[]>;
 
 // @public (undocumented)
 export type AllSeriesDataXY = Record<string, XyPoint[]>;
-
-// @public
-export interface AxisSettings {
-    // (undocumented)
-    [k: string]: unknown;
-    maxValue?: number | "unset";
-    minValue?: number | "unset";
-}
-
-// @public
-export interface AxisSettings1 {
-    // (undocumented)
-    [k: string]: unknown;
-    maxValue?: number | "unset";
-    minValue?: number | "unset";
-}
 
 // @public (undocumented)
 export type BaseKind = Topic['baseKind'];
@@ -168,6 +151,7 @@ export function manifestTypeFamily(manifest: Manifest): ChartTypeFamily;
 export class ManifestValidator {
     constructor();
     validateManifest(manifest: Json, type?: 'root' | 'enveloped'): Promise<ValidateOutput>;
+    // Warning: (ae-forgotten-export) The symbol "Json" needs to be exported by the entry point index.d.ts
     validateManifestFullOutput(manifest: Json, type?: 'root' | 'enveloped'): Promise<{
         schemaId: string;
         output: OutputUnit;
@@ -202,16 +186,6 @@ export interface SeriesManifest {
 export interface Settings {
     // (undocumented)
     [k: string]: unknown;
-    aspectRatio?: number;
-    axis?: {
-        x?: AxisSettings;
-        y?: AxisSettings1;
-        [k: string]: unknown;
-    };
-    sonification?: {
-        isSoniEnabled?: boolean;
-        [k: string]: unknown;
-    };
 }
 
 // Warning: (ae-internal-missing-underscore) The name "strToId" should be prefixed with an underscore because the declaration is marked as @internal
