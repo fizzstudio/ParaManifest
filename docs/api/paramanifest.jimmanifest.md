@@ -37,25 +37,6 @@ Description
 </th></tr></thead>
 <tbody><tr><td>
 
-[annotations?](./paramanifest.jimmanifest.annotations.md)
-
-
-</td><td>
-
-
-</td><td>
-
-[Annotation](./paramanifest.annotation.md)<!-- -->\[\]
-
-
-</td><td>
-
-_(Optional)_ Annotations on specific elements of the data.
-
-
-</td></tr>
-<tr><td>
-
 [datasets](./paramanifest.jimmanifest.datasets.md)
 
 
