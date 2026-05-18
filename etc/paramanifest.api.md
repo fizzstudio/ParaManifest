@@ -4,7 +4,6 @@
 
 ```ts
 
-import { Json } from '@hyperjump/json-pointer';
 import { OutputUnit } from '@hyperjump/json-schema/draft-2020-12';
 
 // @public (undocumented)
@@ -152,6 +151,7 @@ export function manifestTypeFamily(manifest: Manifest): ChartTypeFamily;
 export class ManifestValidator {
     constructor();
     validateManifest(manifest: Json, type?: 'root' | 'enveloped'): Promise<ValidateOutput>;
+    // Warning: (ae-forgotten-export) The symbol "Json" needs to be exported by the entry point index.d.ts
     validateManifestFullOutput(manifest: Json, type?: 'root' | 'enveloped'): Promise<{
         schemaId: string;
         output: OutputUnit;
