@@ -19,7 +19,8 @@
   "$defs": {
     "settings": {
       "description": "The settings needed to present a chart in ParaCharts.",
-      "type": "object"
+      "type": "object",
+      "tsType": "Record<string, any>"
     }
   }
 }

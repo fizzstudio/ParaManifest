@@ -183,10 +183,7 @@ export interface SeriesManifest {
 }
 
 // @public
-export interface Settings {
-    // (undocumented)
-    [k: string]: unknown;
-}
+export type Settings = Record<string, any>;
 
 // Warning: (ae-internal-missing-underscore) The name "strToId" should be prefixed with an underscore because the declaration is marked as @internal
 //

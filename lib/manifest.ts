@@ -13,6 +13,10 @@ export type Name = string;
  * The names of multiple things, as an array of names.
  */
 export type MultipleNames = Name[];
+/**
+ * The settings needed to present a chart in ParaCharts.
+ */
+export type Settings = Record<string, any>;
 
 /**
  * Metadata, settings, and optionally inline data needed to present a ParaCharts element, as an enveloped form JIM document. @public
@@ -277,11 +281,5 @@ export interface ExtensionsManifest {
     settings?: Settings;
     [k: string]: unknown;
   };
-  [k: string]: unknown;
-}
-/**
- * The settings needed to present a chart in ParaCharts.
- */
-export interface Settings {
   [k: string]: unknown;
 }
