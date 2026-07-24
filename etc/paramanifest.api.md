@@ -22,7 +22,7 @@ export const CHART_FAMILY_MAP: Record<ChartType, ChartTypeFamily>;
 export const CHART_FAMILY_MEMBERS: Record<ChartTypeFamily, ChartType[]>;
 
 // @public (undocumented)
-export const CHART_TYPE_FAMILIES: readonly ["line", "bar", "pastry", "scatter", "histogram", "waterfall", "graph", "venn"];
+export const CHART_TYPE_FAMILIES: readonly ["line", "bar", "pastry", "scatter", "histogram", "waterfall", "graph", "venn", "candlestick", "combo"];
 
 // @public (undocumented)
 export type ChartType = JIMManifest['datasets'][number]['representation']['subtype'];
@@ -50,7 +50,7 @@ export interface Dataset {
     };
     representation: {
         type: "chart";
-        subtype: "line" | "stepline" | "bar" | "column" | "lollipop" | "histogram" | "waterfall" | "scatter" | "heatmap" | "pie" | "donut" | "graph" | "venn";
+        subtype: "line" | "stepline" | "bar" | "column" | "lollipop" | "histogram" | "waterfall" | "scatter" | "heatmap" | "pie" | "donut" | "graph" | "venn" | "candlestick" | "combo";
         structure?: RepresentationStructure[];
     };
     series: SeriesManifest[];
@@ -109,6 +109,12 @@ export function inlineData(manifest: JIMManifest, data: AllSeriesData): JIMManif
 
 // @public (undocumented)
 export function isBarType(chartType: ChartType): boolean;
+
+// @public (undocumented)
+export function isCandlestickType(chartType: ChartType): boolean;
+
+// @public (undocumented)
+export function isComboType(chartType: ChartType): boolean;
 
 // @public (undocumented)
 export function isLineType(chartType: ChartType): boolean;
