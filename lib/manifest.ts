@@ -10,9 +10,76 @@
  */
 export type Name = string;
 /**
- * The names of multiple things, as an array of names.
+ * An annotation on the chart or its data.
  */
-export type MultipleNames = Name[];
+export type Annotation = {
+  /**
+   * The name of something, as a non-empty string.
+   */
+  id: string;
+  /**
+   * The name of something, as a non-empty string.
+   */
+  motivation: string;
+  /**
+   * The thing or things being annotated.
+   */
+  target: JimTarget | JimTarget[];
+  /**
+   * The content of an annotation as a localized text map.
+   */
+  body?: {
+    /**
+     * This interface was referenced by `undefined`'s JSON-Schema definition
+     * via the `patternProperty` "^[a-z][a-z]$".
+     */
+    [k: string]: string;
+  };
+  /**
+   * The name of something, as a non-empty string.
+   */
+  bodyType?: string;
+  status?: JimAnnotationStatus;
+  /**
+   * Host-specific or tool-specific payloads.
+   */
+  extensions?: {
+    [k: string]: unknown;
+  };
+  creator?: AgentRef1;
+  generator?: AgentRef2;
+  /**
+   * The date and timestamp when this annotation was created.
+   */
+  created?: string;
+  /**
+   * The date and timestamp when this annotation was last modified.
+   */
+  modified?: string;
+  /**
+   * The date and timestamp when this annotation was generated.
+   */
+  generated?: string;
+  /**
+   * The ids of the annotations that this annotation supersedes.
+   */
+  replaces?: unknown[];
+} & Annotation1;
+/**
+ * The agent who set this workflow status.
+ */
+export type AgentRef = string | AgentRefObj;
+/**
+ * The creator of this annotation.
+ */
+export type AgentRef1 = string | AgentRefObj;
+/**
+ * The generator of this annotation.
+ */
+export type AgentRef2 = string | AgentRefObj;
+export type Annotation1 = {
+  [k: string]: unknown;
+};
 /**
  * The settings needed to present a chart in ParaCharts.
  */
@@ -33,6 +100,10 @@ export interface JIMManifest {
    * Metadata, and optionally inline data, needed to present a chart in ParaCharts.
    */
   datasets: Dataset[];
+  /**
+   * Annotations on the chart and its data.
+   */
+  annotations?: Annotation[];
 }
 /**
  * A set of data and parameters needed to present a chart in ParaCharts.
@@ -129,7 +200,7 @@ export interface Topic {
   /**
    * The base quantity or quantities measured by the series or chart, such as 'item price' or 'inflation rate'.
    */
-  baseQuantity: Name | MultipleNames;
+  baseQuantity: Name | Name[];
   /**
    * What kind of base quantity this is: either a number of things (number), a quantity measured by a unit (dimensioned), a rate of change (rate), or a proportion of a whole (proportion).
    */
@@ -137,19 +208,19 @@ export interface Topic {
   /**
    * The particular location or locations that the quantity measured by this series or chart is limited to, if any.
    */
-  locale?: Name | MultipleNames;
+  locale?: Name | Name[];
   /**
    * The particular entity or entities the quantity measured by this series or chart belongs to, if any.
    */
-  entity?: Name | MultipleNames;
+  entity?: Name | Name[];
   /**
    * A general term or terms for the multiple, indefinite items the quantity measured by this series or chart belongs to, if any.
    */
-  items?: Name | MultipleNames;
+  items?: Name | Name[];
   /**
    * The statistical aggregate or aggregates measured by this series or chart, such as 'total' or 'estimated', if any.
    */
-  aggregate?: Name | MultipleNames;
+  aggregate?: Name | Name[];
 }
 /**
  * Metadata describing a facet of the chart which represents some dimension of the data.
@@ -241,7 +312,7 @@ export interface Topic1 {
   /**
    * The base quantity or quantities measured by the series or chart, such as 'item price' or 'inflation rate'.
    */
-  baseQuantity: Name | MultipleNames;
+  baseQuantity: Name | Name[];
   /**
    * What kind of base quantity this is: either a number of things (number), a quantity measured by a unit (dimensioned), a rate of change (rate), or a proportion of a whole (proportion).
    */
@@ -249,19 +320,19 @@ export interface Topic1 {
   /**
    * The particular location or locations that the quantity measured by this series or chart is limited to, if any.
    */
-  locale?: Name | MultipleNames;
+  locale?: Name | Name[];
   /**
    * The particular entity or entities the quantity measured by this series or chart belongs to, if any.
    */
-  entity?: Name | MultipleNames;
+  entity?: Name | Name[];
   /**
    * A general term or terms for the multiple, indefinite items the quantity measured by this series or chart belongs to, if any.
    */
-  items?: Name | MultipleNames;
+  items?: Name | Name[];
   /**
    * The statistical aggregate or aggregates measured by this series or chart, such as 'total' or 'estimated', if any.
    */
-  aggregate?: Name | MultipleNames;
+  aggregate?: Name | Name[];
 }
 /**
  * A datapoint on the graph.
@@ -271,6 +342,77 @@ export interface DatapointManifest {
    * The value of the point relative to the facet labelled by this property key.
    */
   [k: string]: string;
+}
+/**
+ * The thing or things being annotated.
+ */
+export interface JimTarget {
+  /**
+   * A document-local reference to a JIM resource with the matching id.
+   */
+  ref?: Name | Name[];
+  /**
+   * A selector for rendered DOM/SVG content.
+   */
+  dom?: Name | Name[];
+  /**
+   * A JSONPath into JIM data, metadata, bindings, annotations, or other JSON resources.
+   */
+  json?: Name | Name[];
+  /**
+   * A graphical region expressed using SVG-JSON-Shapes.
+   */
+  region?: Name | Name[];
+}
+/**
+ * The workflow status of the annotation. Defaults to `{ "value": "active" }`.
+ */
+export interface JimAnnotationStatus {
+  /**
+   * The workflow status of the annotation.
+   */
+  value:
+    | "draft"
+    | "proposed"
+    | "needs-review"
+    | "accepted"
+    | "active"
+    | "resolved"
+    | "rejected"
+    | "superseded"
+    | "archived"
+    | "spam"
+    | "hidden";
+  setBy?: AgentRef;
+  /**
+   * The date and timestamp when this workflow status was set.
+   */
+  setAt?: string;
+  /**
+   * Additional notes on this workflow status.
+   */
+  note?: string;
+}
+/**
+ * The details of a person, organization, or software agent.
+ */
+export interface AgentRefObj {
+  /**
+   * The name of something, as a non-empty string.
+   */
+  id?: string;
+  /**
+   * What type of agent this is.
+   */
+  type?: "Person" | "Organization" | "Software";
+  /**
+   * The name of something, as a non-empty string.
+   */
+  name?: string;
+  /**
+   * The version of the software for a software agent.
+   */
+  version?: string;
 }
 /**
  * Metadata and settings needed to present a ParaCharts element which are extensions to JIM. @public

@@ -12,6 +12,13 @@
         "$ref": "#/$defs/dataset"
       },
       "uniqueItems": true
+    },
+    "annotations": {
+      "description": "Annotations on the chart and its data.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/annotation"
+      }
     }
   },
   "required": [ "datasets" ],
@@ -235,18 +242,13 @@
           "$ref": "#/$defs/name"
         },
         {
-          "$ref": "#/$defs/multipleNames"
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/name"
+          },
+          "minItems": 1
         }
-      ],
-      "$comment": "`multipleNames` is necessary here because each member of oneOf must have the same type to avoid TypeScript type inference errors."
-    },
-    "multipleNames": {
-      "description": "The names of multiple things, as an array of names.",
-      "type": "array",
-      "items": {
-        "$ref": "#/$defs/name"
-      },
-      "$comment": "`multipleNames` is necessary for `nameOrNames` to avoid TypeScript type inference errors."
+      ]
     },
     "seriesName": {
       "description": "The name of a series, as a non-empty string. This is identical to `name`, but specified for semantic reasons",
@@ -298,6 +300,190 @@
       },
       "required": [ "role", "facetKeys" ],
       "additionalProperties": false
+    },
+    "annotation": {
+      "description": "An annotation on the chart or its data.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "A document-local identifier for the annotation.",
+          "$ref": "#/$defs/name",
+          "$comment": "Warning: Validators should report duplicate ids."
+        },
+        "motivation": {
+          "description": "The motivation for this annotation.",
+          "$ref": "#/$defs/name"
+        },
+        "target": {
+          "description": "The thing or things being annotated.",
+          "oneOf": [
+            {
+              "$ref": "#/$defs/jimTarget"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/jimTarget"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "body": {
+          "description": "The content of an annotation as a localized text map.",
+          "type": "object",
+          "patternProperties": {
+            "^[a-z][a-z]$": {
+              "type": "string"
+            }
+          },
+          "minProperties": 1,
+          "additionalProperties": false,
+          "$comment": "Additional validation: check all properties are valid BCP 47 language tags"
+        },
+        "bodyType": {
+          "description": "The MIME type used to interpret the strings in `body`. Defaults to `text/plain`.",
+          "$ref": "#/$defs/name",
+          "$comment": "Additional validation: check this is a valid MIME type"
+        },
+        "status": {
+          "description": "The workflow status of the annotation. Defaults to `{ \"value\": \"active\" }`.",
+          "$ref": "#/$defs/jimAnnotationStatus"
+        },
+        "extensions": {
+          "description": "Host-specific or tool-specific payloads.",
+          "minProperties": 1
+        },
+        "creator": {
+          "description": "The creator of this annotation.",
+          "$ref": "#/$defs/agentRef"
+        },
+        "generator": {
+          "description": "The generator of this annotation.",
+          "$ref": "#/$defs/agentRef"
+        },
+        "created": {
+          "description": "The date and timestamp when this annotation was created.",
+          "$ref": "#/$defs/timestamp"
+        },
+        "modified": {
+          "description": "The date and timestamp when this annotation was last modified.",
+          "$ref": "#/$defs/timestamp"
+        },
+        "generated": {
+          "description": "The date and timestamp when this annotation was generated.",
+          "$ref": "#/$defs/timestamp"
+        },
+        "replaces": {
+          "description": "The ids of the annotations that this annotation supersedes.",
+          "type": "array",
+          "item": {
+            "type": "string"
+          },
+          "$comment": "Warning: Validators should report unknown ids?"
+        }
+      },
+      "required": [ "id", "motivation", "target" ],
+      "oneOf": [
+        { "required": [ "body" ] },
+        { "required": [ "status" ] },
+        { "required": [  "extensions" ] }
+      ],
+      "dependentRequired": {
+        "bodyType": ["body"]
+      },
+      "additionalProperties": false
+    },
+    "jimTarget": {
+      "description": "The thing or things being annotated.",
+      "type": "object",
+      "properties": {
+        "ref": {
+          "description": "A document-local reference to a JIM resource with the matching id.",
+          "$ref": "#/$defs/nameOrNames"
+        },
+        "dom": {
+          "description": "A selector for rendered DOM/SVG content.",
+          "$ref": "#/$defs/nameOrNames",
+          "$comment": "Additional validation: check for DOM/SVG correctness?"
+        },
+        "json": {
+          "description": "A JSONPath into JIM data, metadata, bindings, annotations, or other JSON resources.",
+          "$ref": "#/$defs/nameOrNames",
+          "$comment": "Additional validation: check for JSONPath correctness?"
+        },
+        "region": {
+          "description": "A graphical region expressed using SVG-JSON-Shapes.",
+          "$ref": "#/$defs/nameOrNames",
+          "$comment": "Additional validation: JIM does not define geometry itself. Region shapes are expressed through the companion SVG-JSON-Shapes document."
+        }
+      },
+      "minProperties": 1,
+      "additionalProperties": false
+    },
+    "jimAnnotationStatus": {
+      "description": "The workflow status of an annotation.",
+      "type": "object",
+      "properties": {
+        "value": {
+          "description": "The workflow status of the annotation.",
+          "enum": [
+            "draft", "proposed", "needs-review", "accepted", "active", "resolved", "rejected", 
+            "superseded", "archived", "spam", "hidden"
+          ]
+        },
+        "setBy": {
+          "description": "The agent who set this workflow status.",
+          "$ref": "#/$defs/agentRef"
+        },
+        "setAt": {
+          "description": "The date and timestamp when this workflow status was set.",
+          "$ref": "#/$defs/timestamp"
+        },
+        "note": {
+          "description": "Additional notes on this workflow status.",
+          "type": "string"
+        }
+      },
+      "required": [ "value" ],
+      "additionalProperties": false
+    },
+    "agentRef": {
+      "description": "A person, organization, or software agent.",
+      "type": "object",
+      "oneOf": [
+        { "type": "string" },
+        { "$ref": "#/$defs/agentRefObj" }
+      ]
+    },
+    "agentRefObj": {
+      "description": "The details of a person, organization, or software agent.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "An ID code for the agent.",
+          "$ref": "#/$defs/name"
+        },
+        "type": {
+          "description": "What type of agent this is.",
+          "enum": [ "Person", "Organization", "Software" ]
+        },
+        "name": {
+          "description": "The name of the agent.",
+          "$ref": "#/$defs/name"
+        },
+        "version": {
+          "description": "The version of the software for a software agent.",
+          "type": "string"
+        }
+      },
+      "minProperties": 1,
+      "additionalProperties": false
+    },
+    "timestamp": {
+      "description": "The date and time when something occurred in ISO 8601.",
+      "type": "string",
+      "$comment": "Additional validation: check this is a ISO 8601 date-time string"
     }
   }
 }
