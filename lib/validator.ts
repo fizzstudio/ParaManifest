@@ -35,6 +35,11 @@ import MANIFEST_SCHEMA from '../schema/manifest_bundle.schema.json';
 const JIM_MANIFEST_SCHEMA_ID = JIM_MANIFEST_SCHEMA.$id;
 const MANIFEST_SCHEMA_ID = MANIFEST_SCHEMA.$id;
 
+const SCHEMAS: Record<string, Json> = {
+  [MANIFEST_SCHEMA_ID]: MANIFEST_SCHEMA,
+  [JIM_MANIFEST_SCHEMA_ID]: JIM_MANIFEST_SCHEMA
+}
+
 // Types
 
 // `Json` and `JsonObject` are copied from `@hyperjump/json-pointer` which is MIT licensed
@@ -79,26 +84,36 @@ export class ManifestValidator {
 
   // TODO: if the Error Keyword is keyword/required, work out & print which keyword is missing
   private _prettyPrintValidationError(
-    instance: Json, validatorOutput: OutputUnit[] | undefined, schema: Json
+    instance: Json, validatorOutput: OutputUnit[] | undefined, schemaId: string
   ): string {
     if (!validatorOutput) {
       return 'Validation failed but no errors where returned.'
     }
+    
+    // Get Schema Object
+    const schema = SCHEMAS[schemaId];
+
+    // Get Immediate Error Details
     const immediateError = validatorOutput.at(-1)!;
     const errorKeyword = immediateError.keyword.slice(24);
     const locationParts = immediateError.absoluteKeywordLocation.split('#');
-    //const locationId = locationParts[0];
-    //const schema = this.subschemaMap[locationId];
     const schemaPath = this._convertToJsonPath('$' + locationParts[1]);
     const errorPath = this._convertToJsonPath(immediateError.instanceLocation);
     let immediateSchema;
-    let errorInstance;
     try {
       immediateSchema = jp.query(schema, schemaPath);
+    } catch (err) {
+      return `Error in Schema JSONPath when attempting to pretty print validation error: ${err}\n`
+        + `Path: ${schemaPath}\nSchema: ${schema}\nSchema ID: ${schemaId}`;
+    }
+    let errorInstance;
+    try {
       errorInstance = jp.query(instance, errorPath);
     } catch (err) {
-      return `Error in JSONPath when attempting to pretty print validation error: ${err}`;
+      return `Error in Error JSONPath when attempting to pretty print validation error: ${err}`;
     }
+
+    // Render Error Message
     let errorMsg;
     if (errorKeyword === 'keyword/required') {
       const existingPropKeys = Object.keys(errorInstance[0]);
