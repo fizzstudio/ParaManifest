@@ -238,17 +238,22 @@
     "nameOrNames": {
       "description": "Either the name of a single thing, as a non-empty string, or multiple things, as an array of names.",
       "oneOf": [
-        {
+        { 
           "$ref": "#/$defs/name"
         },
         {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/name"
-          },
-          "minItems": 1
+          "$ref": "#/$defs/multipleNames"
         }
-      ]
+      ],
+      "$comment": "`multipleNames` is necessary here because each member of oneOf must have the same properties to avoid TypeScript manifest type inference errors. See README for more details."
+    },
+    "multipleNames": {
+      "description": "The names of multiple things, as an array of names.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/name"
+      },
+      "$comment": "`multipleNames` is necessary for `nameOrNames` to avoid TypeScript manifest type inference errors. See README for more details"
     },
     "seriesName": {
       "description": "The name of a series, as a non-empty string. This is identical to `name`, but specified for semantic reasons",
@@ -321,13 +326,10 @@
               "$ref": "#/$defs/jimTarget"
             },
             {
-              "type": "array",
-              "items": {
-                "$ref": "#/$defs/jimTarget"
-              },
-              "minItems": 1
+              "$ref": "#/$defs/multipleJimTargets"
             }
-          ]
+          ],
+          "$comment": "`multipleJimTargets` is necessary here because each member of oneOf must have the same properties to avoid TypeScript manifest type inference errors. See README for more details."
         },
         "body": {
           "description": "The content of an annotation as a localized text map.",
@@ -395,7 +397,7 @@
       "additionalProperties": false
     },
     "jimTarget": {
-      "description": "The thing or things being annotated.",
+      "description": "A thing being annotated.",
       "type": "object",
       "properties": {
         "ref": {
@@ -420,6 +422,15 @@
       },
       "minProperties": 1,
       "additionalProperties": false
+    },
+    "multipleJimTargets": {
+      "description": "Things being annotated.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/jimTarget"
+      },
+      "minItems": 1,
+      "$comment": "`multipleJimTargets` is necessary for `annotation.target` to avoid TypeScript manifest type inference errors. See README for more details"
     },
     "jimAnnotationStatus": {
       "description": "The workflow status of an annotation.",
@@ -452,7 +463,7 @@
       "description": "A person, organization, or software agent.",
       "type": "object",
       "oneOf": [
-        { "type": "string" },
+        { "$ref": "#/$defs/name" },
         { "$ref": "#/$defs/agentRefObj" }
       ]
     },

@@ -18,7 +18,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.*/
 
 // External Imports
 
-import { validate, registerSchema, OutputUnit, hasSchema } from '@hyperjump/json-schema/draft-2020-12';
+import { validate, registerSchema, OutputUnit, hasSchema, Output } from '@hyperjump/json-schema/draft-2020-12';
 import { BASIC } from '@hyperjump/json-schema/experimental';
 
 import jp from 'jsonpath';
@@ -79,9 +79,12 @@ export class ManifestValidator {
 
   // TODO: if the Error Keyword is keyword/required, work out & print which keyword is missing
   private _prettyPrintValidationError(
-    instance: Json, validatorOutput: OutputUnit, schema: Json
+    instance: Json, validatorOutput: OutputUnit[] | undefined, schema: Json
   ): string {
-    const immediateError = validatorOutput.errors!.at(-1)!;
+    if (!validatorOutput) {
+      return 'Validation failed but no errors where returned.'
+    }
+    const immediateError = validatorOutput.at(-1)!;
     const errorKeyword = immediateError.keyword.slice(24);
     const locationParts = immediateError.absoluteKeywordLocation.split('#');
     //const locationId = locationParts[0];
@@ -133,7 +136,7 @@ export class ManifestValidator {
    */
   public async validateManifestFullOutput(
     manifest: Json, type?: 'root' | 'enveloped'
-  ): Promise<{ schemaId: string, output: OutputUnit}> {
+  ): Promise<{ schemaId: string, output: Output}> {
     if (type === undefined) {
       if (typeof manifest === 'object' && manifest && 'jim' in manifest) {
         type = 'enveloped';
@@ -165,7 +168,7 @@ export class ManifestValidator {
     if (output.valid) {
       return { valid: true };
     }
-    const errors = this._prettyPrintValidationError(manifest, output, schemaId);
+    const errors = this._prettyPrintValidationError(manifest, output.errors, schemaId);
     return { valid: false, errors };
   }
 }

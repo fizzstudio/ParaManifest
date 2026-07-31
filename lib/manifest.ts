@@ -10,6 +10,10 @@
  */
 export type Name = string;
 /**
+ * The names of multiple things, as an array of names.
+ */
+export type MultipleNames = Name[];
+/**
  * An annotation on the chart or its data.
  */
 export type Annotation = {
@@ -24,7 +28,7 @@ export type Annotation = {
   /**
    * The thing or things being annotated.
    */
-  target: JimTarget | JimTarget[];
+  target: JimTarget | MultipleJimTargets;
   /**
    * The content of an annotation as a localized text map.
    */
@@ -66,17 +70,23 @@ export type Annotation = {
   replaces?: unknown[];
 } & Annotation1;
 /**
+ * Things being annotated.
+ *
+ * @minItems 1
+ */
+export type MultipleJimTargets = JimTarget[];
+/**
  * The agent who set this workflow status.
  */
-export type AgentRef = string | AgentRefObj;
+export type AgentRef = Name | AgentRefObj;
 /**
  * The creator of this annotation.
  */
-export type AgentRef1 = string | AgentRefObj;
+export type AgentRef1 = Name | AgentRefObj;
 /**
  * The generator of this annotation.
  */
-export type AgentRef2 = string | AgentRefObj;
+export type AgentRef2 = Name | AgentRefObj;
 export type Annotation1 = {
   [k: string]: unknown;
 };
@@ -200,7 +210,7 @@ export interface Topic {
   /**
    * The base quantity or quantities measured by the series or chart, such as 'item price' or 'inflation rate'.
    */
-  baseQuantity: Name | Name[];
+  baseQuantity: Name | MultipleNames;
   /**
    * What kind of base quantity this is: either a number of things (number), a quantity measured by a unit (dimensioned), a rate of change (rate), or a proportion of a whole (proportion).
    */
@@ -208,19 +218,19 @@ export interface Topic {
   /**
    * The particular location or locations that the quantity measured by this series or chart is limited to, if any.
    */
-  locale?: Name | Name[];
+  locale?: Name | MultipleNames;
   /**
    * The particular entity or entities the quantity measured by this series or chart belongs to, if any.
    */
-  entity?: Name | Name[];
+  entity?: Name | MultipleNames;
   /**
    * A general term or terms for the multiple, indefinite items the quantity measured by this series or chart belongs to, if any.
    */
-  items?: Name | Name[];
+  items?: Name | MultipleNames;
   /**
    * The statistical aggregate or aggregates measured by this series or chart, such as 'total' or 'estimated', if any.
    */
-  aggregate?: Name | Name[];
+  aggregate?: Name | MultipleNames;
 }
 /**
  * Metadata describing a facet of the chart which represents some dimension of the data.
@@ -312,7 +322,7 @@ export interface Topic1 {
   /**
    * The base quantity or quantities measured by the series or chart, such as 'item price' or 'inflation rate'.
    */
-  baseQuantity: Name | Name[];
+  baseQuantity: Name | MultipleNames;
   /**
    * What kind of base quantity this is: either a number of things (number), a quantity measured by a unit (dimensioned), a rate of change (rate), or a proportion of a whole (proportion).
    */
@@ -320,19 +330,19 @@ export interface Topic1 {
   /**
    * The particular location or locations that the quantity measured by this series or chart is limited to, if any.
    */
-  locale?: Name | Name[];
+  locale?: Name | MultipleNames;
   /**
    * The particular entity or entities the quantity measured by this series or chart belongs to, if any.
    */
-  entity?: Name | Name[];
+  entity?: Name | MultipleNames;
   /**
    * A general term or terms for the multiple, indefinite items the quantity measured by this series or chart belongs to, if any.
    */
-  items?: Name | Name[];
+  items?: Name | MultipleNames;
   /**
    * The statistical aggregate or aggregates measured by this series or chart, such as 'total' or 'estimated', if any.
    */
-  aggregate?: Name | Name[];
+  aggregate?: Name | MultipleNames;
 }
 /**
  * A datapoint on the graph.
@@ -344,25 +354,25 @@ export interface DatapointManifest {
   [k: string]: string;
 }
 /**
- * The thing or things being annotated.
+ * A thing being annotated.
  */
 export interface JimTarget {
   /**
    * A document-local reference to a JIM resource with the matching id.
    */
-  ref?: Name | Name[];
+  ref?: Name | MultipleNames;
   /**
    * A selector for rendered DOM/SVG content.
    */
-  dom?: Name | Name[];
+  dom?: Name | MultipleNames;
   /**
    * A JSONPath into JIM data, metadata, bindings, annotations, or other JSON resources.
    */
-  json?: Name | Name[];
+  json?: Name | MultipleNames;
   /**
    * A graphical region expressed using SVG-JSON-Shapes.
    */
-  region?: Name | Name[];
+  region?: Name | MultipleNames;
 }
 /**
  * The workflow status of the annotation. Defaults to `{ "value": "active" }`.
