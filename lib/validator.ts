@@ -127,10 +127,19 @@ export class ManifestValidator {
       The following required properties are missing: ${missingKeys.join()}
       `
     }
+    if (errorKeyword === 'evaluation/validate') {
+      if (schemaPath.endsWith('additionalProperties') && immediateSchema[0] === false) {
+        const extraPath = schemaPath.slice(13, -21);
+        const extraKey = errorPath.split('.')!.at(-1);
+        errorMsg = `
+        The property '${extraKey}' is not permitted at '$.${extraPath}'.
+        `
+      }
+    }
     return `
       Error Keyword: ${errorKeyword}
       Schema: ${JSON.stringify(immediateSchema)}
-      Schema Path: ${schemaPath}${errorMsg !== undefined ? errorMsg : ''}
+      Schema Path: ${schemaPath}${errorMsg ?? ''}
       Error Instance: ${JSON.stringify(errorInstance, null, 2)}
       Error Path: ${errorPath}
     `;
