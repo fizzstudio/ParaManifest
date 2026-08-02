@@ -62,7 +62,8 @@ export interface Dataset {
       | "pie"
       | "donut"
       | "graph"
-      | "venn";
+      | "venn"
+      | "bubble";
     /**
      * Describes how the chart groups, nests, or otherwise organizes one or more facets.
      */

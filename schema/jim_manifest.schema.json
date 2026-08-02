@@ -31,7 +31,7 @@
             },
             "subtype": {
               "description": "The type of the chart, such as 'line' or 'column'.",
-              "enum": ["line", "stepline", "bar", "column", "lollipop", "histogram", "waterfall", "scatter", "heatmap", "pie", "donut", "graph", "venn"]
+              "enum": ["line", "stepline", "bar", "column", "lollipop", "histogram", "waterfall", "scatter", "heatmap", "pie", "donut", "graph", "venn", "bubble"]
             },
             "structure": {
               "description": "Describes how the chart groups, nests, or otherwise organizes one or more facets.",

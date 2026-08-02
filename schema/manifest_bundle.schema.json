@@ -74,7 +74,8 @@
                 "pie",
                 "donut",
                 "graph",
-                "venn"
+                "venn",
+                "bubble"
               ]
             },
             "structure": {

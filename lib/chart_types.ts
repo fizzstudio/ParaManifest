@@ -23,7 +23,7 @@ import { JIMManifest, Manifest } from "./manifest";
 export type ChartType = JIMManifest['datasets'][number]['representation']['subtype'];
 
 export const CHART_TYPE_FAMILIES = ['line', 'bar', 'pastry', 'scatter', 'histogram', 'waterfall', 
-  'graph', 'venn'] as const;
+  'graph', 'venn', 'bubble'] as const;
 export type ChartTypeFamily = typeof CHART_TYPE_FAMILIES[number];
 
 export const CHART_FAMILY_MAP: Record<ChartType, ChartTypeFamily> = {
@@ -32,14 +32,15 @@ export const CHART_FAMILY_MAP: Record<ChartType, ChartTypeFamily> = {
   'bar': 'bar',
   'column': 'bar',
   'lollipop': 'bar',
-  'histogram': 'histogram',
+  'histogram': 'scatter',
   'waterfall': 'waterfall',
   'scatter': 'scatter',
   'heatmap': 'scatter',
   'pie': 'pastry',
   'donut': 'pastry',
   'graph': 'graph',
-  'venn': 'venn'
+  'venn': 'venn',
+  'bubble': 'bubble'
 }
 
 export const CHART_FAMILY_MEMBERS: Record<ChartTypeFamily, ChartType[]> = (() => {
@@ -51,7 +52,8 @@ export const CHART_FAMILY_MEMBERS: Record<ChartTypeFamily, ChartType[]> = (() =>
     'histogram': [],
     'waterfall': [],
     'graph': [],
-	  'venn': []
+	  'venn': [],
+    'bubble': []
   };
   for (const chartType of Object.keys(CHART_FAMILY_MAP)) {
     members[CHART_FAMILY_MAP[chartType as ChartType]].push(chartType as ChartType);
@@ -59,7 +61,7 @@ export const CHART_FAMILY_MEMBERS: Record<ChartTypeFamily, ChartType[]> = (() =>
   return members;
 })();
 
-export const PLANE_CHART_FAMILIES: ChartTypeFamily[] = ['line', 'bar', 'scatter', 'waterfall'];
+export const PLANE_CHART_FAMILIES: ChartTypeFamily[] = ['line', 'bar', 'scatter', 'waterfall', 'bubble'];
 
 // Functions
 
