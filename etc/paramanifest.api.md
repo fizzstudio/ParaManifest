@@ -22,7 +22,7 @@ export const CHART_FAMILY_MAP: Record<ChartType, ChartTypeFamily>;
 export const CHART_FAMILY_MEMBERS: Record<ChartTypeFamily, ChartType[]>;
 
 // @public (undocumented)
-export const CHART_TYPE_FAMILIES: readonly ["line", "bar", "pastry", "scatter", "histogram", "waterfall", "graph", "venn", "candlestick", "combo"];
+export const CHART_TYPE_FAMILIES: readonly ["line", "bar", "pastry", "scatter", "histogram", "waterfall", "graph", "venn", "candlestick", "combo", "bubble"];
 
 // @public (undocumented)
 export type ChartType = JIMManifest['datasets'][number]['representation']['subtype'];
@@ -50,7 +50,7 @@ export interface Dataset {
     };
     representation: {
         type: "chart";
-        subtype: "line" | "stepline" | "bar" | "column" | "lollipop" | "histogram" | "waterfall" | "scatter" | "heatmap" | "pie" | "donut" | "graph" | "venn" | "candlestick" | "combo";
+        subtype: "line" | "stepline" | "bar" | "column" | "lollipop" | "histogram" | "waterfall" | "scatter" | "heatmap" | "pie" | "donut" | "graph" | "venn" | "candlestick" | "combo" | "bubble";
         structure?: RepresentationStructure[];
     };
     series: SeriesManifest[];

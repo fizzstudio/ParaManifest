@@ -76,7 +76,8 @@
                 "graph",
                 "venn",
                 "candlestick",
-                "combo"
+                "combo",
+                "bubble"
               ]
             },
             "structure": {
