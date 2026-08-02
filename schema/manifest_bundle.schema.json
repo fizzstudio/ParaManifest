@@ -75,7 +75,9 @@
                 "donut",
                 "graph",
                 "venn",
-                "bubble"
+                "bubble",
+                "candlestick",
+                "combo"
               ]
             },
             "structure": {

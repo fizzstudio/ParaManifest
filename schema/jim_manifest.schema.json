@@ -31,7 +31,7 @@
             },
             "subtype": {
               "description": "The type of the chart, such as 'line' or 'column'.",
-              "enum": ["line", "stepline", "bar", "column", "lollipop", "histogram", "waterfall", "scatter", "heatmap", "pie", "donut", "graph", "venn", "bubble"]
+              "enum": ["line", "stepline", "bar", "column", "lollipop", "histogram", "waterfall", "scatter", "heatmap", "pie", "donut", "graph", "venn", "candlestick", "combo", "bubble"]
             },
             "structure": {
               "description": "Describes how the chart groups, nests, or otherwise organizes one or more facets.",
@@ -231,7 +231,7 @@
     "nameOrNames": {
       "description": "Either the name of a single thing, as a non-empty string, or multiple things, as an array of names.",
       "oneOf": [
-        { 
+        {
           "$ref": "#/$defs/name"
         },
         {
@@ -247,7 +247,7 @@
         "$ref": "#/$defs/name"
       },
       "$comment": "`multipleNames` is necessary for `nameOrNames` to avoid TypeScript type inference errors."
-    },    
+    },
     "seriesName": {
       "description": "The name of a series, as a non-empty string. This is identical to `name`, but specified for semantic reasons",
       "$ref": "#/$defs/name"

@@ -22,8 +22,8 @@ import { JIMManifest, Manifest } from "./manifest";
 
 export type ChartType = JIMManifest['datasets'][number]['representation']['subtype'];
 
-export const CHART_TYPE_FAMILIES = ['line', 'bar', 'pastry', 'scatter', 'histogram', 'waterfall', 
-  'graph', 'venn', 'bubble'] as const;
+export const CHART_TYPE_FAMILIES = ['line', 'bar', 'pastry', 'scatter', 'histogram', 'waterfall',
+  'graph', 'venn', 'candlestick', 'combo', 'bubble'] as const;
 export type ChartTypeFamily = typeof CHART_TYPE_FAMILIES[number];
 
 export const CHART_FAMILY_MAP: Record<ChartType, ChartTypeFamily> = {
@@ -40,7 +40,9 @@ export const CHART_FAMILY_MAP: Record<ChartType, ChartTypeFamily> = {
   'donut': 'pastry',
   'graph': 'graph',
   'venn': 'venn',
-  'bubble': 'bubble'
+  'bubble': 'bubble',
+  'candlestick': 'candlestick',
+  'combo': 'combo'
 }
 
 export const CHART_FAMILY_MEMBERS: Record<ChartTypeFamily, ChartType[]> = (() => {
@@ -53,7 +55,9 @@ export const CHART_FAMILY_MEMBERS: Record<ChartTypeFamily, ChartType[]> = (() =>
     'waterfall': [],
     'graph': [],
 	  'venn': [],
-    'bubble': []
+    'bubble': [],
+    'candlestick': [],
+    'combo': []
   };
   for (const chartType of Object.keys(CHART_FAMILY_MAP)) {
     members[CHART_FAMILY_MAP[chartType as ChartType]].push(chartType as ChartType);
@@ -87,6 +91,14 @@ export function isPastryType(chartType: ChartType): boolean {
 
 export function isVennType(chartType: ChartType): boolean {
   return CHART_FAMILY_MAP[chartType] === 'venn';
+}
+
+export function isCandlestickType(chartType: ChartType): boolean {
+  return CHART_FAMILY_MAP[chartType] === 'candlestick';
+}
+
+export function isComboType(chartType: ChartType): boolean {
+  return CHART_FAMILY_MAP[chartType] === 'combo';
 }
 
 // Manifest Functions
