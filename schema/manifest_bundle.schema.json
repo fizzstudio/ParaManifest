@@ -450,6 +450,14 @@
           "description": "The workflow status of the annotation. Defaults to `{ \"value\": \"active\" }`.",
           "$ref": "#/$defs/jimAnnotationStatus"
         },
+        "tags": {
+          "description": "The content of an annotation as an array of language-independent terms.",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/name"
+          },
+          "minItems": 1
+        },
         "extensions": {
           "description": "Host-specific or tool-specific payloads.",
           "minProperties": 1
@@ -497,6 +505,11 @@
         {
           "required": [
             "status"
+          ]
+        },
+        {
+          "required": [
+            "tags"
           ]
         },
         {

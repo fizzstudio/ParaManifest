@@ -45,6 +45,12 @@ export type Annotation = {
   bodyType?: string;
   status?: JimAnnotationStatus;
   /**
+   * The content of an annotation as an array of language-independent terms.
+   *
+   * @minItems 1
+   */
+  tags?: Name[];
+  /**
    * Host-specific or tool-specific payloads.
    */
   extensions?: {
