@@ -116,6 +116,9 @@ export interface JIMManifest {
    * Metadata, and optionally inline data, needed to present a chart in ParaCharts.
    */
   datasets: Dataset[];
+  selectors?: Record<string, any>;
+  behaviors?: unknown[];
+  version?: Record<string, any>;
   /**
    * Annotations on the chart and its data.
    */

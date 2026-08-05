@@ -18,6 +18,17 @@
           },
           "uniqueItems": true
         },
+        "selectors": {
+          "type": "object",
+          "tsType": "Record<string, any>"
+        },
+        "behaviors": {
+          "type": "array"
+        },
+        "version": {
+          "type": "object",
+          "tsType": "Record<string, any>"
+        },
         "annotations": {
           "description": "Annotations on the chart and its data.",
           "type": "array",
