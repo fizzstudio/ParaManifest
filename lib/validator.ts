@@ -136,6 +136,12 @@ export class ManifestValidator {
         `
       }
     }
+    if (errorKeyword === 'keyword/enum') {
+        const acceptedValues = (immediateSchema[0] as string[]).map((val) => `'${val}'`).join(', ');
+        errorMsg = `
+        The value '${errorInstance[0]}' is not permitted at '${errorPath}'. Only ${acceptedValues} are accepted.
+        `      
+    }
     return `
       Error Keyword: ${errorKeyword}
       Schema: ${JSON.stringify(immediateSchema)}
