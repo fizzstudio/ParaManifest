@@ -41,7 +41,8 @@ export const CHART_FAMILY_MAP: Record<ChartType, ChartTypeFamily> = {
   'graph': 'graph',
   'venn': 'venn',
   'candlestick': 'candlestick',
-  'combo': 'combo'
+  'combo': 'combo',
+  'bubble': 'scatter'
 }
 
 export const CHART_FAMILY_MEMBERS: Record<ChartTypeFamily, ChartType[]> = (() => {

@@ -124,7 +124,7 @@ export class ManifestValidator {
         }
       };
       errorMsg = `
-      The following required properties are missing: ${missingKeys.join()}
+      The following required properties are missing at '${errorPath}': ${missingKeys.join()}
       `
     }
     if (errorKeyword === 'evaluation/validate') {

@@ -48,7 +48,7 @@
   },
   "types": "./dist/paramanifest.d.ts",
   "devDependencies": {
-    "@fizz/chart-data": "^2.5.9-signal.1",
+    "@fizz/chart-data": "^2.5.9-signal.2",
     "@fizz/test-utils": "^0.4.6",
     "@hyperjump/json-pointer": "^1.1.2",
     "@microsoft/api-documenter": "^7.26.4",
