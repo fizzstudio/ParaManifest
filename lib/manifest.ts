@@ -14,6 +14,89 @@ export type Name = string;
  */
 export type MultipleNames = Name[];
 /**
+ * An annotation on the chart or its data.
+ */
+export type Annotation = {
+  /**
+   * The name of something, as a non-empty string.
+   */
+  id: string;
+  /**
+   * The name of something, as a non-empty string.
+   */
+  motivation: string;
+  /**
+   * The thing or things being annotated.
+   */
+  target: JimTarget | MultipleJimTargets;
+  /**
+   * The content of an annotation as a localized text map.
+   */
+  body?: {
+    /**
+     * This interface was referenced by `undefined`'s JSON-Schema definition
+     * via the `patternProperty` "^[a-z][a-z]$".
+     */
+    [k: string]: string;
+  };
+  /**
+   * The name of something, as a non-empty string.
+   */
+  bodyType?: string;
+  status?: JimAnnotationStatus;
+  /**
+   * The content of an annotation as an array of language-independent terms.
+   *
+   * @minItems 1
+   */
+  tags?: Name[];
+  /**
+   * Host-specific or tool-specific payloads.
+   */
+  extensions?: {
+    [k: string]: unknown;
+  };
+  creator?: AgentRef1;
+  generator?: AgentRef2;
+  /**
+   * The date and timestamp when this annotation was created.
+   */
+  created?: string;
+  /**
+   * The date and timestamp when this annotation was last modified.
+   */
+  modified?: string;
+  /**
+   * The date and timestamp when this annotation was generated.
+   */
+  generated?: string;
+  /**
+   * The ids of the annotations that this annotation supersedes.
+   */
+  replaces?: unknown[];
+} & Annotation1;
+/**
+ * Things being annotated.
+ *
+ * @minItems 1
+ */
+export type MultipleJimTargets = JimTarget[];
+/**
+ * The agent who set this workflow status.
+ */
+export type AgentRef = Name | AgentRefObj;
+/**
+ * The creator of this annotation.
+ */
+export type AgentRef1 = Name | AgentRefObj;
+/**
+ * The generator of this annotation.
+ */
+export type AgentRef2 = Name | AgentRefObj;
+export type Annotation1 = {
+  [k: string]: unknown;
+};
+/**
  * The settings needed to present a chart in ParaCharts.
  */
 export type Settings = Record<string, any>;
@@ -33,6 +116,13 @@ export interface JIMManifest {
    * Metadata, and optionally inline data, needed to present a chart in ParaCharts.
    */
   datasets: Dataset[];
+  selectors?: Record<string, any>;
+  behaviors?: unknown[];
+  version?: Record<string, any>;
+  /**
+   * Annotations on the chart and its data.
+   */
+  annotations?: Annotation[];
 }
 /**
  * A set of data and parameters needed to present a chart in ParaCharts.
@@ -175,7 +265,7 @@ export interface Facet {
   /**
    * The primitive type of the data measured by this facet.
    */
-  datatype: "number" | "date" | "string";
+  datatype: "number" | "date" | "string" | "boolean";
   displayType: DisplayType;
   /**
    * The name of something, as a non-empty string.
@@ -272,6 +362,77 @@ export interface DatapointManifest {
    * The value of the point relative to the facet labelled by this property key.
    */
   [k: string]: string;
+}
+/**
+ * A thing being annotated.
+ */
+export interface JimTarget {
+  /**
+   * A document-local reference to a JIM resource with the matching id.
+   */
+  ref?: Name | MultipleNames;
+  /**
+   * A selector for rendered DOM/SVG content.
+   */
+  dom?: Name | MultipleNames;
+  /**
+   * A JSONPath into JIM data, metadata, bindings, annotations, or other JSON resources.
+   */
+  json?: Name | MultipleNames;
+  /**
+   * A graphical region expressed using SVG-JSON-Shapes.
+   */
+  region?: Name | MultipleNames;
+}
+/**
+ * The workflow status of the annotation. Defaults to `{ "value": "active" }`.
+ */
+export interface JimAnnotationStatus {
+  /**
+   * The workflow status of the annotation.
+   */
+  value:
+    | "draft"
+    | "proposed"
+    | "needs-review"
+    | "accepted"
+    | "active"
+    | "resolved"
+    | "rejected"
+    | "superseded"
+    | "archived"
+    | "spam"
+    | "hidden";
+  setBy?: AgentRef;
+  /**
+   * The date and timestamp when this workflow status was set.
+   */
+  setAt?: string;
+  /**
+   * Additional notes on this workflow status.
+   */
+  note?: string;
+}
+/**
+ * The details of a person, organization, or software agent.
+ */
+export interface AgentRefObj {
+  /**
+   * The name of something, as a non-empty string.
+   */
+  id?: string;
+  /**
+   * What type of agent this is.
+   */
+  type?: "Person" | "Organization" | "Software";
+  /**
+   * The name of something, as a non-empty string.
+   */
+  name?: string;
+  /**
+   * The version of the software for a software agent.
+   */
+  version?: string;
 }
 /**
  * Metadata and settings needed to present a ParaCharts element which are extensions to JIM. @public

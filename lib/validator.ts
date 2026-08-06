@@ -18,7 +18,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.*/
 
 // External Imports
 
-import { validate, registerSchema, OutputUnit, hasSchema } from '@hyperjump/json-schema/draft-2020-12';
+import { validate, registerSchema, OutputUnit, hasSchema, Output } from '@hyperjump/json-schema/draft-2020-12';
 import { BASIC } from '@hyperjump/json-schema/experimental';
 
 import jp from 'jsonpath';
@@ -34,6 +34,11 @@ import MANIFEST_SCHEMA from '../schema/manifest_bundle.schema.json';
 
 const JIM_MANIFEST_SCHEMA_ID = JIM_MANIFEST_SCHEMA.$id;
 const MANIFEST_SCHEMA_ID = MANIFEST_SCHEMA.$id;
+
+const SCHEMAS: Record<string, Json> = {
+  [MANIFEST_SCHEMA_ID]: MANIFEST_SCHEMA,
+  [JIM_MANIFEST_SCHEMA_ID]: JIM_MANIFEST_SCHEMA
+}
 
 // Types
 
@@ -79,23 +84,36 @@ export class ManifestValidator {
 
   // TODO: if the Error Keyword is keyword/required, work out & print which keyword is missing
   private _prettyPrintValidationError(
-    instance: Json, validatorOutput: OutputUnit, schema: Json
+    instance: Json, validatorOutput: OutputUnit[] | undefined, schemaId: string
   ): string {
-    const immediateError = validatorOutput.errors!.at(-1)!;
+    if (!validatorOutput) {
+      return 'Validation failed but no errors where returned.'
+    }
+    
+    // Get Schema Object
+    const schema = SCHEMAS[schemaId];
+
+    // Get Immediate Error Details
+    const immediateError = validatorOutput.at(-1)!;
     const errorKeyword = immediateError.keyword.slice(24);
     const locationParts = immediateError.absoluteKeywordLocation.split('#');
-    //const locationId = locationParts[0];
-    //const schema = this.subschemaMap[locationId];
     const schemaPath = this._convertToJsonPath('$' + locationParts[1]);
     const errorPath = this._convertToJsonPath(immediateError.instanceLocation);
     let immediateSchema;
-    let errorInstance;
     try {
       immediateSchema = jp.query(schema, schemaPath);
+    } catch (err) {
+      return `Error in Schema JSONPath when attempting to pretty print validation error: ${err}\n`
+        + `Path: ${schemaPath}\nSchema: ${schema}\nSchema ID: ${schemaId}`;
+    }
+    let errorInstance;
+    try {
       errorInstance = jp.query(instance, errorPath);
     } catch (err) {
-      return `Error in JSONPath when attempting to pretty print validation error: ${err}`;
+      return `Error in Error JSONPath when attempting to pretty print validation error: ${err}`;
     }
+
+    // Render Error Message
     let errorMsg;
     if (errorKeyword === 'keyword/required') {
       const existingPropKeys = Object.keys(errorInstance[0]);
@@ -106,13 +124,42 @@ export class ManifestValidator {
         }
       };
       errorMsg = `
-      The following required properties are missing: ${missingKeys.join()}
+      The following required properties are missing at '${errorPath}': ${missingKeys.join()}
       `
     }
+    if (errorKeyword === 'evaluation/validate') {
+      if (schemaPath.endsWith('additionalProperties') && immediateSchema[0] === false) {
+        const extraPath = schemaPath.slice(13, -21);
+        const extraKey = errorPath.split('.')!.at(-1);
+        errorMsg = `
+        The property '${extraKey}' is not permitted at '$.${extraPath}'.
+        `
+      }
+    }
+    if (errorKeyword === 'keyword/enum') {
+      const acceptedValues = (immediateSchema[0] as string[]).map((val) => `'${val}'`).join(', ');
+      errorMsg = `
+      The value '${errorInstance[0]}' is not permitted at '${errorPath}'. Only ${acceptedValues} are accepted.
+      `
+    }
+    if (errorKeyword === 'keyword/minLength') {
+      const minimum = immediateSchema[0] as number;
+      const actual = errorInstance[0] as string;
+      const actualLength = actual.length;
+      let currentMsg;
+      if (actualLength === 0) {
+        currentMsg = 'The value is currently an empty string';
+      } else {
+        currentMsg = `The current value '${actual}' is ${actualLength} characters long`;
+      }
+      errorMsg = `
+      The value at '${errorPath}' should be a string at least ${minimum} characters long. ${currentMsg}.
+      `
+    }    
     return `
       Error Keyword: ${errorKeyword}
       Schema: ${JSON.stringify(immediateSchema)}
-      Schema Path: ${schemaPath}${errorMsg !== undefined ? errorMsg : ''}
+      Schema Path: ${schemaPath}${errorMsg ?? ''}
       Error Instance: ${JSON.stringify(errorInstance, null, 2)}
       Error Path: ${errorPath}
     `;
@@ -133,7 +180,7 @@ export class ManifestValidator {
    */
   public async validateManifestFullOutput(
     manifest: Json, type?: 'root' | 'enveloped'
-  ): Promise<{ schemaId: string, output: OutputUnit}> {
+  ): Promise<{ schemaId: string, output: Output}> {
     if (type === undefined) {
       if (typeof manifest === 'object' && manifest && 'jim' in manifest) {
         type = 'enveloped';
@@ -165,7 +212,7 @@ export class ManifestValidator {
     if (output.valid) {
       return { valid: true };
     }
-    const errors = this._prettyPrintValidationError(manifest, output, schemaId);
+    const errors = this._prettyPrintValidationError(manifest, output.errors, schemaId);
     return { valid: false, errors };
   }
 }
