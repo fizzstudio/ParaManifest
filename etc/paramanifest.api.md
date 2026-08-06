@@ -4,13 +4,57 @@
 
 ```ts
 
-import { OutputUnit } from '@hyperjump/json-schema/draft-2020-12';
+import { Output } from '@hyperjump/json-schema/draft-2020-12';
+
+// @public
+export type AgentRef = Name | AgentRefObj;
+
+// @public
+export type AgentRef1 = Name | AgentRefObj;
+
+// @public
+export type AgentRef2 = Name | AgentRefObj;
+
+// @public
+export interface AgentRefObj {
+    id?: string;
+    name?: string;
+    type?: "Person" | "Organization" | "Software";
+    version?: string;
+}
 
 // @public (undocumented)
 export type AllSeriesData = Record<string, DatapointManifest[]>;
 
 // @public (undocumented)
 export type AllSeriesDataXY = Record<string, XyPoint[]>;
+
+// @public
+export type Annotation = {
+    id: string;
+    motivation: string;
+    target: JimTarget | MultipleJimTargets;
+    body?: {
+        [k: string]: string;
+    };
+    bodyType?: string;
+    status?: JimAnnotationStatus;
+    tags?: Name[];
+    extensions?: {
+        [k: string]: unknown;
+    };
+    creator?: AgentRef1;
+    generator?: AgentRef2;
+    created?: string;
+    modified?: string;
+    generated?: string;
+    replaces?: unknown[];
+} & Annotation1;
+
+// @public (undocumented)
+export type Annotation1 = {
+    [k: string]: unknown;
+};
 
 // @public (undocumented)
 export type BaseKind = Topic['baseKind'];
@@ -50,7 +94,7 @@ export interface Dataset {
     };
     representation: {
         type: "chart";
-        subtype: "line" | "stepline" | "bar" | "column" | "lollipop" | "histogram" | "waterfall" | "scatter" | "heatmap" | "pie" | "donut" | "graph" | "venn" | "candlestick" | "combo";
+        subtype: "line" | "stepline" | "bar" | "column" | "lollipop" | "histogram" | "waterfall" | "scatter" | "heatmap" | "pie" | "donut" | "graph" | "venn" | "candlestick" | "combo" | "bubble";
         structure?: RepresentationStructure[];
     };
     series: SeriesManifest[];
@@ -83,7 +127,7 @@ export interface ExtensionsManifest {
 
 // @public
 export interface Facet {
-    datatype: "number" | "date" | "string";
+    datatype: "number" | "date" | "string" | "boolean";
     description?: string;
     // (undocumented)
     displayType: DisplayType;
@@ -132,8 +176,32 @@ export function isScatterType(chartType: ChartType): boolean;
 export function isVennType(chartType: ChartType): boolean;
 
 // @public
+export interface JimAnnotationStatus {
+    note?: string;
+    setAt?: string;
+    // (undocumented)
+    setBy?: AgentRef;
+    value: "draft" | "proposed" | "needs-review" | "accepted" | "active" | "resolved" | "rejected" | "superseded" | "archived" | "spam" | "hidden";
+}
+
+// @public
 export interface JIMManifest {
+    annotations?: Annotation[];
+    // (undocumented)
+    behaviors?: unknown[];
     datasets: Dataset[];
+    // (undocumented)
+    selectors?: Record<string, any>;
+    // (undocumented)
+    version?: Record<string, any>;
+}
+
+// @public
+export interface JimTarget {
+    dom?: Name | MultipleNames;
+    json?: Name | MultipleNames;
+    ref?: Name | MultipleNames;
+    region?: Name | MultipleNames;
 }
 
 // @public
@@ -160,9 +228,12 @@ export class ManifestValidator {
     // Warning: (ae-forgotten-export) The symbol "Json" needs to be exported by the entry point index.d.ts
     validateManifestFullOutput(manifest: Json, type?: 'root' | 'enveloped'): Promise<{
         schemaId: string;
-        output: OutputUnit;
+        output: Output;
     }>;
 }
+
+// @public
+export type MultipleJimTargets = JimTarget[];
 
 // @public
 export type MultipleNames = Name[];
