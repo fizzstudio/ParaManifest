@@ -139,7 +139,7 @@
         },
         "datatype": {
           "description": "The primitive type of the data measured by this facet.",
-          "enum": ["number", "date", "string"]
+          "enum": ["number", "date", "string", "boolean"]
         },
         "displayType": {
           "description": "How this facet should be displayed on the chart",

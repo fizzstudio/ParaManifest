@@ -264,7 +264,7 @@ export interface Facet {
   /**
    * The primitive type of the data measured by this facet.
    */
-  datatype: "number" | "date" | "string";
+  datatype: "number" | "date" | "string" | "boolean";
   displayType: DisplayType;
   /**
    * The name of something, as a non-empty string.
