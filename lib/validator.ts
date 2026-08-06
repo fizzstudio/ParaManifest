@@ -137,11 +137,25 @@ export class ManifestValidator {
       }
     }
     if (errorKeyword === 'keyword/enum') {
-        const acceptedValues = (immediateSchema[0] as string[]).map((val) => `'${val}'`).join(', ');
-        errorMsg = `
-        The value '${errorInstance[0]}' is not permitted at '${errorPath}'. Only ${acceptedValues} are accepted.
-        `      
+      const acceptedValues = (immediateSchema[0] as string[]).map((val) => `'${val}'`).join(', ');
+      errorMsg = `
+      The value '${errorInstance[0]}' is not permitted at '${errorPath}'. Only ${acceptedValues} are accepted.
+      `
     }
+    if (errorKeyword === 'keyword/minLength') {
+      const minimum = immediateSchema[0] as number;
+      const actual = errorInstance[0] as string;
+      const actualLength = actual.length;
+      let currentMsg;
+      if (actualLength === 0) {
+        currentMsg = 'The value is currently an empty string';
+      } else {
+        currentMsg = `The current value '${actual}' is ${actualLength} characters long`;
+      }
+      errorMsg = `
+      The value at '${errorPath}' should be a string at least ${minimum} characters long. ${currentMsg}.
+      `
+    }    
     return `
       Error Keyword: ${errorKeyword}
       Schema: ${JSON.stringify(immediateSchema)}
