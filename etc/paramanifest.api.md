@@ -66,7 +66,7 @@ export const CHART_FAMILY_MAP: Record<ChartType, ChartTypeFamily>;
 export const CHART_FAMILY_MEMBERS: Record<ChartTypeFamily, ChartType[]>;
 
 // @public (undocumented)
-export const CHART_TYPE_FAMILIES: readonly ["line", "bar", "pastry", "scatter", "histogram", "waterfall", "graph", "venn", "candlestick", "combo", "bubble"];
+export const CHART_TYPE_FAMILIES: readonly ["line", "bar", "pastry", "scatter", "histogram", "waterfall", "graph", "venn", "candlestick", "combo"];
 
 // @public (undocumented)
 export type ChartType = JIMManifest['datasets'][number]['representation']['subtype'];
